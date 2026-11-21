@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: elegantná hradná 3D šachovnica, detailnejšie textúry figúrok, čitateľnejšie siluety a ladnejšie pohyby po doske.">
-<title>Kráľovské živé šachy 3D | Hradná edícia v10</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>Kráľovské živé šachy 3D | Hradná edícia v11</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -12%,#8a5a35 0,transparent 45%),radial-gradient(circle at 18% 24%,#5c2b1d55 0,transparent 26%),radial-gradient(circle at 82% 16%,#c18a4455 0,transparent 22%),linear-gradient(180deg,#1a100d 0%,#2a1a13 28%,#120b09 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#00000012 0 1px,transparent 1px 84px),radial-gradient(circle at 50% 0%,#f5c67c10 0,transparent 40%)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -134,6 +134,22 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 @keyframes royalHitGlow{0%{filter:brightness(1)}36%{filter:brightness(1.31)}100%{filter:brightness(1)}}
 .castle-scene.shatter-flash{animation:royalHitGlow .45s ease-out}
 
+
+/* V11 · castle-finish pass: stone mullions, dancing glow, embossed panels */
+.castle-scene{background:radial-gradient(ellipse at 50% 13%,#d69a5c2b 0%,transparent 48%),radial-gradient(ellipse at 10% 56%,#9e58221d 0%,transparent 36%),linear-gradient(180deg,#15100e 0%,#38281d 35%,#352118 66%,#120d0b 100%)}
+.castle-light{animation:torchFlicker 2.5s ease-in-out infinite alternate;mix-blend-mode:screen}
+.castle-light.right{animation-delay:-1.4s}
+@keyframes torchFlicker{0%{opacity:.74;transform:scale(.96) translateY(3px)}35%{opacity:1;transform:scale(1.06) translateY(-3px)}75%{opacity:.84;transform:scale(.99)}100%{opacity:.96;transform:scale(1.02)}}
+.stained-glass{box-shadow:inset 0 0 30px #000d,0 0 30px #d4893852}
+.royal-banner{filter:drop-shadow(0 8px 6px #000a);animation:bannerSilk 5s ease-in-out infinite alternate}
+@keyframes bannerSilk{0%{transform:translateX(-50%) skewX(-1deg)}100%{transform:translateX(-50%) skewX(1.7deg)}}
+.pane{border-image:none;box-shadow:inset 0 1px #f8d59928,inset 0 0 27px #30130c66,0 13px 33px #0007}
+.fighter.active{box-shadow:inset 0 0 21px #f5cd7332,0 0 0 1px #dfb8789a,0 8px 28px #0007}
+.battle-toast.visible{box-shadow:0 7px 25px #000c,0 0 32px #dfb87080}
+.sparkLayer i.spark:nth-child(3n){background:#b7edff;box-shadow:0 0 10px 2px #98cbff}
+.sparkLayer i.spark:nth-child(4n){width:3px;height:9px;border-radius:2px;box-shadow:0 0 11px 2px #ffb34f}
+@media(max-width:660px){.castle-light{animation-duration:3.1s}.royal-banner{animation:none}}
+
 </style>
 </head><body>
 <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -146,7 +162,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V10</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V11</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -162,9 +178,9 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
  <div class="precise-grid" id="touchGrid" role="group" aria-label="Kontrolná šachovnica, 8 krát 8 políčok"></div>
  <div class="companion-bottom"><span>◉ Posledný ťah</span><span>● Možný ťah</span><span>♔ Biele dole</span></div>
 </section>
-<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia v8: filmové boje, 3D črepy po zajatí a živá 2D kontrolná šachovnica.</div>
+<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia v11: filmové šermovanie, procedurálne textúry, dynamické pochodne a 3D rozpad figúrok.</div>
 </section>
-<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé 3D figúrky v hradnej sále. Každá zbraň bojuje inak, pri zajatí sa socha roztriešti a jej úlomky ostanú na doske 1,3 sekundy. Pod scénou je vždy viditeľná 2D kontrolná šachovnica.</p>
+<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé detailné 3D figúrky v hradnej sále s textúrovaným brnením, kovom, látkou a kamennými reliéfmi. Každý druh útočí inak; po roztrieštení zostávajú úlomky 1,3 sekundy na doske. Dole je stále viditeľná 2D kontrolná šachovnica.</p>
 <span class="field-label">HERNÝ REŽIM</span><div class="seg" id="modeSeg"><button class="on" data-mode="ai">⚔ Proti počítaču</button><button data-mode="local">♟ Dvaja hráči</button></div>
 <div id="aiOptions"><span class="field-label">VYBER SVOJE KRÁĽOVSTVO</span><div class="seg colors" id="sideSeg"><button class="on" data-side="w">♔ Biele</button><button data-side="b">♚ Červené</button></div><label for="difficulty" class="field-label">SILA SÚPERA</label><select id="difficulty" class="difficulty"><option value="easy">Panoš · ľahká</option><option selected value="medium">Rytier · stredná</option><option value="hard">Veľmajster · ťažká</option></select></div>
 <div class="statusbox"><div class="status-seal">⚜</div><div><div id="status" class="status-text">Na ťahu: Biele kráľovstvo</div><div id="substatus" class="status-sub">Vyber figúrku na šachovnici</div></div></div>
@@ -414,14 +430,20 @@ function drawBoard(now){
   // Baroque wrought-iron sconce: a visible continuous support, wall plate, cup and three wax candles.
   bx([x,1.11,-5.95],[.19,3.18,.15],C.stoneDark,3);
   bx([x,2.17,-5.82],[.32,.43,.10],C.darkGold,2);
+  for(let q=0;q<4;q++){let ang=q*Math.PI/2;sp([x+.125*Math.cos(ang),2.17+.16*Math.sin(ang),-5.756],[.035,.035,.018],C.brightGold,2);}
+  cy([x,2.42,-5.73],[.060,.38,.060],C.darkGold,2,[.27,0,0]);
   sp([x,2.17,-5.75],[.115,.115,.035],C.ruby,2);
   beam([x,2.17,-5.76],[x,2.75,-5.56],.048,C.darkGold);
   beam([x-.22,2.60,-5.56],[x+.22,2.60,-5.56],.042,C.brightGold);
   for(let k of [-1,0,1]){
    const sx=x+k*.20,sy=2.69+(k===0?.10:0),sz=-5.55;
-   cy([sx,sy,sz],[.092,.14,.092],C.ivory,0);
-   cy([sx,sy-.086,sz],[.118,.034,.118],C.darkGold,2);
-   cy([sx,sy+.085,sz],[.026,.037,.026],C.black,1);
+   // Wax body anchored to a chased metal drip-cup and a continuous iron arm.
+   cy([sx,sy,sz],[.092,.14,.092],C.ivory,5);
+   cy([sx,sy-.090,sz],[.127,.040,.127],C.darkGold,2);
+   rg([sx,sy-.071,sz],[.12,.012,.12],C.brightGold,2);
+   cy([sx,sy+.078,sz],[.092,.026,.092],C.ivory,5);
+   for(let d=0;d<3;d++){let th=d*2.094;sp([sx+.081*Math.cos(th),sy+.015-d*.025,sz+.081*Math.sin(th)],[.016,.065,.018],C.ivory,5);}
+   cy([sx,sy+.108,sz],[.012,.062,.012],C.black,1);
    flame([sx,sy+.14,sz],I,.30,now/260+x+k*1.7);
   }
   rg([x,2.61,-5.56],[.34,.025,.34],C.brightGold,2);
@@ -511,6 +533,10 @@ function drawFighter(a,now){
  rg([0,.126,0],[.27,.020,.27],gold,2,root);
  rg([0,.138,0],[.22,.012,.22],aura,2,root);
  cy([0,.161,0],[.22,.072,.22],dark,1,[0,0,0],root);
+ // Each sculpted miniature has a different heraldic enamel medallion and chased base rim.
+ const herald={P:C.emerald,N:C.blue,B:C.ivory,R:C.ruby,Q:C.violet,K:C.brightGold}[a.type];
+ sp([0,.155,-.238],[.075,.039,.022],herald,4,[0,0,0],root);
+ for(let j=0;j<6;j++){const th=j*Math.PI/3;sp([.269*Math.sin(th),.113,.269*Math.cos(th)],[.016,.015,.016],gold,2,[0,0,0],root);}
  // Silver/gold rivets on a black plinth; narrow colored enamel signifies piece class.
  for(let q=0;q<6;q++){const th=q*Math.PI/3;sp([Math.sin(th)*.26,.113,Math.cos(th)*.26],[.017,.023,.017],q%2?gold:C.steel,2,[0,0,0],root);}
  bx([0,.164,-.229],[.14,.034,.028],a.type==='K'?C.brightGold:a.type==='Q'?C.violet:a.type==='B'?C.blue:a.type==='R'?C.ruby:a.type==='N'?C.emerald:C.ivory,2,[0,0,0],root);
@@ -542,6 +568,9 @@ function drawFighter(a,now){
   }
   bx([0,.50,-.242],[.25,.045,.035],C.darkGold,2,[0,0,0],root);
   rg([0,.72,-.42-recoil],[.12,.02,.12],C.ruby,2,root);
+  // Stone block joints and gold-emblem keystones on the siege tower.
+  for(let h of [.43,.61,.79]){bx([0,h,.195],[.32,.012,.025],C.stoneDark,3,[0,0,0],root);}
+  for(let x of [-.16,.16]){sp([x,.92,-.216],[.038,.043,.02],gold,2,[0,0,0],root);}
   return;
  }
  // Cavalry is the largest horizontally: four legs, elongated horse, mounted helmet and LONG lance.
@@ -578,6 +607,13 @@ function drawFighter(a,now){
   // Saddle leather, two visible reins and a sculpted mane along the horse neck.
   for(let j=0;j<4;j++)sp([0,.75+j*.065,-.33-j*.05],[.075,.08,.055],j%2?C.leather:gold,1,[0,0,0],root);
   for(const side of [-1,1])beam([side*.14,.89,-.53],[side*.19,.56,-.10],.017,C.leather,root);
+  // Braided bridle, decorative saddle stitches and steel stirrups.
+  for(const side of [-1,1]){
+   beam([side*.13,.91,-.53],[side*.13,.78,-.68],.018,C.darkGold,root);
+   cy([side*.32,.37,.08],[.025,.19,.027],C.steel,2,[.07,0,0],root);
+   rg([side*.32,.27,.08],[.055,.014,.055],C.brightGold,2,root);
+  }
+  for(let j=0;j<5;j++){sp([-.15+j*.075,.58,.24],[.021,.024,.021],j%2?gold:C.ruby,2,[0,0,0],root);}
   return;
  }
  // Body proportions vary: pawn short and thick, bishop narrow hood, king broad shoulders, queen slender gown.
@@ -637,6 +673,9 @@ function drawFighter(a,now){
    cn([.16+i*.032,1.245,.16],[.046,.095,.040],i%2?C.red:C.ivory,0,[0,0,0],root);}
  }
  if(!pawn){
+  // Fine royal stitching down the robe, rounded mail links and raised shoulder plates.
+  for(let j=0;j<5;j++){const y=.30+j*.090;sp([0,y,-.255],[.027,.023,.018],j%2?gold:C.ivory,2,[0,0,0],root);}
+  for(let side of [-1,1]){sp([side*.235,.71,-.018],[.11,.085,.12],w?C.ivory:C.armor,2,[0,0,0],root);sp([side*.236,.70,-.122],[.034,.025,.022],gold,2,[0,0,0],root);}
   bx([0,.57,-.23],[.09,.30,.03],gold,2,[0,0,0],root);bx([0,.62,-.23],[.25,.07,.03],gold,2,[0,0,0],root);
   sp([0,.46,.18],[.10,.05,.10],C.ruby,2,[0,0,0],root);
   if(king||queen){cn([0,.48,.18],[.26,.20,.18],w?'#f8edd9':'#b12b35',0,[0,0,0],root);sp([0,.46,.26],[.05,.05,.03],king?C.blue:C.violet,2,[0,0,0],root);}
@@ -649,6 +688,7 @@ function drawFighter(a,now){
   sp([-.08,-.245,-.16],[pawn?.15:.175,pawn?.23:.26,.022],w?C.ivory:C.redDark,0,[0,0,0],left);
   bx([-.08,-.245,-.188],[.037,.29,.021],trim,2,[0,0,0],left);
   bx([-.08,-.245,-.192],[.20,.037,.021],trim,2,[0,0,0],left);
+  for(let t=0;t<4;t++){const th=t*Math.PI/2;sp([-.08+Math.cos(th)*.115,-.245+Math.sin(th)*.16,-.216],[.018,.018,.014],gold,2,[0,0,0],left);}
  }else if(queen){sp([-.06,-.31,-.08],[.077,.075,.07],C.skin,0,[0,0,0],left);}
  // Right arm is independently animated. Each carries its own 3D weapon.
  const armY=pawn?.52:.69;
@@ -705,14 +745,17 @@ function drawAttackFx(now){if(!combatFx)return;const f=combatFx,t=Math.max(0,Mat
   sp(head,[.074,.074,.074],C.steel||C.blade,2);
   const feather=V.sub(back,V.mul(dir,.08));
   sp(feather,[.10,.025,.080],C.ivory,0);
+  for(let j=1;j<4;j++){let tail=V.sub(head,V.mul(dir,.17*j));sp(tail,[.026*(1-j*.18),.02,.027],j%2?C.blue:C.ivory,4);}
   rg(head,[.11,.015,.11],C.brightGold,2);
  } else if(f.kind==='cannon'){
   sp(head,[.17,.17,.17],C.black,2);rg(head,[.18,.18,.18],C.ruby,2);
+  for(let j=0;j<3;j++){let tail=at(f.start,f.end,Math.max(0,t-.07*j));sp([tail[0],tail[1]+.035*j,tail[2]],[.14-j*.021,.11-j*.01,.14-j*.021],j%2?C.flame:C.smoke,0);}
   if(t<.26){sp(f.start,[.23+.24*t,.23+.24*t,.23+.24*t],C.brightGold,2);}
   for(let j=1;j<=4;j++){let k=Math.max(0,t-j*.03),p=at(f.start,f.end,k);sp([p[0],p[1]+j*.03,p[2]],[.11+.03*j,.10+.03*j,.11+.03*j],j%2?C.armor:C.darkGold,0);}
  } else if(f.kind==='magic'){
   const s=.16+.13*Math.sin(now/95)**2;sp(head,[s,s,s],C.violet,2);
-  rg(head,[.26+.09*Math.sin(now/110),.035,.26+.09*Math.sin(now/110)],C.ether,2);
+  rg(head,[.26+.09*Math.sin(now/110),.035,.26+.09*Math.sin(now/110)],C.ether,4);
+  rg(head,[.37+.06*Math.sin(now/180),.018,.37+.06*Math.sin(now/180)],C.blue,4);
   for(let j=0;j<6;j++){let angle=j*Math.PI/3+now/240;sp([head[0]+Math.cos(angle)*.22,head[1]+Math.sin(angle)*.20,head[2]+Math.cos(angle*1.4)*.12],[.047,.047,.047],j%2?C.blue:C.brightGold,2);}
  } else if(f.kind==='blade'){
   const radius=.28+1.1*t;
@@ -728,43 +771,81 @@ function drawAttackFx(now){if(!combatFx)return;const f=combatFx,t=Math.max(0,Mat
   for(let j=0;j<7;j++){let angle=j*Math.PI*2/7+now/370;sp([f.end[0]+Math.cos(angle)*radius,f.end[1]+Math.sin(t*Math.PI)*.22,f.end[2]+Math.sin(angle)*radius],[.06,.06,.06],C.ruby,2);}
  }
 }
+// Dynamic blade arcs are geometry in the 3-D world, not flat images.
+// Colour and geometry depend on the fighter, and follow the weapon while it swings.
+function drawWeaponTrails(now){
+ if(!activeFight||!fxOn)return;
+ const a=activeFight.attacker,amount=Math.abs(a.slash||0);
+ if(['P','K','N'].includes(a.type)&&amount>.10){
+  const base=T(I,[a.pos[0],.18+a.height,a.pos[1]],[0,a.yaw,0]);
+  const hue=a.type==='K'?C.brightGold:a.type==='N'?C.blue:C.steel;
+  const swing=Math.max(-.5,Math.min(1.45,a.slash));
+  let prev=null;
+  for(let j=0;j<=9;j++){
+   const ang=-.35+(j/9)*1.7+swing*.64;
+   const p=M.apply(base,[.27+.46*Math.cos(ang),1.03+.37*Math.sin(ang),-.38]);
+   if(prev)beam(prev,p,.014*(1+j/13),hue);
+   if(j%3===0)sp(p,[.026,.025,.026],C.ivory,4);
+   prev=p;
+  }
+  const tip=M.apply(base,[.30+.48*Math.cos(swing),1.07+.38*Math.sin(swing),-.4]);
+  sp(tip,[.074,.074,.074],a.type==='K'?C.ruby:C.blue,4);
+ }
+ if(a.type==='Q'&&a.charge>.08){
+  const radius=.24+a.charge*.18;const p=[a.pos[0],1.12+a.height,a.pos[1]];
+  for(let j=0;j<6;j++){
+   let angle=j*Math.PI/3+now*.004;
+   sp([p[0]+Math.sin(angle)*radius,p[1]+Math.cos(angle*1.6)*.17,p[2]+Math.cos(angle)*radius],[.046,.046,.046],j%2?C.violet:C.blue,4);
+  }
+ }
+}
 function resize(){let rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.65),w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;if(gl)gl.viewport(0,0,w,h);} }
 const VS=`attribute vec3 aPos;attribute vec3 aNorm;attribute vec3 aColor;attribute float aKind;uniform mat4 uVP;varying vec3 vNorm;varying vec3 vPos;varying vec3 vColor;varying float vKind;void main(){vNorm=aNorm;vPos=aPos;vColor=aColor;vKind=aKind;gl_Position=uVP*vec4(aPos,1.0);}`;
 const FS=`precision highp float;
 varying vec3 vNorm;varying vec3 vPos;varying vec3 vColor;varying float vKind;
-uniform vec3 uCamera;
+uniform vec3 uCamera;uniform float uTime;
 float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
 void main(){
  vec3 n=normalize(vNorm),view=normalize(uCamera-vPos);
  vec3 light=normalize(vec3(-0.56,0.89,0.68)),fillLight=normalize(vec3(0.64,0.35,-0.48));
- float diffuse=max(dot(n,light),0.0),fill=max(dot(n,fillLight),0.0)*0.19;
+ float diffuse=max(dot(n,light),0.0),fill=max(dot(n,fillLight),0.0)*0.20;
  vec3 c=vColor;float rough=0.13,sharp=24.0;
- if(vKind>2.5){ // hand-hewn granite / limestone
-  float p=hash(floor(vPos*24.0)),vein=sin(vPos.x*13.0+vPos.z*5.0+sin(vPos.y*3.0));
-  c*=0.84+0.14*p+0.04*vein;rough=0.05;sharp=9.0;
- }else if(vKind>1.5){ // polished metal, brushed highlights
-  float scratch=sin(vPos.y*95.0+vPos.x*17.0)*0.022;
-  c*=0.99+scratch;rough=0.36;sharp=52.0;
- }else if(vKind>0.5){ // walnut / leather, flowing grain
-  float grain=sin(vPos.x*26.0+vPos.z*11.0+3.0*sin(vPos.y*8.0));
-  c*=0.92+0.045*grain+0.02*sin(vPos.y*45.0);rough=0.07;sharp=15.0;
- }else{ // embroidered cloth and matte stone
-  float weave=sin(vPos.x*56.0)*sin(vPos.y*56.0);
-  c*=0.96+0.027*weave;rough=0.09;sharp=18.0;
+ if(vKind>4.5){ // ivory wax: soft translucency, drip strata and subtle marbling
+  float drip=sin(vPos.y*24.0+sin(vPos.x*25.0)*0.5)*0.020;
+  c*=0.975+drip;rough=0.14;sharp=19.0;
+ }else if(vKind>3.5){ // jewel enamel: glassy vivid highlights
+  c*=1.10;rough=0.55;sharp=78.0;
+ }else if(vKind>2.5){ // carved granite: stone veins, pitted surface
+  float p=hash(floor(vPos*31.0)),vein=sin(vPos.x*16.0+vPos.z*7.0+sin(vPos.y*3.4));
+  c*=0.84+0.15*p+0.035*vein;rough=0.05;sharp=10.0;
+ }else if(vKind>1.5){ // polished bronze and damascened steel
+  float scratch=sin(vPos.y*120.0+vPos.x*20.0)*0.027;
+  c*=0.98+scratch;rough=0.36;sharp=56.0;
+ }else if(vKind>0.5){ // walnut, leather: fibrous flowing grain
+  float grain=sin(vPos.x*29.0+vPos.z*14.0+3.5*sin(vPos.y*8.0));
+  c*=0.91+0.05*grain+0.025*sin(vPos.y*45.0);rough=0.075;sharp=16.0;
+ }else{ // woven silk, velvet and cloth
+  float weave=sin(vPos.x*64.0)*sin(vPos.y*64.0);
+  float pleat=sin(vPos.y*21.0+vPos.z*3.0);
+  c*=0.955+0.030*weave+0.019*pleat;rough=0.085;sharp=18.0;
  }
- float shade=0.43+0.50*diffuse+fill;
+ float shade=0.42+0.50*diffuse+fill;
+ float warmFlicker=0.88+0.08*sin(uTime*3.9)+0.04*sin(uTime*8.3);
+ float fire1=1.0/(1.0+0.15*dot(vPos-vec3(-5.1,1.55,-5.1),vPos-vec3(-5.1,1.55,-5.1)));
+ float fire2=1.0/(1.0+0.15*dot(vPos-vec3(5.1,1.55,5.1),vPos-vec3(5.1,1.55,5.1)));
+ vec3 torch=vec3(1.0,0.46,0.20)*(fire1+fire2)*0.13*warmFlicker;
  vec3 halfway=normalize(view+light);
  float spec=pow(max(0.0,dot(n,halfway)),sharp)*rough;
- float rim=pow(max(0.0,1.0-dot(n,view)),2.3)*0.055;
- vec3 finalColor=c*shade+vec3(1.0,0.87,0.67)*(spec+rim);
+ float rim=pow(max(0.0,1.0-dot(n,view)),2.3)*0.061;
+ vec3 finalColor=c*(shade+torch)+vec3(1.0,0.87,0.67)*(spec+rim);
  gl_FragColor=vec4(pow(max(finalColor,vec3(0.0)),vec3(0.94)),1.0);
 }`;
-let program=null,buffer=null,uVP=null,uCamera=null;
+let program=null,buffer=null,uVP=null,uCamera=null,uTime=null;
 if(gl){
  const compile=(type,src)=>{const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;};
  program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,VS));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,FS));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
  buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);for(let [name,size,offset] of [['aPos',3,0],['aNorm',3,12],['aColor',3,24],['aKind',1,36]]){let loc=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,40,offset);}
- uVP=gl.getUniformLocation(program,'uVP');uCamera=gl.getUniformLocation(program,'uCamera');gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);
+ uVP=gl.getUniformLocation(program,'uVP');uCamera=gl.getUniformLocation(program,'uCamera');uTime=gl.getUniformLocation(program,'uTime');gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);
 }
 const pMatrix=(aspect)=>{const f=1/Math.tan(Math.PI*47/360),n=.05,far=100;return [f/aspect,0,0,0,0,f,0,0,0,0,(far+n)/(n-far),-1,0,0,2*far*n/(n-far),0]};
 const vMatrix=()=>{const r=camRight,u=camUp,f=camForward,e=camera;return [r[0],u[0],-f[0],0,r[1],u[1],-f[1],0,r[2],u[2],-f[2],0,-V.dot(r,e),-V.dot(u,e),V.dot(f,e),1]};
@@ -891,7 +972,9 @@ async function animateCombat(attacker,victim,to,thisToken){
   if(!await tween(260,f=>{attacker.slash=-.48*f;victim.guard=.55*f;victim.lean=.09*f;}))return false;
   swish();if(!await tween(320,f=>{attacker.slash=-.48+1.25*smooth(f);victim.guard=.55+.45*f;victim.lean=.09+.10*f;}))return false;
   clang();sparks(target,16);
-  if(!await tween(280,f=>{attacker.slash=.77-1.1*f;attacker.guard=f*.6;victim.slash=.65*f;victim.guard=1-.45*f;}))return false;
+  // Defensive recoil before the finishing counter-strike.
+  if(!await tween(300,f=>{attacker.slash=.77-1.1*f;attacker.guard=f*.6;victim.slash=.65*f;victim.guard=1-.45*f;attacker.lean=-.12*Math.sin(f*Math.PI);victim.lean=.18*Math.sin(f*Math.PI);})){return false;}
+  attacker.lean=0;victim.lean=0;
   swish();if(!await tween(360,f=>{attacker.slash=-.33+1.65*smooth(f);attacker.guard=.6*(1-f);victim.guard=.55+.5*f;victim.lean=.2+.2*f;}))return false;
   clang();sparks(target,26);
  }
@@ -1040,8 +1123,8 @@ function drawSoftware3D(){
 function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestAnimationFrame(frame);return;}lastFrame=now;
  // Low-end 2D fallback preserves projected 3D and picking without a GPU
  if(!gl&&now-prevFallback<220){requestAnimationFrame(frame);return;}prevFallback=now;
- resize();animateCamera(dt);updateCamera();updateHUD();count=0;drawBoard(now);boardEndCount=count;for(const a of actors)if(!a.shattered)drawFighter(a,now);drawAttackFx(now);drawDebris(now);
- if(gl){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,pool.subarray(0,count),gl.DYNAMIC_DRAW);gl.uniformMatrix4fv(uVP,false,new Float32Array(M.mul(pMatrix(canvas.width/canvas.height),vMatrix())));gl.uniform3fv(uCamera,new Float32Array(camera));gl.drawArrays(gl.TRIANGLES,0,count/10);}else{drawSoftware3D();}
+ resize();animateCamera(dt);updateCamera();updateHUD();count=0;drawBoard(now);boardEndCount=count;for(const a of actors)if(!a.shattered)drawFighter(a,now);drawAttackFx(now);drawWeaponTrails(now);drawDebris(now);
+ if(gl){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,pool.subarray(0,count),gl.DYNAMIC_DRAW);gl.uniformMatrix4fv(uVP,false,new Float32Array(M.mul(pMatrix(canvas.width/canvas.height),vMatrix())));gl.uniform3fv(uCamera,new Float32Array(camera));gl.uniform1f(uTime,now/1000);gl.drawArrays(gl.TRIANGLES,0,count/10);}else{drawSoftware3D();}
  // Show clickable coordinates around perimeter; aids accurate selection with any camera yaw
  for(let i=0;i<16;i++){let el=coords[i],p=i<8?[i-3.5,.18,4.25]:[-4.29,.18,i-8-3.5],pr=project(p);if(pr){el.style.left=pr.x+'px';el.style.top=pr.y+'px';el.style.display='block';}else el.style.display='none';}
  requestAnimationFrame(frame);
