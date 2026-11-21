@@ -162,7 +162,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V12</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V13</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -363,7 +363,7 @@ function pushTriangle(target,a,b,c){target.push(...a,...b,...c);}
 function generateShapes(){
  let cube=[],quads=[[[0,0,1],[1,0,1],[1,1,1],[0,1,1]],[[1,0,0],[0,0,0],[0,1,0],[1,1,0]],[[0,0,0],[0,0,1],[0,1,1],[0,1,0]],[[1,0,1],[1,0,0],[1,1,0],[1,1,1]],[[0,1,1],[1,1,1],[1,1,0],[0,1,0]],[[0,0,0],[1,0,0],[1,0,1],[0,0,1]]];
  for(const q of quads){const z=q.map(p=>p.map(v=>v-.5));pushTriangle(cube,z[0],z[1],z[2]);pushTriangle(cube,z[0],z[2],z[3]);} mesh.box=cube;
- let cyl=[],cone=[],sphere=[],ring=[];const N=11;
+ let cyl=[],cone=[],sphere=[],ring=[];const N=gl?13:9;
  for(let i=0;i<N;i++){let a=i*2*Math.PI/N,b=(i+1)*2*Math.PI/N, p=[Math.cos(a),Math.sin(a)],q=[Math.cos(b),Math.sin(b)];
   let a0=[p[0],-.5,p[1]],a1=[p[0],.5,p[1]],b0=[q[0],-.5,q[1]],b1=[q[0],.5,q[1]];
   pushTriangle(cyl,a0,b0,b1);pushTriangle(cyl,a0,b1,a1);pushTriangle(cyl,[0,.5,0],a1,b1);pushTriangle(cyl,[0,-.5,0],b0,a0);
@@ -371,10 +371,17 @@ function generateShapes(){
   pushTriangle(cone,a0,b0,bh);pushTriangle(cone,a0,bh,ah);pushTriangle(cone,[0,-.5,0],b0,a0);
   const uo=[p[0],.09,p[1]],un=[q[0],.09,q[1]],li=[p[0]*.88,.09,p[1]*.88],ln=[q[0]*.88,.09,q[1]*.88];pushTriangle(ring,uo,un,ln);pushTriangle(ring,uo,ln,li);
  }
- for(let i=0;i<8;i++){const a=i*Math.PI/8,b=(i+1)*Math.PI/8;for(let j=0;j<12;j++){let u=j*2*Math.PI/12,v=(j+1)*2*Math.PI/12;
+ const lat=gl?9:6,lon=gl?13:9;for(let i=0;i<lat;i++){const a=i*Math.PI/lat,b=(i+1)*Math.PI/lat;for(let j=0;j<lon;j++){let u=j*2*Math.PI/lon,v=(j+1)*2*Math.PI/lon;
  const pt=(th,ph)=>[Math.sin(th)*Math.cos(ph),Math.cos(th),Math.sin(th)*Math.sin(ph)];
  pushTriangle(sphere,pt(a,u),pt(b,u),pt(b,v));pushTriangle(sphere,pt(a,u),pt(b,v),pt(a,v));}}
  mesh.cyl=cyl;mesh.cone=cone;mesh.sphere=sphere;mesh.ring=ring;
+ // Irregular fractured porcelain, not cubes. Each fragment has a thin triangular shell.
+ const shard=[],chip=[];
+ const a=[-.60,-.42,-.32],b=[.68,-.37,-.36],c=[-.08,-.39,.63],d=[.13,.77,.04];
+ for(const tri of [[a,b,d],[b,c,d],[c,a,d],[a,c,b]])pushTriangle(shard,...tri);
+ const p0=[-.74,-.42,-.22],p1=[.62,-.43,-.42],p2=[.82,-.40,.22],p3=[-.28,-.39,.69],pt=[.05,.36,-.06];
+ for(const tri of [[p0,p1,pt],[p1,p2,pt],[p2,p3,pt],[p3,p0,pt],[p0,p3,p2],[p0,p2,p1]])pushTriangle(chip,...tri);
+ mesh.shard=shard;mesh.chip=chip;
 }generateShapes();
 const figureStyle='sculpted'; // TRUE 3D figures at rest and while fighting.
 const C={walnut:'#583522',border:'#120907',boardGold:'#c18b4a',brightGold:'#f6d08d',darkGold:'#7b5427',ivory:'#f4ead8',white:'#fdf8f0',red:'#a9302e',redDark:'#5f1b20',armor:'#c8ced6',shadow:'#140e13',steel:'#e9eff6',blade:'#f5fdff',brown:'#764931',skin:'#d9ae89',black:'#1e1716',blue:'#88e5fa',emerald:'#54b993',ruby:'#e45a4b',violet:'#c297fb',ether:'#eddcff',leather:'#7a4a2b',arrowwood:'#9f663a',muzzle:'#4a3d37',stone:'#6e5d56',stoneDark:'#463933',flame:'#ffc561',smoke:'#d5b694'};
@@ -385,15 +392,24 @@ function emit(key,m,col,kind=0){
  const verts=mesh[key],vcol=color(col),len=verts.length/3,need=count+len*10;
  if(need>pool.length){let p=new Float32Array(Math.ceil(need*1.5));p.set(pool);pool=p;}
  const ar=pool,rr=vcol[0],gg=vcol[1],bb=vcol[2];
+ // Normal matrix from inverse-transpose: keeps highlights rounded even on nonuniform armor/spheres.
+ const A=[m[0],m[1],m[2]],B=[m[4],m[5],m[6]],C0=[m[8],m[9],m[10]];
+ const cross=(u,v)=>[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+ const nn0=cross(B,C0),nn1=cross(C0,A),nn2=cross(A,B);
+ const smoothN=(u,v,w)=>{const x=nn0[0]*u+nn1[0]*v+nn2[0]*w,y=nn0[1]*u+nn1[1]*v+nn2[1]*w,z=nn0[2]*u+nn1[2]*v+nn2[2]*w,l=Math.hypot(x,y,z)||1;return [x/l,y/l,z/l];};
  for(let j=0;j<verts.length;j+=9){
-  let x0=m[0]*verts[j]+m[4]*verts[j+1]+m[8]*verts[j+2]+m[12],y0=m[1]*verts[j]+m[5]*verts[j+1]+m[9]*verts[j+2]+m[13],z0=m[2]*verts[j]+m[6]*verts[j+1]+m[10]*verts[j+2]+m[14];
-  let x1=m[0]*verts[j+3]+m[4]*verts[j+4]+m[8]*verts[j+5]+m[12],y1=m[1]*verts[j+3]+m[5]*verts[j+4]+m[9]*verts[j+5]+m[13],z1=m[2]*verts[j+3]+m[6]*verts[j+4]+m[10]*verts[j+5]+m[14];
-  let x2=m[0]*verts[j+6]+m[4]*verts[j+7]+m[8]*verts[j+8]+m[12],y2=m[1]*verts[j+6]+m[5]*verts[j+7]+m[9]*verts[j+8]+m[13],z2=m[2]*verts[j+6]+m[6]*verts[j+7]+m[10]*verts[j+8]+m[14];
-  let ax=x1-x0,ay=y1-y0,az=z1-z0,bx=x2-x0,by=y2-y0,bz=z2-z0,nx=ay*bz-az*by,ny=az*bx-ax*bz,nz=ax*by-ay*bx,nlen=Math.hypot(nx,ny,nz)||1;
-  nx/=nlen;ny/=nlen;nz/=nlen;
-  ar[count++]=x0;ar[count++]=y0;ar[count++]=z0;ar[count++]=nx;ar[count++]=ny;ar[count++]=nz;ar[count++]=rr;ar[count++]=gg;ar[count++]=bb;ar[count++]=kind;
-  ar[count++]=x1;ar[count++]=y1;ar[count++]=z1;ar[count++]=nx;ar[count++]=ny;ar[count++]=nz;ar[count++]=rr;ar[count++]=gg;ar[count++]=bb;ar[count++]=kind;
-  ar[count++]=x2;ar[count++]=y2;ar[count++]=z2;ar[count++]=nx;ar[count++]=ny;ar[count++]=nz;ar[count++]=rr;ar[count++]=gg;ar[count++]=bb;ar[count++]=kind;
+  const local=[[verts[j],verts[j+1],verts[j+2]],[verts[j+3],verts[j+4],verts[j+5]],[verts[j+6],verts[j+7],verts[j+8]]];
+  const pts=local.map(p=>[m[0]*p[0]+m[4]*p[1]+m[8]*p[2]+m[12],m[1]*p[0]+m[5]*p[1]+m[9]*p[2]+m[13],m[2]*p[0]+m[6]*p[1]+m[10]*p[2]+m[14]]);
+  const a=pts[0],b=pts[1],c=pts[2],ab=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],ac=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];
+  const n0=cross(ab,ac),norm=Math.hypot(...n0)||1,flat=[n0[0]/norm,n0[1]/norm,n0[2]/norm];
+  const cap=(key==='cyl'||key==='cone')&&Math.abs(local[0][1]-local[1][1])<.00001&&Math.abs(local[1][1]-local[2][1])<.00001;
+  for(let v=0;v<3;v++){
+   const p=local[v],pos=pts[v];let n=flat;
+   if(key==='sphere')n=smoothN(p[0],p[1],p[2]);
+   else if(key==='cyl'&&!cap)n=smoothN(p[0],0,p[2]);
+   else if(key==='cone'&&!cap){const radius=Math.max(.18,Math.hypot(p[0],p[2]));n=smoothN(p[0]/radius,.81,p[2]/radius);}
+   ar[count++]=pos[0];ar[count++]=pos[1];ar[count++]=pos[2];ar[count++]=n[0];ar[count++]=n[1];ar[count++]=n[2];ar[count++]=rr;ar[count++]=gg;ar[count++]=bb;ar[count++]=kind;
+  }
  }
 }
 const I=M.identity();
@@ -403,6 +419,8 @@ function cy(p,s,col,k=0,ang=[0,0,0],par=I){shape('cyl',p,s,col,k,ang,par)}
 function cn(p,s,col,k=0,ang=[0,0,0],par=I){shape('cone',p,s,col,k,ang,par)}
 function sp(p,s,col,k=0,ang=[0,0,0],par=I){shape('sphere',p,s,col,k,ang,par)}
 function rg(p,s,col,k=0,par=I){shape('ring',p,s,col,k,[0,0,0],par)}
+function sh(p,s,col,k=0,ang=[0,0,0],par=I){shape('shard',p,s,col,k,ang,par)}
+function ch(p,s,col,k=0,ang=[0,0,0],par=I){shape('chip',p,s,col,k,ang,par)}
 function drawBoard(now){
  bx([0,-.72,0],[11.2,.18,11.2],C.stone,1);bx([0,-.58,0],[10.5,.08,10.5],C.stoneDark,1);rg([0,-.47,0],[4.7,.03,4.7],C.darkGold,2);
  bx([0,-.17,0],[9.16,.38,9.16],C.walnut,1);bx([0,.016,0],[8.98,.095,8.98],C.boardGold,2);bx([0,.067,0],[8.77,.04,8.77],C.black,1);
@@ -457,71 +475,73 @@ function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[
 // Physical 3D fragments survive the impact, rest on their conquered square,
 // then shrink and dissipate ONLY after a 1.3 second hold.
 let debris=null;
+// Porcelain fracture physics: each type determines the radius of the breakage.
+const SHATTER_RADII={P:.32,N:1.18,B:1.36,R:1.52,Q:1.70,K:1.78};
 function shatterVictim(victim){
- const white=victim.side==='w',t=victim.type;
- const colors=white?['#f4ecdf','#d8cabc','#cfd9e5','#dfb768','#87503a','#f6d28e']:['#b53b3d','#7a2630','#bcc4ce','#e1bb72','#4e302f','#c85e57'];
- const fragments=[];
- const baseCount=t==='K'||t==='Q'?42:t==='R'?40:t==='N'?38:34;
- for(let j=0;j<baseCount;j++){
-  const angle=Math.random()*Math.PI*2;
-  const spread=.8+Math.random()*3.9; // fly across much more of the board, not just one square
-  const lift=.35+Math.random()*1.85;
-  const drift=(Math.random()-.5)*.7;
+ const type=victim.type,light=victim.side==='w';
+ const palette=light?['#f3e9dc','#d8cbb9','#aebccc','#d8b77b','#f9f6ec','#7a5141']:['#b94040','#87353a','#c2cbd3','#e4bc73','#f1d4c2','#553135'];
+ const maxRange=SHATTER_RADII[type],fragments=[];
+ const quantity={P:27,N:39,B:39,R:44,Q:49,K:53}[type];
+ for(let i=0;i<quantity;i++){
+  const a=Math.random()*Math.PI*2,radius=(.12+Math.random()*.88)*maxRange;
+  const height=.30+Math.random()*(type==='P'?.59:1.48);
+  const material=i%9===0?2:i%6===0?4:i%4===0?1:5;
+  const shell=i%5!==0;
+  const color=palette[i%palette.length];
   fragments.push({
-   angle,spread,height:lift,
-   dx:Math.cos(angle)*spread + drift,
-   dz:Math.sin(angle)*spread - drift*.4,
-   size:.05+Math.random()*.15,stretch:.58+Math.random()*1.9,
-   spin:Math.random()*Math.PI*2,roll:(Math.random()-.5)*Math.PI*3.6,
-   mesh:j%7===0?'cone':j%5===0?'cyl':'box',
-   color:colors[j%colors.length],metal:j%4===1||j%4===2,
-   settle:.65+Math.random()*.28,
-   skid:(.05+Math.random()*.18)*(Math.random()<.5?-1:1)
+   mesh: i%6===0?'chip':i%5===0?'cone':'shard',color,material,
+   ox:(Math.random()-.5)*.12,oz:(Math.random()-.5)*.12,startY:height,
+   dx:Math.cos(a)*radius,dz:Math.sin(a)*radius,
+   angle:a,delay:Math.min(.25,(1-height/(type==='P'?1.1:1.9))*.15+Math.random()*.09),
+   size:.052+Math.random()*(type==='P'?.073:.098),stretch:.65+Math.random()*1.55,
+   spin:Math.random()*6.28,turn:(Math.random()-.5)*7.2,
+   impact:(Math.random()-.5)*.08,glaze:shell
   });
  }
- // Extra hero pieces from special units: crown tips, staff crystals, cannon stones, lance splinters.
- if(t==='K'||t==='Q')for(let i=0;i<8;i++)fragments.push({angle:i*.785,spread:2.6+Math.random()*1.4,height:1.4,dx:Math.cos(i*.785)*(2.2+Math.random()*1.2),dz:Math.sin(i*.785)*(2.2+Math.random()*1.2),size:.10+Math.random()*.05,stretch:1.05,spin:i,roll:1.2,mesh:i%2?'cone':'cyl',color:i%2?'#f0d08a':'#dc6b8d',metal:true,settle:.82,skid:.1});
- if(t==='R')for(let i=0;i<10;i++)fragments.push({angle:i*.628,spread:2.1+Math.random()*1.6,height:.95,dx:Math.cos(i*.628)*(1.8+Math.random()*1.6),dz:Math.sin(i*.628)*(1.8+Math.random()*1.6),size:.12+Math.random()*.07,stretch:1.22,spin:i,roll:.8,mesh:'box',color:colors[i%colors.length],metal:false,settle:.9,skid:.16});
- if(t==='B')for(let i=0;i<6;i++)fragments.push({angle:i*1.047,spread:2.0+Math.random()*1.2,height:1.1,dx:Math.cos(i*1.047)*(1.8+Math.random()),dz:Math.sin(i*1.047)*(1.8+Math.random()),size:.09,stretch:1.6,spin:i*.4,roll:1.0,mesh:'cyl',color:'#a07445',metal:false,settle:.85,skid:.12});
- if(t==='N')for(let i=0;i<6;i++)fragments.push({angle:i*1.047,spread:1.9+Math.random()*1.5,height:1.0,dx:Math.cos(i*1.047)*(1.7+Math.random()*1.2),dz:Math.sin(i*1.047)*(1.7+Math.random()*1.2),size:.08+Math.random()*.04,stretch:1.45,spin:i,roll:1.1,mesh:'cone',color:i%2?'#7fcff4':'#e8d7b3',metal:true,settle:.82,skid:.13});
- debris={origin:[victim.pos[0],victim.pos[1]],side:victim.side,type:t,fragments,progress:0,fade:0,stamp:performance.now()};
+ debris={origin:[victim.pos[0],victim.pos[1]],side:victim.side,type,fragments,progress:0,fade:0,maxRange,stamp:performance.now()};
  victim.shattered=true;
 }
 function drawDebris(now){
  if(!debris)return;
- const d=debris,f=d.progress,fade=d.fade;
- const shrink=Math.max(.002,1-fade*.992);
+ const d=debris,fade=d.fade,f=d.progress;
+ const shrink=Math.max(.001,1-fade*.997);
+ const hitX=d.origin[0],hitZ=d.origin[1];
  for(const p of d.fragments){
-  // Long scatter: first a fast ballistic flight, then a short skid/settle where pieces rest naturally across the board.
-  const flight=Math.min(1,f/.74), settle=f>.74?(f-.74)/.26:0;
-  const ease=flight*flight*(3-2*flight);
-  let x=d.origin[0]+p.dx*ease, z=d.origin[1]+p.dz*ease;
-  if(settle>0){x+=Math.cos(p.angle)*p.skid*(1-settle);z+=Math.sin(p.angle)*p.skid*(1-settle);}
+  const t=Math.min(1,Math.max(0,(f-p.delay)/(1-p.delay)));
+  // Top cracks split first; the lower body collapses a moment later, rather than exploding in one frame.
+  const flight=Math.min(1,t/.84),settle=Math.max(0,(t-.84)/.16);
+  const drift=flight*flight*(3-2*flight);
+  const tx=Math.max(-3.91,Math.min(3.91,hitX+p.dx));
+  const tz=Math.max(-3.91,Math.min(3.91,hitZ+p.dz));
+  const slide=(1-settle)*p.impact;
+  const x=hitX+p.ox*(1-drift)+(tx-hitX)*drift+slide*Math.cos(p.angle);
+  const z=hitZ+p.oz*(1-drift)+(tz-hitZ)*drift+slide*Math.sin(p.angle);
   const size=p.size*shrink;
-  const rise=(1-flight)*(1-flight)*p.height + Math.sin(Math.PI*flight)*.18;
-  const ground=0.172+size*(.38+.14*(1-p.settle));
-  const y=ground + rise;
-  const rx=p.spin+f*p.roll*2.2, ry=p.angle+f*(p.roll*1.4), rz=f*p.roll*2.8 + settle*(Math.PI*.5*p.settle);
-  if(p.mesh==='cone')cn([x,y,z],[size*.78,size*p.stretch,size*.82],p.color,p.metal?2:1,[rx,ry,rz]);
-  else if(p.mesh==='cyl')cy([x,y,z],[size*.78,size*p.stretch,size*.78],p.color,p.metal?2:1,[rx,ry,rz]);
-  else bx([x,y,z],[size*.98,size*p.stretch,size*.74],p.color,p.metal?2:1,[rx,ry,rz]);
+  const ground=.172+size*.35;
+  const arc=Math.max(0,Math.sin(Math.PI*flight))*(.30+.34*p.startY);
+  const falling=(p.startY-ground)*(1-drift)*(1-drift);
+  const bounce=settle>0?.075*(1-settle)*Math.abs(Math.sin(settle*Math.PI*2.5)):0;
+  const y=ground+falling+arc+bounce;
+  const rot=[p.spin+t*p.turn*1.65,p.angle+t*p.turn*.95,t*p.turn*1.25];
+  if(p.mesh==='cone')cn([x,y,z],[size*.74,size*p.stretch,size*.74],p.color,p.material,rot);
+  else if(p.mesh==='chip')ch([x,y,z],[size*1.13,size*p.stretch,size*.83],p.color,p.material,rot);
+  else sh([x,y,z],[size*1.12,size*p.stretch,size*.85],p.color,p.material,rot);
+  // Pale chalk interior makes glazed porcelain shards visibly fractured.
+  if(p.glaze&&size>.008){const whiten=d.side==='w'?'#fcf9f2':'#eadbd0';sp([x,y+size*.16,z],[size*.20,size*.09,size*.18],whiten,5,rot);}
  }
- const radius=.26+Math.min(1,f)*1.15;
- if(f<.99){rg([d.origin[0],.188,d.origin[1]],[radius,.018,radius],d.side==='w'?'#ebdcad':'#eb745e',2);}
- if(fade>0){const fadeRadius=1.2+fade*1.1;rg([d.origin[0],.19,d.origin[1]],[fadeRadius,.012,fadeRadius],d.side==='w'?'#aa935a':'#873b33',2);}
+ if(f<.99){const rad=.16+Math.min(1,f)*d.maxRange*.70;rg([hitX,.188,hitZ],[rad,.016,rad],d.side==='w'?'#e9d9ac':'#e7a19a',2);}
 }
 async function shatterAfterHit(victim,thisToken){
  if(token!==thisToken)return false;
  shatterVictim(victim);
- if(fxOn&&activeFight){startCam({yaw:yaw+.11,pitch:.84,dist:Math.max(8.1,dist*.88),target:[victim.pos[0],.72,victim.pos[1]]},300);}
+ if(fxOn&&activeFight)startCam({yaw:yaw+.12,pitch:.87,dist:Math.max(8.2,dist*.9),target:[victim.pos[0],.7,victim.pos[1]]},350);
  const hit=[victim.pos[0],.70,victim.pos[1]];
- showToast('✦ SOCHA SA ROZTRIEŠTILA · ÚLOMKY LETIA CEZ DOSKU');
- sparks(hit,52);clang();
+ showToast('✦ PORCELÁN SA LÁME · ÚLOMKY PODĽA VEĽKOSTI FIGÚRKY');
+ sparks(hit,victim.type==='P'?23:39);clang();
  stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');
- const blast=await tween(980,f=>{if(debris)debris.progress=smooth(f);});
- if(!blast)return false;
- if(!await tween(980,()=>{}))return false;
- if(!await tween(560,f=>{if(debris)debris.fade=smooth(f);}))return false;
+ if(!await tween(1200,t=>{if(debris)debris.progress=t;}))return false;
+ if(!await tween(1300,()=>{}))return false;
+ if(!await tween(560,t=>{if(debris)debris.fade=smooth(t);} ))return false;
  if(token!==thisToken)return false;
  debris=null;victim.fade=1;
  return true;
@@ -533,9 +553,9 @@ function actorAt(r,c){return actors.find(a=>a.r===r&&a.c===c)}
 function drawFighter(a,now){
  const w=a.side==='w',body=w?'#e9e0c9':'#9a3033',dark=w?'#b8ac94':'#59222b',trim=w?'#b02f2d':'#f0c88a';
  const gold=C.brightGold,steel=C.armor,cloth=w?'#f4e9d5':'#831f2b';
- const size={P:.79,N:1.07,B:.96,R:1.06,Q:1.10,K:1.16}[a.type];
+ const size={P:.78,N:1.04,B:.97,R:1.05,Q:1.10,K:1.14}[a.type],heightFactor={P:1.02,N:1.13,B:1.20,R:1.14,Q:1.23,K:1.24}[a.type];
  const sizeFade=size*(1-Math.max(0,a.fade)*.25),idleSway=Math.sin(now/950+a.idle)*.009,walkLift=Math.sin((a.walk||0)*Math.PI)*.028,walkRoll=Math.sin((a.walk||0)*Math.PI*2)*.026;
- const root=T(I,[a.pos[0],.184+a.height+walkLift,a.pos[1]],[a.fall,a.yaw,a.lean+idleSway+walkRoll],[sizeFade,sizeFade,sizeFade]);
+ const root=T(I,[a.pos[0],.184+a.height+walkLift,a.pos[1]],[a.fall,a.yaw,a.lean+idleSway+walkRoll],[sizeFade,sizeFade*heightFactor,sizeFade]);
  // Common black-gold sculpted base; the top carries a type-specific insignia.
  const aura={P:C.emerald,N:C.blue,B:C.ivory,R:C.ruby,Q:C.violet,K:C.brightGold}[a.type];
  cy([0,.045,0],[.305,.095,.305],C.black,2,[0,0,0],root);
@@ -553,11 +573,12 @@ function drawFighter(a,now){
  for(let q=0;q<4;q++){let ang=q*Math.PI/2;sp([Math.cos(ang)*.14,.18,Math.sin(ang)*.14],[.018,.018,.018],gold,2,[0,0,0],root);} 
  // Distinctive rook: square defensive castle with a REAL cylindrical siege cannon.
  if(a.type==='R'){
-  bx([0,.59,0],[.39,.82,.38],w?'#c5b9a3':'#584249',3,[0,0,0],root);
+  cy([0,.59,0],[.29,.82,.29],w?'#c5b9a3':'#584249',3,[0,0,0],root);
+  for(const th of [0,Math.PI/2,Math.PI,3*Math.PI/2]){const px=.282*Math.sin(th),pz=.282*Math.cos(th);cy([px,.52,pz],[.032,.53,.032],C.darkGold,2,[0,0,0],root);}
   bx([0,.33,-.21],[.20,.23,.025],C.black,1,[0,0,0],root);
   bx([0,.33,-.239],[.09,.22,.027],gold,2,[0,0,0],root);
   for(let y of [.4,.67])for(const x of [-.13,.13]){
-   bx([x,y,-.202],[.07,.10,.01],C.shadow,1,[0,0,0],root);
+   sp([x,y,-.289],[.048,.06,.018],C.shadow,1,[0,0,0],root);
   }
   bx([0,.98,0],[.56,.14,.54],C.darkGold,2,[0,0,0],root);
   for(let j=0;j<4;j++)for(const k of [-1,1]){
@@ -589,7 +610,7 @@ function drawFighter(a,now){
   sp([0,.47,0],[.30,.24,.42],horse,0,[0,0,0],root);
   for(let x of [-.19,.19])for(let z of [-.29,.29]){
    cy([x,.265,z],[.073,.39,.068],w?'#a49b8b':'#402723',0,[z<0?-.12:.09,0,0],root);
-   bx([x,.10,z],[.105,.095,.115],C.black,1,[0,0,0],root);
+   sp([x,.10,z],[.095,.078,.115],C.black,1,[0,0,0],root);
   }
   sp([0,.72,-.32],[.18,.37,.17],horse,0,[-.36,0,0],root);
   sp([0,.90,-.52],[.16,.15,.24],horse,0,[0,0,0],root);
@@ -598,12 +619,12 @@ function drawFighter(a,now){
    sp([x,.92,-.705],[.024,.026,.018],C.black,1,[0,0,0],root);
   }
   cn([0,.58,.44],[.14,.32,.14],w?'#d9d1c5':'#a5524b',0,[.50,0,0],root);
-  bx([0,.54,0],[.42,.065,.48],gold,2,[0,0,0],root);
-  bx([0,.545,-.24],[.08,.09,.48],trim,1,[0,0,0],root);
+  sp([0,.54,0],[.30,.07,.39],gold,2,[0,0,0],root);
+  cy([0,.545,-.24],[.054,.12,.35],trim,1,[Math.PI/2,0,0],root);
   // Armored knight riding high above the saddle, notably different from any pawn.
   cy([0,.91,.04],[.16,.30,.16],steel,2,[0,0,0],root);
   sp([0,1.15,.04],[.14,.17,.14],steel,2,[0,0,0],root);
-  bx([0,1.15,-.105],[.19,.046,.047],C.darkGold,2,[0,0,0],root);
+  sp([0,1.15,-.105],[.13,.05,.035],C.darkGold,2,[0,0,0],root);
   cn([0,1.35,.055],[.084,.32,.094],w?'#fcf1db':'#c44c47',0,[0,0,0],root);
   // A long, unmistakable jousting lance pointed forward, which thrusts during combat.
   const lance=T(root,[.29,1.02,-.22],[a.slash*.14,0,a.slash*.26]);
@@ -633,6 +654,10 @@ function drawFighter(a,now){
  if(!pawn){
   cn([0,.49,.055],[king?.40:queen?.29:.25,king?.76:queen?.82:.68,king?.39:queen?.30:.25],dark,0,[0,0,0],root);
   cn([0,.53,-.015],[king?.32:queen?.24:.21,.67,king?.31:queen?.24:.22],cloth,0,[0,0,0],root);
+  // Rounded breastplate, layered chainmail collar and smooth shoulder armor.
+  sp([0,.69,-.108],[king?.265:.205,.24,king?.215:.17],w?'#d5d4cd':'#a2a9ad',2,[0,0,0],root);
+  rg([0,.79,-.01],[.21,.018,.21],gold,2,root);
+  for(const sx of [-1,1]){sp([sx*.24,.75,-.012],[.14,.095,.15],w?'#e8e0cf':'#9d4e49',2,[0,0,0],root);sp([sx*.24,.72,-.12],[.032,.032,.018],gold,2,[0,0,0],root);}
   if(king){
    // Wide ermine shoulder mantle, high jeweled chest cross.
    sp([0,.83,.03],[.36,.11,.30],C.ivory,1,[0,0,0],root);
@@ -654,8 +679,8 @@ function drawFighter(a,now){
  sp([0,hh,0],[pawn?.13:.15,pawn?.14:.165,.145],C.skin,0,[0,0,0],root);
  if(pawn){ // simple metal cap and large shield, clear silhouette
   sp([0,hh+.11,0],[.155,.135,.155],steel,2,[0,0,0],root);
-  bx([0,hh+.058,-.135],[.19,.044,.04],C.black,2,[0,0,0],root);
-  bx([0,.49,-.18],[.055,.23,.025],trim,2,[0,0,0],root);bx([0,.53,-.18],[.18,.05,.025],trim,2,[0,0,0],root);sp([0,.34,.10],[.06,.04,.06],gold,2,[0,0,0],root);sp([0,.42,.13],[.03,.03,.03],C.emerald,2,[0,0,0],root);
+  sp([0,hh+.058,-.135],[.15,.037,.035],C.black,2,[0,0,0],root);
+  cy([0,.49,-.18],[.033,.23,.025],trim,2,[0,0,0],root);sp([0,.53,-.18],[.15,.04,.025],trim,2,[0,0,0],root);sp([0,.34,.10],[.06,.04,.06],gold,2,[0,0,0],root);sp([0,.42,.13],[.03,.03,.03],C.emerald,2,[0,0,0],root);
   for(const xx of [-.15,.15]){bx([xx,.37,-.075],[.038,.24,.028],C.armor,2,[0,0,0],root);sp([xx,.23,-.09],[.057,.055,.06],C.leather,1,[0,0,0],root);}
  }else if(king){
   // Very large, unmistakably kingly 5-point crown with prominent central cross.
@@ -664,8 +689,8 @@ function drawFighter(a,now){
    cn([.145*Math.cos(t),hh+.30,.145*Math.sin(t)],[.06,.26,.06],gold,2,[0,0,0],root);
    sp([.145*Math.cos(t),hh+.39,.145*Math.sin(t)],[.033,.037,.033],j%2?C.ruby:C.blue,2,[0,0,0],root);
   }
-  bx([0,hh+.49,0],[.043,.23,.050],gold,2,[0,0,0],root);
-  bx([0,hh+.5,0],[.15,.045,.056],gold,2,[0,0,0],root);
+  cy([0,hh+.49,0],[.038,.23,.042],gold,2,[0,0,0],root);
+  sp([0,hh+.5,0],[.13,.038,.05],gold,2,[0,0,0],root);
   for(let j=0;j<6;j++){const ang=j*Math.PI/3;sp([.18*Math.sin(ang),hh+.13,.18*Math.cos(ang)],[.03,.035,.03],j%2?C.ruby:C.blue,2,[0,0,0],root);}
   bx([0,.58,-.35],[.27,.04,.027],gold,2,[0,0,0],root);
  }else if(queen){
@@ -679,7 +704,7 @@ function drawFighter(a,now){
  }else if(archer){
   // Archer is hooded instead of crowned or mitered; arrows visible over shoulder.
   cn([0,hh+.16,.035],[.18,.29,.18],dark,0,[0,0,0],root);
-  bx([0,hh+.06,-.15],[.19,.037,.055],gold,2,[0,0,0],root);
+  sp([0,hh+.06,-.15],[.165,.033,.045],gold,2,[0,0,0],root);
   cy([.20,.67,.175],[.10,.43,.10],C.leather,1,[-.25,0,0],root);
   for(let band=0;band<3;band++)rg([.20,.51+band*.14,.175],[.106,.012,.106],band===1?C.brightGold:C.steel,2,root);
   bx([0,.47,-.225],[.038,.26,.025],C.brightGold,2,[0,0,0],root);
@@ -714,8 +739,9 @@ function drawFighter(a,now){
   // Pawn short steel sword vs. king's large two-handed gilded blade.
   const len=pawn?.34:.68;
   cy([.068,-.39,0],[.030,.19,.027],C.leather,1,[0,0,0],right);
-  bx([.068,-.34,-.01],[pawn?.16:.26,.036,.06],gold,2,[0,0,0],right);
-  bx([.068,-.51-len*.25,-.01],[king?.10:.062,len,.031],C.blade,2,[0,0,0],right);
+  sp([.068,-.34,-.01],[pawn?.14:.23,.032,.044],gold,2,[0,0,0],right);
+  cn([.068,-.51-len*.25,-.01],[king?.088:.056,len,.037],C.blade,2,[Math.PI,0,0],right);
+  cy([.068,-.50-len*.22,-.040],[.010,len*.60,.008],C.steel,2,[0,0,0],right);
   cn([.068,-.53-len*.76,-.01],[king?.08:.055,.16,.027],C.blade,2,[Math.PI,0,0],right);
   if(king){bx([.068,-.53-len*.22,-.043],[.026,.45,.018],C.white,2,[0,0,0],right);}
  }else if(archer){
@@ -888,7 +914,7 @@ function pickFigure(cx,cy,touch=false){
  for(const a of actors){
   if(a.fade>.75)continue;
   const base=project([a.pos[0],.22+a.height,a.pos[1]]);
-  const modelHeights={K:1.8,Q:1.68,N:1.56,B:1.49,R:1.38,P:1.14};
+  const modelHeights={K:2.05,Q:1.94,N:1.65,B:1.68,R:1.53,P:1.08};
    const head=project([a.pos[0],modelHeights[a.type]+a.height,a.pos[1]]);
   const span=a.type==='N'?.53:a.type==='R'?.42:.35;
    const left=project([a.pos[0]-span,.66+a.height,a.pos[1]]);
@@ -923,7 +949,7 @@ function pickTarget(cx,cy,touch=false){
  return square||figure;
 }
 function setCamera(newYaw,newPitch,newDist,newTarget=null){yaw=newYaw;pitch=Math.max(.42,Math.min(1.54,newPitch));dist=Math.max(7.7,Math.min(28,newDist));if(newTarget)camTarget=newTarget;updateCamera();}
-function defaultCamera(){setCamera(flip?Math.PI:0,.96,(canvas.clientWidth/canvas.clientHeight<.83?17.2:14.5),[0,.25,0]);}
+function defaultCamera(){setCamera(flip?Math.PI:0,1.04,(canvas.clientWidth/canvas.clientHeight<.83?17.3:14.8),[0,.34,0]);}
 function animateCamera(dt){if(!cameraAnim)return;const c=cameraAnim;c.t=Math.min(1,c.t+dt/c.duration);let e=c.t*c.t*(3-2*c.t);yaw=c.from.yaw+(c.to.yaw-c.from.yaw)*e;pitch=c.from.pitch+(c.to.pitch-c.from.pitch)*e;dist=c.from.dist+(c.to.dist-c.from.dist)*e;camTarget=c.from.target.map((n,i)=>n+(c.to.target[i]-n)*e);if(c.t>=1)cameraAnim=null;}
 function startCam(target,duration=700){cameraAnim={from:{yaw,pitch,dist,target:[...camTarget]},to:target,t:0,duration};}
 function showToast(msg){toast.textContent=msg;toast.classList.add('visible');clearTimeout(showToast.id);showToast.id=setTimeout(()=>toast.classList.remove('visible'),1400);}
@@ -1146,7 +1172,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,debrisInfo:()=>debris?{type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
