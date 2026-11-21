@@ -162,7 +162,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V11</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V12</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -459,59 +459,69 @@ function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[
 let debris=null;
 function shatterVictim(victim){
  const white=victim.side==='w',t=victim.type;
- const colors=white?['#f0e8da','#d1c5b5','#c4ced9','#d7ac63','#7e4333']:['#a83839','#70242a','#b4bac3','#dcb36b','#43262b'];
+ const colors=white?['#f4ecdf','#d8cabc','#cfd9e5','#dfb768','#87503a','#f6d28e']:['#b53b3d','#7a2630','#bcc4ce','#e1bb72','#4e302f','#c85e57'];
  const fragments=[];
- for(let j=0;j<29;j++){
-  const angle=j*2.39996323+(Math.random()-.5)*.35;
-  const spread=.19+Math.random()*.40;
+ const baseCount=t==='K'||t==='Q'?42:t==='R'?40:t==='N'?38:34;
+ for(let j=0;j<baseCount;j++){
+  const angle=Math.random()*Math.PI*2;
+  const spread=.8+Math.random()*3.9; // fly across much more of the board, not just one square
+  const lift=.35+Math.random()*1.85;
+  const drift=(Math.random()-.5)*.7;
   fragments.push({
-   angle,spread,height:.22+Math.random()*1.2,
-   dx:Math.cos(angle)*spread,dz:Math.sin(angle)*spread,
-   size:.07+Math.random()*.13,stretch:.65+Math.random()*1.6,
-   spin:Math.random()*Math.PI*2,roll:(Math.random()-.5)*Math.PI*2,
-   mesh:j%6===0?'cone':j%5===0?'cyl':'box',
-   color:colors[j%colors.length],metal:j%4===2||j%4===3
+   angle,spread,height:lift,
+   dx:Math.cos(angle)*spread + drift,
+   dz:Math.sin(angle)*spread - drift*.4,
+   size:.05+Math.random()*.15,stretch:.58+Math.random()*1.9,
+   spin:Math.random()*Math.PI*2,roll:(Math.random()-.5)*Math.PI*3.6,
+   mesh:j%7===0?'cone':j%5===0?'cyl':'box',
+   color:colors[j%colors.length],metal:j%4===1||j%4===2,
+   settle:.65+Math.random()*.28,
+   skid:(.05+Math.random()*.18)*(Math.random()<.5?-1:1)
   });
  }
- // Extra crown/gem pieces from monarchs, larger stone fragments from a rook.
- if(t==='K'||t==='Q')for(let i=0;i<5;i++)fragments.push({angle:i*1.257,spread:.44,height:1.1,dx:Math.cos(i*1.257)*.42,dz:Math.sin(i*1.257)*.42,size:.11,stretch:1.0,spin:i,roll:.7,mesh:'cone',color:i%2?'#e8c27b':'#df6674',metal:true});
- if(t==='R')for(let i=0;i<6;i++)fragments.push({angle:i*1.047,spread:.42,height:.65,dx:Math.cos(i*1.047)*.44,dz:Math.sin(i*1.047)*.44,size:.14,stretch:1.2,spin:i,roll:.4,mesh:'box',color:colors[i%colors.length],metal:false});
+ // Extra hero pieces from special units: crown tips, staff crystals, cannon stones, lance splinters.
+ if(t==='K'||t==='Q')for(let i=0;i<8;i++)fragments.push({angle:i*.785,spread:2.6+Math.random()*1.4,height:1.4,dx:Math.cos(i*.785)*(2.2+Math.random()*1.2),dz:Math.sin(i*.785)*(2.2+Math.random()*1.2),size:.10+Math.random()*.05,stretch:1.05,spin:i,roll:1.2,mesh:i%2?'cone':'cyl',color:i%2?'#f0d08a':'#dc6b8d',metal:true,settle:.82,skid:.1});
+ if(t==='R')for(let i=0;i<10;i++)fragments.push({angle:i*.628,spread:2.1+Math.random()*1.6,height:.95,dx:Math.cos(i*.628)*(1.8+Math.random()*1.6),dz:Math.sin(i*.628)*(1.8+Math.random()*1.6),size:.12+Math.random()*.07,stretch:1.22,spin:i,roll:.8,mesh:'box',color:colors[i%colors.length],metal:false,settle:.9,skid:.16});
+ if(t==='B')for(let i=0;i<6;i++)fragments.push({angle:i*1.047,spread:2.0+Math.random()*1.2,height:1.1,dx:Math.cos(i*1.047)*(1.8+Math.random()),dz:Math.sin(i*1.047)*(1.8+Math.random()),size:.09,stretch:1.6,spin:i*.4,roll:1.0,mesh:'cyl',color:'#a07445',metal:false,settle:.85,skid:.12});
+ if(t==='N')for(let i=0;i<6;i++)fragments.push({angle:i*1.047,spread:1.9+Math.random()*1.5,height:1.0,dx:Math.cos(i*1.047)*(1.7+Math.random()*1.2),dz:Math.sin(i*1.047)*(1.7+Math.random()*1.2),size:.08+Math.random()*.04,stretch:1.45,spin:i,roll:1.1,mesh:'cone',color:i%2?'#7fcff4':'#e8d7b3',metal:true,settle:.82,skid:.13});
  debris={origin:[victim.pos[0],victim.pos[1]],side:victim.side,type:t,fragments,progress:0,fade:0,stamp:performance.now()};
  victim.shattered=true;
 }
 function drawDebris(now){
  if(!debris)return;
  const d=debris,f=d.progress,fade=d.fade;
- const shrink=Math.max(.002,1-fade*.994);
+ const shrink=Math.max(.002,1-fade*.992);
  for(const p of d.fragments){
-  // Smooth ballistic outward burst; settles flat on the square before holding still.
-  const travel=f*f*(3-2*f),x=d.origin[0]+p.dx*travel,z=d.origin[1]+p.dz*travel;
+  // Long scatter: first a fast ballistic flight, then a short skid/settle where pieces rest naturally across the board.
+  const flight=Math.min(1,f/.74), settle=f>.74?(f-.74)/.26:0;
+  const ease=flight*flight*(3-2*flight);
+  let x=d.origin[0]+p.dx*ease, z=d.origin[1]+p.dz*ease;
+  if(settle>0){x+=Math.cos(p.angle)*p.skid*(1-settle);z+=Math.sin(p.angle)*p.skid*(1-settle);}
   const size=p.size*shrink;
-  const bounce=(1-f)*Math.sin(Math.PI*f)*.22;
-  const y=.174+size*.48+p.height*(1-f)*(1-f)+bounce;
-  const rotation=[p.spin+f*p.roll, p.angle+f*(p.roll*.9),f*p.roll*1.7];
-  if(p.mesh==='cone')cn([x,y,z],[size*.75,size*p.stretch,size*.8],p.color,p.metal?2:1,rotation);
-  else if(p.mesh==='cyl')cy([x,y,z],[size*.75,size*p.stretch,size*.75],p.color,p.metal?2:1,rotation);
-  else bx([x,y,z],[size*.95,size*p.stretch,size*.7],p.color,p.metal?2:1,rotation);
+  const rise=(1-flight)*(1-flight)*p.height + Math.sin(Math.PI*flight)*.18;
+  const ground=0.172+size*(.38+.14*(1-p.settle));
+  const y=ground + rise;
+  const rx=p.spin+f*p.roll*2.2, ry=p.angle+f*(p.roll*1.4), rz=f*p.roll*2.8 + settle*(Math.PI*.5*p.settle);
+  if(p.mesh==='cone')cn([x,y,z],[size*.78,size*p.stretch,size*.82],p.color,p.metal?2:1,[rx,ry,rz]);
+  else if(p.mesh==='cyl')cy([x,y,z],[size*.78,size*p.stretch,size*.78],p.color,p.metal?2:1,[rx,ry,rz]);
+  else bx([x,y,z],[size*.98,size*p.stretch,size*.74],p.color,p.metal?2:1,[rx,ry,rz]);
  }
- // A low golden crackle remains during the settling phase and slowly disappears.
- if(f<.99){const radius=.24+f*.58;rg([d.origin[0],.188,d.origin[1]],[radius,.018,radius],d.side==='w'?'#ebdcad':'#eb745e',2);}
- if(fade>0){const radius=.64+fade*.24;rg([d.origin[0],.19,d.origin[1]],[radius,.012,radius],d.side==='w'?'#aa935a':'#873b33',2);}
+ const radius=.26+Math.min(1,f)*1.15;
+ if(f<.99){rg([d.origin[0],.188,d.origin[1]],[radius,.018,radius],d.side==='w'?'#ebdcad':'#eb745e',2);}
+ if(fade>0){const fadeRadius=1.2+fade*1.1;rg([d.origin[0],.19,d.origin[1]],[fadeRadius,.012,fadeRadius],d.side==='w'?'#aa935a':'#873b33',2);}
 }
 async function shatterAfterHit(victim,thisToken){
  if(token!==thisToken)return false;
  shatterVictim(victim);
- // Cinematic impact — short dolly-in on the falling statue, automatically restored after the capture.
- if(fxOn&&activeFight){startCam({yaw:yaw+.08,pitch:.88,dist:Math.max(8.6,dist*.93),target:[victim.pos[0],.62,victim.pos[1]]},280);}
+ if(fxOn&&activeFight){startCam({yaw:yaw+.11,pitch:.84,dist:Math.max(8.1,dist*.88),target:[victim.pos[0],.72,victim.pos[1]]},300);}
  const hit=[victim.pos[0],.70,victim.pos[1]];
- showToast('✦ SOCHA SA ROZTRIEŠTILA · TROSKY OSTÁVAJÚ 1,3 s');
- sparks(hit,38);clang();
+ showToast('✦ SOCHA SA ROZTRIEŠTILA · ÚLOMKY LETIA CEZ DOSKU');
+ sparks(hit,52);clang();
  stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');
- const blast=await tween(580,f=>{if(debris)debris.progress=smooth(f);});
+ const blast=await tween(980,f=>{if(debris)debris.progress=smooth(f);});
  if(!blast)return false;
- // 1,300 ms completely still fragments, visible on the chessboard.
- if(!await tween(1300,()=>{}))return false;
- if(!await tween(440,f=>{if(debris)debris.fade=smooth(f);}))return false;
+ if(!await tween(980,()=>{}))return false;
+ if(!await tween(560,f=>{if(debris)debris.fade=smooth(f);}))return false;
  if(token!==thisToken)return false;
  debris=null;victim.fade=1;
  return true;
@@ -603,7 +613,9 @@ function drawFighter(a,now){
   bx([-.22,.92,-.10],[.15,.25,.055],trim,2,[0,0,0],root);
   cn([0,.98,.23],[.18,.44,.12],w?'#f6ead5':'#b73d37',0,[.08,0,0],root);
   bx([0,.90,.22],[.05,.30,.02],gold,2,[0,0,0],root);
+  beam([-.18,.86,.07],[.18,.86,.07],.018,C.leather,root);
   for(const z of [-.24,.24])sp([0,.60,z],[.04,.04,.08],gold,2,[0,0,0],root);
+  sp([0,1.24,.02],[.04,.07,.04],C.ruby,4,[0,0,0],root);
   // Saddle leather, two visible reins and a sculpted mane along the horse neck.
   for(let j=0;j<4;j++)sp([0,.75+j*.065,-.33-j*.05],[.075,.08,.055],j%2?C.leather:gold,1,[0,0,0],root);
   for(const side of [-1,1])beam([side*.14,.89,-.53],[side*.19,.56,-.10],.017,C.leather,root);
@@ -627,6 +639,7 @@ function drawFighter(a,now){
    bx([0,.72,-.273],[.075,.37,.026],gold,2,[0,0,0],root);
    bx([0,.76,-.274],[.28,.066,.028],gold,2,[0,0,0],root);
    sp([0,.73,-.295],[.075,.076,.032],C.ruby,2,[0,0,0],root);
+   for(const x of [-.22,.22])sp([x,.88,.07],[.05,.07,.04],gold,2,[0,0,0],root);
   }
   if(queen){
    rg([0,.24,0],[.27,.025,.27],gold,2,root);
@@ -659,6 +672,7 @@ function drawFighter(a,now){
   // Gold open tiara, tall sculpted veil and central amethyst.
   cn([0,hh+.27,0],[.17,.31,.17],gold,2,[0,0,0],root);
   sp([0,hh+.42,-.04],[.079,.083,.053],C.violet,2,[0,0,0],root);
+  for(let i=0;i<3;i++)sp([0,hh+.34+.05*i,.12-.03*i],[.03,.03,.02],C.ether,4,[0,0,0],root);
   cn([0,hh+.21,.13],[.22,.44,.12],cloth,0,[.08,0,0],root);
   for(let j=0;j<6;j++){let t=j*Math.PI/3;sp([.17*Math.cos(t),hh+.18,.17*Math.sin(t)],[.033,.039,.033],C.ether,2,[0,0,0],root);}
   for(let j=0;j<5;j++){const y=.31+j*.11;sp([.19*Math.sin(j*.8),y,-.15],[.029,.034,.023],j%2?C.violet:gold,2,[0,0,0],root);}
@@ -671,6 +685,7 @@ function drawFighter(a,now){
   bx([0,.47,-.225],[.038,.26,.025],C.brightGold,2,[0,0,0],root);
   for(let i=0;i<4;i++){bx([.16+i*.032,1.07,.16],[.018,.32,.018],C.arrowwood,1,[0,0,.12],root);
    cn([.16+i*.032,1.245,.16],[.046,.095,.040],i%2?C.red:C.ivory,0,[0,0,0],root);}
+  beam([.11,.74,.13],[.24,.94,.20],.012,C.leather,root);
  }
  if(!pawn){
   // Fine royal stitching down the robe, rounded mail links and raised shoulder plates.
@@ -720,6 +735,7 @@ function drawFighter(a,now){
   sp([.11,-1.00,-.07],[.083,.09,.083],C.darkGold,2,[0,0,0],right);
   sp([.11,.32,-.07],[.13,.14,.13],C.violet,2,[0,0,0],right);
   rg([.11,.32,-.07],[.168,.024,.168],C.ether,2,right);
+  for(let i=0;i<4;i++){let a=i*Math.PI/2;sp([.11+Math.cos(a)*.08,.36,-.07+Math.sin(a)*.08],[.024,.024,.024],C.blue,4,[0,0,0],right);} 
   if(a.charge>0){sp([.11,.32,-.07],[.13+.15*a.charge,.14+.14*a.charge,.13+.15*a.charge],C.blue,2,[0,0,0],right);}
  }
 }
@@ -776,7 +792,7 @@ function drawAttackFx(now){if(!combatFx)return;const f=combatFx,t=Math.max(0,Mat
 function drawWeaponTrails(now){
  if(!activeFight||!fxOn)return;
  const a=activeFight.attacker,amount=Math.abs(a.slash||0);
- if(['P','K','N'].includes(a.type)&&amount>.10){
+ if(['P','K','N'].includes(a.type)&&amount>.08){
   const base=T(I,[a.pos[0],.18+a.height,a.pos[1]],[0,a.yaw,0]);
   const hue=a.type==='K'?C.brightGold:a.type==='N'?C.blue:C.steel;
   const swing=Math.max(-.5,Math.min(1.45,a.slash));
@@ -784,8 +800,8 @@ function drawWeaponTrails(now){
   for(let j=0;j<=9;j++){
    const ang=-.35+(j/9)*1.7+swing*.64;
    const p=M.apply(base,[.27+.46*Math.cos(ang),1.03+.37*Math.sin(ang),-.38]);
-   if(prev)beam(prev,p,.014*(1+j/13),hue);
-   if(j%3===0)sp(p,[.026,.025,.026],C.ivory,4);
+   if(prev)beam(prev,p,.018*(1+j/12),hue);
+   if(j%2===0){sp(p,[.030,.029,.030],C.ivory,4);rg(p,[.05,.008,.05],hue,4);} 
    prev=p;
   }
   const tip=M.apply(base,[.30+.48*Math.cos(swing),1.07+.38*Math.sin(swing),-.4]);
