@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: 3D drevená šachovnica, realistické historické figúrky a animované súboje.">
-<title>KRÁĽOVSKÉ ŽIVÉ ŠACHY 3D | Šermiarske súboje</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>KRÁĽOVSKÉ ŽIVÉ ŠACHY 3D | Opravené klikanie</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -15%,#68412b 0,transparent 58%),linear-gradient(90deg,#1b0f0c 0%,#342016 48%,#1d100c 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#0001 0 1px,transparent 1px 84px)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -17,10 +17,10 @@
 @media(prefers-reduced-motion:reduce){.figurine{animation:none!important}.piece{transition-duration:80ms!important}.fx-impact,.fx-spark,.fx-shard{animation-duration:100ms!important}}
 
 /* --- 3D orbit arena, v2 --- */
-.castle-scene{height:clamp(540px,56vw,860px);touch-action:pan-y}
+.castle-scene{height:clamp(540px,56vw,860px);touch-action:none}
 .board3d-stage{position:absolute;inset:0;z-index:5;overflow:hidden;background:radial-gradient(ellipse at 51% 58%,#c28d4b30 0%,transparent 69%)}
-#royalCanvas{position:absolute;inset:0;display:block;width:100%;height:100%;cursor:grab;touch-action:none;outline:0}
-#royalCanvas:active{cursor:grabbing}
+#royalCanvas{position:absolute;inset:0;display:block;width:100%;height:100%;cursor:pointer;touch-action:none;outline:0}
+#royalCanvas.is-orbiting{cursor:grabbing}
 .coordLayer,.sparkLayer{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .boardCoord{position:absolute;transform:translate(-50%,-50%);font:700 10px/1.1 Georgia,serif;color:#fee4aa;text-shadow:0 2px 2px #120802,0 0 7px #000;pointer-events:none}
 .board3d-hud{position:absolute;left:15px;right:15px;top:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
@@ -55,14 +55,14 @@
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ SKUTOČNÁ 3D ARÉNA</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ 3D ARÉNA · DOTYK OPRAVENÝ</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
       <button id="camZoomIn" title="Priblížiť">＋</button><button id="camZoomOut" title="Oddialiť">－</button>
       <button id="camTop" title="Pohľad zhora">▦</button><button id="camReset" title="Východisková kamera">⌂</button>
     </div>
-    <div class="interaction-guide"><span id="currentSquare">Ťahom myši otáčaš kameru</span><span>☛ Ťahaj = kamera · klik = ťah · koliesko = zoom</span></div>
+    <div class="interaction-guide"><span id="currentSquare">Ťukni na figúrku a potom na cieľové políčko</span><span>☛ Ťukni = výber · potiahni = kamera · 2 prsty = zoom</span></div>
   </div><div class="scene-vignette"></div>
 </div>
 <div class="fighter bottom white" id="whiteFighter"><div class="fighter-id"><div class="team-avatar">♔</div><div><div class="team-name" id="whiteName">Biele kráľovstvo</div><div class="team-tag">Rytieri Bieleho kríža</div></div></div><span class="turn-flag" id="whiteFlag">NA ŤAHU</span></div>
@@ -384,7 +384,57 @@ if(gl){
 const pMatrix=(aspect)=>{const f=1/Math.tan(Math.PI*47/360),n=.05,far=100;return [f/aspect,0,0,0,0,f,0,0,0,0,(far+n)/(n-far),-1,0,0,2*far*n/(n-far),0]};
 const vMatrix=()=>{const r=camRight,u=camUp,f=camForward,e=camera;return [r[0],u[0],-f[0],0,r[1],u[1],-f[1],0,r[2],u[2],-f[2],0,-V.dot(r,e),-V.dot(u,e),V.dot(f,e),1]};
 const project=p=>{const dif=V.sub(p,camera),depth=V.dot(dif,camForward);if(depth<.01)return null;let factor=Math.tan(47*Math.PI/360/2),aspect=canvas.clientWidth/canvas.clientHeight;return {x:canvas.clientWidth/2+V.dot(dif,camRight)/depth/factor/aspect*canvas.clientWidth/2,y:canvas.clientHeight/2-V.dot(dif,camUp)/depth/factor*canvas.clientHeight/2,depth};};
-function pick(cx,cy){let b=canvas.getBoundingClientRect(),nx=(cx-b.left)/b.width*2-1,ny=1-(cy-b.top)/b.height*2;let t=Math.tan(47*Math.PI/360/2),direction=V.norm(V.add(camForward,V.add(V.mul(camRight,nx*b.width/b.height*t),V.mul(camUp,ny*t))));let a=(.165-camera[1])/direction[1];if(a<=0)return null;const p=V.add(camera,V.mul(direction,a));let c=Math.floor(p[0]+4),r=Math.floor(p[2]+4);return r>=0&&r<8&&c>=0&&c<8?{r,c}:null;}
+// Precise 3-D board intersection plus larger hit areas on the 3-D fighters.
+// A model's crown/head is above its square and must still select that piece.
+function pick(cx,cy){
+ const b=canvas.getBoundingClientRect();
+ if(cx<b.left||cx>b.right||cy<b.top||cy>b.bottom)return null;
+ const nx=(cx-b.left)/b.width*2-1,ny=1-(cy-b.top)/b.height*2;
+ const t=Math.tan(47*Math.PI/360/2);
+ const direction=V.norm(V.add(camForward,V.add(V.mul(camRight,nx*b.width/b.height*t),V.mul(camUp,ny*t))));
+ if(direction[1]>=-.00001)return null;
+ const a=(.165-camera[1])/direction[1];if(a<=0)return null;
+ const p=V.add(camera,V.mul(direction,a));
+ let c=Math.floor(p[0]+4),r=Math.floor(p[2]+4);
+ return r>=0&&r<8&&c>=0&&c<8?{r,c}:null;
+}
+function pickFigure(cx,cy,touch=false){
+ const rect=canvas.getBoundingClientRect(), px=cx-rect.left,py=cy-rect.top;
+ let best=null,score=Infinity;
+ // Project a short vertical capsule for every figurine; include head, cape and feet.
+ // Legal destinations get priority if a piece is already selected.
+ for(const a of actors){
+  if(a.fade>.75)continue;
+  const base=project([a.pos[0],.22+a.height,a.pos[1]]);
+  const head=project([a.pos[0],a.type==='R'?1.22:1.30+a.height,a.pos[1]]);
+  const left=project([a.pos[0]-.38,.66+a.height,a.pos[1]]);
+  const right=project([a.pos[0]+.38,.66+a.height,a.pos[1]]);
+  if(!base||!head||!left||!right)continue;
+  const vx=head.x-base.x,vy=head.y-base.y;
+  const alpha=Math.max(0,Math.min(1,((px-base.x)*vx+(py-base.y)*vy)/(vx*vx+vy*vy||1)));
+  const hx=base.x+vx*alpha,hy=base.y+vy*alpha;
+  const d=Math.hypot(px-hx,py-hy);
+  const apparentWidth=Math.hypot(left.x-right.x,left.y-right.y);
+  const radius=Math.max(touch?15:10,Math.min(touch?37:33,apparentWidth*.52));
+  if(d>radius)continue;
+  // In a crowded perspective, the nearest visible figurine wins ties.
+  let candidate=d/radius + base.depth*.001;
+  if(selected && state.legal.some(m=>m.r===selected.r&&m.c===selected.c&&m.tr===a.r&&m.tc===a.c))candidate-=.18;
+  if(candidate<score){score=candidate;best={r:a.r,c:a.c};}
+ }
+ return best;
+}
+function pickTarget(cx,cy,touch=false){
+ const square=pick(cx,cy),figure=pickFigure(cx,cy,touch);
+ if(figure){
+  // Always allow touching a 3-D piece's upper body to select or capture it.
+  // When an empty destination was tapped clearly in its square, favor that square.
+  if(!square||engine.board[figure.r]?.[figure.c]&&engine.board[figure.r][figure.c][0]===engine.turn)return figure;
+  if(selected&&state.legal.some(m=>m.r===selected.r&&m.c===selected.c&&m.tr===figure.r&&m.tc===figure.c))return figure;
+  if(square.r===figure.r&&square.c===figure.c)return figure;
+ }
+ return square||figure;
+}
 function setCamera(newYaw,newPitch,newDist,newTarget=null){yaw=newYaw;pitch=Math.max(.42,Math.min(1.54,newPitch));dist=Math.max(7.7,Math.min(28,newDist));if(newTarget)camTarget=newTarget;updateCamera();}
 function defaultCamera(){setCamera(flip?Math.PI:0,.96,(canvas.clientWidth/canvas.clientHeight<.83?27.6:21.0),[0,.25,0]);}
 function animateCamera(dt){if(!cameraAnim)return;const c=cameraAnim;c.t=Math.min(1,c.t+dt/c.duration);let e=c.t*c.t*(3-2*c.t);yaw=c.from.yaw+(c.to.yaw-c.from.yaw)*e;pitch=c.from.pitch+(c.to.pitch-c.from.pitch)*e;dist=c.from.dist+(c.to.dist-c.from.dist)*e;camTarget=c.from.target.map((n,i)=>n+(c.to.target[i]-n)*e);if(c.t>=1)cameraAnim=null;}
@@ -396,7 +446,7 @@ function swish(){audio(500,.16,'sawtooth',.027)}function clang(){audio(730,.21,'
 function uiState(){state=engine.state();let side=engine.turn,ai=mode==='ai'&&side!==human; $('status').textContent=state.over?'Koniec kráľovskej bitky':ai||aiBusy?'Počítač premýšľa…':state.check?'ŠACH — '+(side==='w'?'Biele':'Červené'):'Na ťahu: '+(side==='w'?'Biele':'Červené')+' kráľovstvo'; $('substatus').textContent=state.over?'Pozri výsledok partie':busy?'Prebieha súboj':state.check?'Chráň kráľa!':'Vyber figúrku, potom označené políčko'; $('whiteFighter').classList.toggle('active',side==='w'&&!state.over);$('blackFighter').classList.toggle('active',side==='b'&&!state.over);
  $('whiteFlag').textContent=side==='w'&&!state.over?'NA ŤAHU':'ČAKÁ';$('blackFlag').textContent=side==='b'&&!state.over?'NA ŤAHU':'ČAKÁ';$('undoBtn').disabled=busy||!engine.history.length;
  let h=engine.history,list=$('moveList');$('moveCount').textContent=h.length+' polťahov';list.innerHTML=h.length?Array.from({length:Math.ceil(h.length/2)},(_,i)=>`<div class="move-pair"><span class="move-num">${i+1}.</span><span class="move-cell">${h[2*i]?ChessEngine.notation(h[2*i].move):''}</span><span class="move-cell dark">${h[2*i+1]?ChessEngine.notation(h[2*i+1].move):''}</span></div>`).join(''):'<div class="empty-moves">Pergamen je zatiaľ čistý. Začni prvým ťahom.</div>';list.scrollTop=list.scrollHeight;
- $('currentSquare').textContent=selected?'Vybrané: '+ChessEngine.sq(selected.r,selected.c):hovered?'Políčko: '+ChessEngine.sq(hovered.r,hovered.c):'Potiahni myšou a otáčaj kameru';
+ $('currentSquare').textContent=selected?'Vybrané: '+ChessEngine.sq(selected.r,selected.c):hovered?'Políčko: '+ChessEngine.sq(hovered.r,hovered.c):'Ťukni na figúrku a vyber ťah';
 }
 function uiMode(){for(const b of $('modeSeg').querySelectorAll('button'))b.classList.toggle('on',b.dataset.mode===mode);for(const b of $('sideSeg').querySelectorAll('button'))b.classList.toggle('on',b.dataset.side===human);$('aiOptions').style.display=mode==='ai'?'block':'none';$('blackName').textContent=mode==='ai'&&human==='w'?'Červené kráľovstvo · AI':'Červené kráľovstvo';$('whiteName').textContent=mode==='ai'&&human==='b'?'Biele kráľovstvo · AI':'Biele kráľovstvo';}
 function reset(){token++;engine.reset();busy=false;aiBusy=false;selected=null;hovered=null;last=null;activeFight=null;regen();uiMode();$('promotionDialog').hidden=true;$('gameoverDialog').hidden=true;uiState();if(mode==='ai'&&human==='b')queueAI();}
@@ -435,10 +485,59 @@ function minimax(depth,side,alpha,beta,limit){if(performance.now()>limit)throw E
 function chooseAI(){let opts=state.legal;if(!opts.length)return null;if($('difficulty').value==='easy')return opts[Math.floor(Math.random()*opts.length)];let side=engine.turn,limit=performance.now()+($('difficulty').value==='hard'?1000:320);let best=opts[Math.floor(Math.random()*opts.length)];for(let depth=1;depth<=($('difficulty').value==='hard'?3:2);depth++){let win=best,score=-Infinity;try{for(const m of moveOrder(opts)){let s=engine.snap();engine.make(m);let v;try{v=minimax(depth-1,side,-Infinity,Infinity,limit)}finally{engine.restore(s)}v+=Math.random()*.01;if(v>score){score=v;win=m;}}best=win;}catch(e){break;}}return best;}
 function queueAI(){if(mode!=='ai'||state.over||engine.turn===human)return;aiBusy=true;uiState();const t=token;setTimeout(()=>{if(t!==token||busy||state.over)return;let m=chooseAI();aiBusy=false;if(m)execute(m);},430);}
 function undo(){if(busy||!engine.history.length)return;token++;engine.undo();if(mode==='ai'&&engine.history.length&&engine.turn!==human)engine.undo();selected=null;aiBusy=false;last=engine.history.at(-1)?.move||null;regen();uiState();if(mode==='ai'&&engine.turn!==human)queueAI();}
-let pointers=new Map(),pointerOrigin=null,dragged=false,oldTouchDist=null;
-canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});pointerOrigin={x:e.clientX,y:e.clientY};dragged=false;cameraAnim=null;});
-canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId)){let h=pick(e.clientX,e.clientY);if(h?.r!==hovered?.r||h?.c!==hovered?.c){hovered=h;uiState();}return;}let old=pointers.get(e.pointerId),dx=e.clientX-old.x,dy=e.clientY-old.y;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(Math.hypot(e.clientX-pointerOrigin.x,e.clientY-pointerOrigin.y)>7)dragged=true;if(pointers.size>=2){const pts=[...pointers.values()],distance=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);if(oldTouchDist)dist=Math.max(7.7,Math.min(28,dist*oldTouchDist/distance));oldTouchDist=distance;dragged=true;}else if(dragged){if(e.shiftKey||e.buttons===2){camTarget[0]=Math.max(-3,Math.min(3,camTarget[0]+(-dx*.012*Math.cos(yaw)+dy*.012*Math.sin(yaw))));camTarget[2]=Math.max(-3,Math.min(3,camTarget[2]+(dx*.012*Math.sin(yaw)+dy*.012*Math.cos(yaw))));}else{yaw-=dx*.008;pitch=Math.max(.42,Math.min(1.54,pitch+dy*.007));}updateCamera();}});
-canvas.addEventListener('pointerup',e=>{let click=!dragged&&pointers.size===1; pointers.delete(e.pointerId);oldTouchDist=null;if(click){let square=pick(e.clientX,e.clientY);if(square)clickSquare(square.r,square.c);}dragged=false;});canvas.addEventListener('pointercancel',e=>{pointers.delete(e.pointerId);dragged=false;oldTouchDist=null;});
+// Touch-friendly tap and orbit gestures. No accidental camera movement during a tap.
+let pointers=new Map(),pointerOrigin=null,dragged=false,oldTouchDist=null,multiGesture=false,lastPicked=0;
+canvas.addEventListener('pointerdown',e=>{
+ if(e.button!==undefined && e.button!==0 && e.pointerType==='mouse'&&e.button!==2)return;
+ try{canvas.setPointerCapture(e.pointerId);}catch(_){}
+ pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,kind:e.pointerType});
+ if(pointers.size===1){pointerOrigin={x:e.clientX,y:e.clientY};dragged=false;multiGesture=false;}
+ else multiGesture=true;
+ cameraAnim=null;
+});
+canvas.addEventListener('pointermove',e=>{
+ if(!pointers.has(e.pointerId)){
+  const h=pickTarget(e.clientX,e.clientY,e.pointerType==='touch');
+  if(h?.r!==hovered?.r||h?.c!==hovered?.c){hovered=h;uiState();}
+  return;
+ }
+ const old=pointers.get(e.pointerId),dx=e.clientX-old.x,dy=e.clientY-old.y;
+ old.x=e.clientX;old.y=e.clientY;
+ const threshold=e.pointerType==='touch'?19:7;
+ if(Math.hypot(e.clientX-old.startX,e.clientY-old.startY)>threshold)dragged=true;
+ if(pointers.size>=2){
+  const pts=[...pointers.values()],gap=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+  if(oldTouchDist && gap>5)dist=Math.max(7.7,Math.min(28,dist*oldTouchDist/gap));
+  oldTouchDist=gap;dragged=true;multiGesture=true;
+ }else if(dragged){
+  canvas.classList.add('is-orbiting');
+  if(e.shiftKey||e.buttons===2){camTarget[0]=Math.max(-3,Math.min(3,camTarget[0]+(-dx*.012*Math.cos(yaw)+dy*.012*Math.sin(yaw))));camTarget[2]=Math.max(-3,Math.min(3,camTarget[2]+(dx*.012*Math.sin(yaw)+dy*.012*Math.cos(yaw))));}
+  else{yaw-=dx*.008;pitch=Math.max(.42,Math.min(1.54,pitch+dy*.007));}
+  updateCamera();
+ }
+});
+canvas.addEventListener('pointerup',e=>{
+ const old=pointers.get(e.pointerId);if(!old)return;
+ const movement=Math.hypot(e.clientX-old.startX,e.clientY-old.startY);
+ const single=pointers.size===1&&!multiGesture;
+ pointers.delete(e.pointerId);oldTouchDist=null;
+ canvas.classList.remove('is-orbiting');
+ if(single&&!dragged&&movement<(e.pointerType==='touch'?20:9)){
+  const square=pickTarget(e.clientX,e.clientY,e.pointerType==='touch');
+  lastPicked=performance.now();
+  if(square){clickSquare(square.r,square.c);hovered=square;}
+  else showToast('Ťukni na figúrku alebo políčko šachovnice');
+ }
+ if(!pointers.size){dragged=false;pointerOrigin=null;multiGesture=false;}
+});
+canvas.addEventListener('pointercancel',e=>{pointers.delete(e.pointerId);oldTouchDist=null;multiGesture=false;dragged=false;canvas.classList.remove('is-orbiting');});
+canvas.addEventListener('lostpointercapture',e=>{pointers.delete(e.pointerId);});
+// Fallback for browsers that synthesize click without Pointer Events.
+canvas.addEventListener('click',e=>{
+ if('PointerEvent' in window)return; // pointerup already handled; avoid delayed synthetic double-clicks
+ const square=pickTarget(e.clientX,e.clientY,true);
+ if(square){lastPicked=performance.now();clickSquare(square.r,square.c);}
+});
 canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7.7,Math.min(23,dist*(e.deltaY>0?1.075:.925)));updateCamera();},{passive:false});canvas.addEventListener('contextmenu',e=>e.preventDefault());
 window.addEventListener('keydown',e=>{if(document.activeElement?.tagName==='SELECT'||document.activeElement?.tagName==='INPUT')return;let handled=true;switch(e.key.toLowerCase()){case'arrowleft':case'a':yaw-=.15;break;case'arrowright':case'd':yaw+=.15;break;case'arrowup':case'w':pitch=Math.min(1.54,pitch+.11);break;case'arrowdown':case's':pitch=Math.max(.42,pitch-.11);break;case'+':case'=':dist=Math.max(7.7,dist-.9);break;case'-':dist=Math.min(23,dist+.9);break;case'0':case'r':defaultCamera();break;default:handled=false;}if(handled){e.preventDefault();cameraAnim=null;updateCamera();}});
 $('camReset').onclick=()=>{cameraAnim=null;defaultCamera();};$('camTop').onclick=()=>{let target={yaw,pitch:1.53,dist:16,target:[0,.24,0]};startCam(target,600);};$('camLeft').onclick=()=>{yaw-=.3;updateCamera()};$('camRight').onclick=()=>{yaw+=.3;updateCamera()};$('camZoomIn').onclick=()=>{dist=Math.max(7.7,dist-1.2);updateCamera()};$('camZoomOut').onclick=()=>{dist=Math.min(23,dist+1.2);updateCamera()};
@@ -472,7 +571,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,setCamera,reset,execute,ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
