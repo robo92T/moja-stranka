@@ -180,6 +180,11 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 /* V19: slightly sharper local contrast to reveal carved grooves on small phone screens */
 .castle-scene{filter:contrast(1.035)}
 #royalCanvas{filter:contrast(1.075) saturate(.93)}
+
+/* Filmové súboje sú samostatný herný prepínač: stále zachováva ťahy a pravidlá. */
+#combatBtn[aria-pressed="true"]{background:linear-gradient(145deg,#684331,#3d241d);color:#ffe5ba;border-color:#b7864f}
+#combatBtn[aria-pressed="false"]{background:rgba(86,78,70,.18);color:#c7baa7;border-color:#645448}
+@media(max-width:700px){#combatBtn{min-width:132px;min-height:44px}}
 </style>
 </head><body>
 <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -192,7 +197,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V21</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V22</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -208,9 +213,9 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
  <div class="precise-grid" id="touchGrid" role="group" aria-label="Kontrolná šachovnica, 8 krát 8 políčok"></div>
  <div class="companion-bottom"><span>◉ Posledný ťah</span><span>● Možný ťah</span><span>♔ Biele dole</span></div>
 </section>
-<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia v11: filmové šermovanie, procedurálne textúry, dynamické pochodne a 3D rozpad figúrok.</div>
+<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia V22: 12 náhodných choreografií súbojov, 10 variantov rozbitia, fyzika úlomkov a ovládanie animácií.</div>
 </section>
-<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Vyrezávané kamenné šachové sochy bez vytŕčajúcich zbraní. Pri zajatí ožijú, bojujú a znovu skameniejú; porazené sa rozbijú s fyzikou úlomkov. Každý druh útočí inak; po roztrieštení zostávajú úlomky 1,3 sekundy na doske. Dole je stále viditeľná 2D kontrolná šachovnica.</p>
+<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé vyrezávané sochy. Pri zajatí sa prebudia, spravia niekoľko náhodných výpadov, ústupov, úhybov a protiútokov. Porazené sa rozbijú jedným z 10 spôsobov; úlomky dopadajú, odskakujú, šmýkajú sa a pomaly miznú. Bojové animácie môžeš kedykoľvek vypnúť. Dole zostáva ovládateľná 2D šachovnica.</p>
 <span class="field-label">HERNÝ REŽIM</span><div class="seg" id="modeSeg"><button class="on" data-mode="ai">⚔ Proti počítaču</button><button data-mode="local">♟ Dvaja hráči</button></div>
 <div id="aiOptions"><span class="field-label">VYBER SVOJE KRÁĽOVSTVO</span><div class="seg colors" id="sideSeg"><button class="on" data-side="w">♔ Biele</button><button data-side="b">♚ Červené</button></div><label for="difficulty" class="field-label">SILA SÚPERA</label><select id="difficulty" class="difficulty"><option value="easy">Panoš · ľahká</option><option selected value="medium">Rytier · stredná</option><option value="hard">Veľmajster · ťažká</option></select></div>
 <div class="statusbox"><div class="status-seal">⚜</div><div><div id="status" class="status-text">Na ťahu: Biele kráľovstvo</div><div id="substatus" class="status-sub">Vyber figúrku na šachovnici</div></div></div>
@@ -221,16 +226,16 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 <div><span>♗</span><strong>Strelec</strong><small>Lukostrelec · luk a šípy</small></div>
 <div><span>♞</span><strong>Jazdec</strong><small>Kôň · rytierska kopija</small></div>
 <div><span>♚</span><strong>Kráľ</strong><small>Veľká koruna · meč</small></div>
-<div><span>♛</span><strong>Kráľovná</strong><small>Tiara · magická palica</small></div>
+<div><span>♛</span><strong>Kráľovná</strong><small>Tiara · krátka dýka</small></div>
 </div></details>
-<div class="buttons"><button id="newGame" class="action primary">✦ Nová partia</button><button id="undoBtn" class="action">↶ Vrátiť ťah</button><button id="flipBtn" class="action">↕ Otočiť dosku</button><button id="effectsBtn" class="action">✧ Efekty: zap.</button></div>
+<div class="buttons"><button id="newGame" class="action primary">✦ Nová partia</button><button id="undoBtn" class="action">↶ Vrátiť ťah</button><button id="flipBtn" class="action">↕ Otočiť dosku</button><button id="effectsBtn" class="action">✧ Efekty: zap.</button><button id="combatBtn" class="action" aria-pressed="true" title="Zapnúť alebo vypnúť celé bojové animácie, nie šachové pravidlá">⚔ Súboje: zap.</button></div>
 </div><div class="pane moves-pane"><div class="moves-top"><h2>Kronika <i>bitky</i></h2><span id="moveCount" class="move-count">0 ťahov</span></div><div id="moveList" class="moves" aria-live="polite"><div class="empty-moves">Pergamen je zatiaľ čistý. Začni prvým ťahom.</div></div></div>
 <div class="small-note">♜ &nbsp; Šach je strategická hra. Figúrky pri súboji nekrvácajú — iba padnú a rozplynú sa v iskrach.</div>
 </aside>
-</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V10</footer>
+</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V22</footer>
 </div>
 <div class="dialog" id="promotionDialog" hidden><div class="modal-card"><div class="eyebrow">POVÝŠENIE</div><h2>Komu dáš korunu?</h2><p>Tvoj pešiak dorazil na koniec bojiska. Vyber figúrku.</p><div class="promote-items" id="promotionChoices"></div></div></div>
-<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
+<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>⚔ Súboje: zap./vyp. prepína filmový boj a rozbíjanie. Pri vypnutí sa zajatia vykonajú okamžite.</li><li>Pri zapnutých súbojoch figúrky vyrazia, ustúpia, vyhnú sa útoku a náhodne kombinujú obrany a protiútoky.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
 <div class="dialog" id="gameoverDialog" hidden><div class="modal-card"><div class="gameover-mark">♛</div><div class="eyebrow">KONIEC KRÁĽOVSKEJ BITKY</div><h2 id="gameoverTitle">Koniec hry</h2><p id="gameoverText"></p><button class="action primary help-close" id="againBtn">⚔ Hrať znova</button><button class="action help-close" id="closeGameover">Pozrieť šachovnicu</button></div></div>
 <script>// Self-contained chess rules engine. No external services are required.
 class ChessEngine {
@@ -411,7 +416,7 @@ function showCheckNotice(isMate){
 }
 
 const X=(r,c)=>[c-3.5,r-3.5]; // world x,z
-let actors=[],mode='ai',human='w',selected=null,hovered=null,last=null,state=engine.state(),busy=false,aiBusy=false,soundOn=true,fxOn=true,token=0,showMoves=true,flip=false,soundCtx=null;
+let actors=[],mode='ai',human='w',selected=null,hovered=null,last=null,state=engine.state(),busy=false,aiBusy=false,soundOn=true,fxOn=true,combatOn=true,token=0,showMoves=true,flip=false,soundCtx=null;
 let yaw=0,pitch=.89,dist=14,camTarget=[0,.2,0],camera=[0,0,0],camForward=[0,0,-1],camRight=[1,0,0],camUp=[0,1,0];
 let savedCam=null,cameraAnim=null,activeFight=null;
 const gl=canvas.getContext('webgl',{alpha:true,antialias:true,depth:true,premultipliedAlpha:false,powerPreference:'high-performance'});
@@ -606,6 +611,7 @@ function drawCarvedStatue(a,now){
  const ratio={P:.90,N:1.02,B:1.01,R:1.05,Q:1.00,K:1.05}[a.type];
  const root=T(I,[a.pos[0],.182+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[ratio,ratio,ratio]);
  shape('sculpt_'+a.type,[0,0,0],[1,1,1],stone,6,[0,0,0],root);
+ if((a.damageProgress||0)>.01){const cut=w?'#8b7860':'#4d2825',power=Math.min(1,a.damageProgress),baseZ=-Math.max(.13,carvedRadius(a.type,.65));for(let j=0;j<8;j++){const y0=.32+j*.087;if((j/8)>power)continue;const x0=Math.sin(j*1.75)*.11;beam([x0,y0,baseZ],[x0+Math.sin(j*2.3)*.065,y0+.09,baseZ-.011],.009,cut,root);}}
  // Distance-based mesh detail: sculpt geometry/engravings always exist; fine relief only near camera.
  const duelDetail=activeFight&&(a===activeFight.attacker||a===activeFight.victim);
  const closeInspect=dist<9.3&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<2.2;
@@ -885,23 +891,23 @@ function drawBoard(now){
  for(let z of [-5.86,5.86])for(let x=-4;x<=4;x+=2){bx([x,-.24,z],[1.68,.36,.10],x%4===0?C.stone:C.stoneDark,3);bx([x,-.05,z],[1.74,.037,.14],C.darkGold,2);}
  for(let x of [-5.84,5.84])for(let z=-4;z<=4;z+=2){bx([x,-.24,z],[.10,.36,1.65],z%4===0?C.stone:C.stoneDark,3);}
 }
-function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[0],type:type[1],pos:[...X(r,c)],height:0,yaw:type[0]==='w'?0:Math.PI,fall:0,fade:0,slash:0,guard:0,lean:0,charge:0,walk:0,idle:Math.random()*10,awake:0,damaged:false,shattered:false}:null;}
+function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[0],type:type[1],pos:[...X(r,c)],height:0,yaw:type[0]==='w'?0:Math.PI,fall:0,fade:0,slash:0,guard:0,lean:0,charge:0,walk:0,idle:Math.random()*10,awake:0,damageProgress:0,damaged:false,shattered:false}:null;}
 
 // Physical 3D fragments survive the impact, rest on their conquered square,
 // then shrink and dissipate ONLY after a 1.3 second hold.
 let debris=null;
 // Porcelain fracture physics: each type determines the radius of the breakage.
 const SHATTER_RADII={P:.30,N:1.13,B:1.32,R:1.40,Q:1.72,K:1.75};
-const DEATH_MODES=['shattered','halved','toppled','cracked','split','skidded'];
+const DEATH_MODES=['shattered','halved','toppled','cracked','split','skidded','burst','crumbled','crownfall','spiral'];
 let forcedDeathMode=null; // available for deterministic animation tests only
 function shatterVictim(victim){
  const type=victim.type,light=victim.side==='w';
  const palette=light?['#efe3d2','#dfd1bd','#c8b9a3','#f5eee2','#baaa95']:['#8f584b','#76473d','#a96f62','#6b3f38','#9c6658'];
  const roll=Math.random();
- const deathMode=forcedDeathMode||(roll<.24?'shattered':roll<.42?'halved':roll<.58?'toppled':roll<.74?'cracked':roll<.88?'split':'skidded');
+ const deathMode=forcedDeathMode||DEATH_MODES[Math.floor(Math.random()*DEATH_MODES.length)];
  const maxRange=SHATTER_RADII[type],fragments=[];
  const nominal={P:24,N:38,B:38,R:41,Q:46,K:50}[type];
- const quantity=deathMode==='shattered'?nominal:deathMode==='halved'?Math.round(nominal*.48):deathMode==='toppled'?Math.round(nominal*.18):deathMode==='cracked'?Math.round(nominal*.28):deathMode==='split'?Math.round(nominal*.40):Math.round(nominal*.34);
+ const quantity=deathMode==='shattered'||deathMode==='burst'?nominal:deathMode==='halved'?Math.round(nominal*.48):deathMode==='toppled'?Math.round(nominal*.18):deathMode==='cracked'?Math.round(nominal*.28):deathMode==='split'?Math.round(nominal*.40):deathMode==='crownfall'?Math.round(nominal*.27):deathMode==='crumbled'?Math.round(nominal*.60):Math.round(nominal*.34);
  const dirBase=Math.random()*Math.PI*2;
  for(let i=0;i<quantity;i++){
   const branch=i%2===0?-1:1;
@@ -911,6 +917,10 @@ function shatterVictim(victim){
   if(deathMode==='cracked'){radius=(.10+Math.random()*.24)*maxRange;height=.14+Math.random()*.40;arcMul=.38+Math.random()*.14;slide=(Math.random()-.5)*.03;}
   if(deathMode==='split'){a=dirBase+branch*(1.10+Math.random()*.20)+(Math.random()-.5)*.16;radius=(.24+Math.random()*.44)*maxRange;slide=.08+Math.random()*.12;arcMul=.68+Math.random()*.20;}
   if(deathMode==='skidded'){a=dirBase+(Math.random()-.5)*.24;radius=(.26+Math.random()*.42)*maxRange;height=.12+Math.random()*.22;slide=.22+Math.random()*.26;arcMul=.30+Math.random()*.10;}
+  if(deathMode==='burst'){a=dirBase+i*2.39996+(Math.random()-.5)*.48;radius=(.60+Math.random()*.40)*maxRange;arcMul=1.28+Math.random()*.68;}
+  if(deathMode==='crumbled'){radius=(.05+Math.random()*.35)*maxRange;height=.10+Math.random()*.45;arcMul=.24+Math.random()*.26;slide=Math.random()*.06;}
+  if(deathMode==='crownfall'){if(i<quantity*.30){height=type==='P'?.70:1.5;radius=(.25+Math.random()*.4)*maxRange;arcMul=1.10+Math.random()*.2;}else{radius=(.04+Math.random()*.26)*maxRange;arcMul=.35+Math.random()*.2;}}
+  if(deathMode==='spiral'){a=dirBase+i*.72;radius=(.10+(i/Math.max(1,quantity))*.82)*maxRange;arcMul=.68+Math.random()*.32;slide=.11+Math.random()*.22;}
   fragments.push({
    mesh:i%4===0?'chip':i%5===0?'cone':'shard',color:palette[i%palette.length],material:5,
    ox:(Math.random()-.5)*.10,oz:(Math.random()-.5)*.10,startY:height,
@@ -918,7 +928,7 @@ function shatterVictim(victim){
    delay:Math.min(.34,(1-height/(type==='P'?1.1:1.9))*.20+Math.random()*.12),
    size:.048+Math.random()*(type==='P'?.060:.086),stretch:.62+Math.random()*1.8,
    spin:Math.random()*6.28,turn:(Math.random()-.5)*(deathMode==='skidded'?3.2:8.4),impact:(Math.random()-.5)*.030,
-   glaze:i%5!==0,slide,arcMul,settleJitter:Math.random()*0.04
+   glaze:i%5!==0,slide,arcMul,settleJitter:Math.random()*0.04,bounces:1+Math.floor(Math.random()*3),spinDamp:.3+Math.random()*.65
   });
  }
  debris={origin:[...victim.pos],side:victim.side,type,deathMode,fragments,progress:0,fade:0,maxRange,stamp:performance.now(),lingerBeforeMove:1000};
@@ -929,9 +939,9 @@ function drawBrokenRemnant(a,now){
  const mode=debris.deathMode,fade=debris.fade;
  const w=a.side==='w';const base=w?'#e9dfcd':'#9a463f',trim=w?'#d8bd94':'#b17c5b';
  const shrink=Math.max(.012,1-.93*fade),scale={P:.8,N:1.05,B:1.0,R:1.08,Q:1.12,K:1.20}[a.type]*shrink;
- const tilt=mode==='toppled'?1.42:mode==='skidded'?1.10:mode==='cracked'?.23:mode==='split'?.18:.14;
+ const tilt=mode==='toppled'?1.42:mode==='skidded'?1.10:mode==='crownfall'?.34:mode==='cracked'?.23:mode==='split'?.18:.14;
  const root=T(I,[a.pos[0],.20+(mode==='toppled'?.08:0),a.pos[1]],[tilt,a.yaw,.18],[scale,scale,scale]);
- if(mode==='shattered')return;
+ if(mode==='shattered'||mode==='burst'||mode==='crumbled'||mode==='spiral')return;
  if(mode==='toppled'){
   // The defeated statuette remains almost complete, lying on the board with a cracked crown/helmet.
   cn([0,.50,0],[.29,.84,.27],base,5,[0,0,0],root);
@@ -969,9 +979,9 @@ function drawDebris(now){
   const size=p.size*shrink,ground=.17+size*.35;
   const arc=Math.sin(Math.PI*flight)*(.18+.26*p.startY)*(p.arcMul||1);
   const falling=(p.startY-ground)*(1-drift)*(1-drift);
-  const bounce=settle>0?(0.095+p.settleJitter)*Math.exp(-3.6*settle)*Math.abs(Math.sin(settle*Math.PI*3.4)):0;
+  const bounce=settle>0?(0.080+p.settleJitter)*Math.exp(-4.6*settle)*Math.abs(Math.sin(settle*Math.PI*(2.2+(.8*p.bounces)))):0;
   const y=ground+falling+arc+bounce;
-  const rot=[p.spin+t*p.turn*1.65,p.angle+t*p.turn*.95,t*p.turn*1.25+(1-settle)*(p.slide||0)*1.6];
+  const drag=1-(p.spinDamp||.5)*settle;const rot=[p.spin+t*p.turn*1.65*drag,p.angle+t*p.turn*.95*drag,t*p.turn*1.25*drag+(1-settle)*(p.slide||0)*1.6];
   if(p.mesh==='cone')cn([x,y,z],[size*.74,size*p.stretch,size*.74],p.color,p.material,rot);
   else if(p.mesh==='chip')ch([x,y,z],[size*1.1,size*p.stretch,size*.82],p.color,p.material,rot);
   else sh([x,y,z],[size*1.1,size*p.stretch,size*.84],p.color,p.material,rot);
@@ -985,13 +995,13 @@ async function shatterAfterHit(victim,thisToken){
  shatterVictim(victim);
  if(fxOn&&activeFight)startCam({yaw:yaw+.10,pitch:.82,dist:Math.max(8.1,dist*.90),target:[victim.pos[0],.70,victim.pos[1]]},380);
  const hit=[victim.pos[0],.72,victim.pos[1]];
- const names={shattered:'ÚPLNÝ ROZPAD',halved:'ROZBITÁ POLOVICA',toppled:'PÁD SOCHY',cracked:'PRASKLINY V KAMENI',split:'ROZŠTIEPENIE SOCHY',skidded:'PÁD A ŠMYK PO DOSKE'};
+ const names={shattered:'ÚPLNÝ ROZPAD',halved:'ROZBITÁ POLOVICA',toppled:'PÁD SOCHY',cracked:'PRASKLINY V KAMENI',split:'ROZŠTIEPENIE SOCHY',skidded:'PÁD A ŠMYK PO DOSKE',burst:'EXPLOZÍVNY ROZLET',crumbled:'POMALÉ DROBENIE',crownfall:'ODLOMENÁ HLAVA A KORUNA',spiral:'ŠPIRÁLOVÝ ROZLET'};
  showToast('✧ '+names[debris.deathMode]+' · SLOW MOTION ZÁSAH');
  sparks(hit,debris.deathMode==='shattered'?36:debris.deathMode==='halved'?24:16);clang();
  stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');
  if(!await tween(1470,t=>{
    if(debris)debris.progress=t*t*(3-2*t);
-   victim.damageFade=Math.max(0,t-.72)*.55;
+   victim.damageFade=Math.max(0,t-.72)*.55;victim.damageProgress=Math.max(0,1-t)*.8;
  }))return false;
  // Hold the broken statue for a full second before the victor takes the square.
  if(!await tween((debris?.lingerBeforeMove)||1000,()=>{}))return false;
@@ -1354,10 +1364,91 @@ function clickSquare(r,c){if(busy||state.over||mode==='ai'&&engine.turn!==human)
 function choosePromotion(){return new Promise(resolve=>{let list=$('promotionChoices');list.innerHTML='';for(const [k,glyph] of [['Q','♕'],['R','♖'],['B','♗'],['N','♘']]){let b=document.createElement('button');b.textContent=glyph;b.title=pieceNames[k];b.onclick=()=>{$('promotionDialog').hidden=true;resolve(k);};list.appendChild(b);} $('promotionDialog').hidden=false;});}
 function tween(duration,updater){return new Promise(resolve=>{let start=performance.now();let t=token;function go(now){if(t!==token){resolve(false);return;}let f=Math.min(1,(now-start)/duration);updater(f);if(f<1)requestAnimationFrame(go);else resolve(true);}requestAnimationFrame(go);});}
 const smooth=f=>f*f*(3-2*f);
+// V22: Real kinetic duel, not just arm motion. Multiple choreographies with actual
+// world-space lunges, side-steps, recoils, parries and counter-attacks. Same meshes throughout.
+const DUEL_POSES={
+ stare:{label:'Zameranie',ms:220,af:.01,as:0,vf:0,vs:0,slash:-.05,guard:.10,vguard:.12,lean:0},
+ feint:{label:'Falošný výpad',ms:350,af:.13,as:-.06,vf:.04,vs:.06,slash:.55,guard:.18,vguard:.65,lean:.10},
+ lunge:{label:'Výpad',ms:390,af:.27,as:.01,vf:.11,vs:.07,slash:1.15,guard:.20,vguard:.85,lean:.22},
+ slash:{label:'Sek',ms:340,af:.20,as:-.075,vf:.06,vs:.08,slash:1.36,guard:.28,vguard:.78,lean:.16},
+ dodge:{label:'Úhyb',ms:340,af:-.065,as:.18,vf:.035,vs:-.20,slash:-.52,guard:.54,vguard:.38,lean:-.12},
+ parry:{label:'Kryt',ms:290,af:.06,as:-.05,vf:.05,vs:.13,slash:-.60,guard:.88,vguard:1.05,lean:-.08},
+ counter:{label:'Protiútok',ms:385,af:.22,as:.08,vf:.10,vs:-.13,slash:1.27,guard:.14,vguard:.93,lean:.21},
+ retreat:{label:'Ústup',ms:325,af:-.13,as:-.03,vf:-.085,vs:.11,slash:-.32,guard:.81,vguard:.48,lean:-.13},
+ circle:{label:'Obchvat',ms:365,af:.12,as:.19,vf:.06,vs:-.16,slash:.58,guard:.58,vguard:.88,lean:.12},
+ charge:{label:'Nápor',ms:420,af:.30,as:-.03,vf:.16,vs:.02,slash:1.42,guard:.11,vguard:1.02,lean:.26},
+ block:{label:'Zrážka štítov',ms:310,af:.15,as:.02,vf:.12,vs:.03,slash:.19,guard:1.16,vguard:1.12,lean:.16},
+ sweep:{label:'Bočný sek',ms:370,af:.19,as:-.14,vf:.06,vs:.16,slash:1.31,guard:.31,vguard:.80,lean:.20},
+ recover:{label:'Opätovný postoj',ms:265,af:.035,as:0,vf:0,vs:0,slash:-.08,guard:.18,vguard:.24,lean:0}
+};
+const FIGHT_STYLES=[
+ {name:'Rytierov výpad',steps:['stare','feint','lunge','parry','counter','recover']},
+ {name:'Obrana a protiútok',steps:['stare','block','retreat','counter','slash','recover']},
+ {name:'Šermiarsky tanec',steps:['feint','dodge','circle','sweep','lunge','recover']},
+ {name:'Útok z boku',steps:['stare','circle','feint','sweep','parry','recover']},
+ {name:'Zrážka štítov',steps:['block','retreat','charge','block','slash','recover']},
+ {name:'Dva výpady',steps:['feint','lunge','retreat','lunge','recover']},
+ {name:'Nečakaný protiúder',steps:['dodge','parry','counter','lunge','recover']},
+ {name:'Nápor a ústup',steps:['charge','block','retreat','sweep','recover']},
+ {name:'Obranný kruh',steps:['circle','dodge','parry','counter','recover']},
+ {name:'Klamný útok',steps:['feint','retreat','circle','lunge','recover']},
+ {name:'Zúrivé šermovanie',steps:['slash','parry','slash','dodge','counter','recover']},
+ {name:'Posledná obrana',steps:['block','parry','retreat','charge','slash','recover']}
+];
+const fightHistory=[];
+const lerp=(a,b,t)=>a+(b-a)*t;
+async function kineticDuel(attacker,victim,thisToken){
+ const style=FIGHT_STYLES[Math.floor(Math.random()*FIGHT_STYLES.length)];
+ fightHistory.push(style.name);if(fightHistory.length>24)fightHistory.shift();
+ const a0=[...attacker.pos],v0=[...victim.pos],dx=v0[0]-a0[0],dz=v0[1]-a0[1],dist0=Math.hypot(dx,dz)||1;
+ const forward=[dx/dist0,dz/dist0],right=[-forward[1],forward[0]];
+ const sign=Math.random()<.5?-1:1;
+ const attackFace=Math.atan2(-forward[0],-forward[1]);
+ const defendFace=Math.atan2(forward[0],forward[1]);
+ const neutral={af:0,as:0,vf:0,vs:0,slash:0,guard:0,vguard:0,lean:0};
+ let prev={...neutral};
+ attacker.yaw=attackFace;victim.yaw=defendFace;
+ showToast('⚔ '+style.name.toUpperCase()+' · '+style.steps.length+' POHYBOV');
+ const put=(a,v)=>{
+  const ad=Math.min(.31,Math.max(-.17,a.af)),as=Math.min(.23,Math.max(-.23,a.as));
+  const vd=Math.min(.17,Math.max(-.12,v.vf)),vs=Math.min(.23,Math.max(-.23,v.vs));
+  attacker.pos=[a0[0]+forward[0]*ad+right[0]*as,a0[1]+forward[1]*ad+right[1]*as];
+  victim.pos=[v0[0]-forward[0]*vd+right[0]*vs,v0[1]-forward[1]*vd+right[1]*vs];
+ };
+ for(let index=0;index<style.steps.length;index++){
+  const move=DUEL_POSES[style.steps[index]],tgt={...move,as:move.as*sign,vs:move.vs*sign};
+  const ok=await tween(move.ms,progress=>{
+   const e=smooth(progress),pos={};for(const key of ['af','as','vf','vs','slash','guard','vguard','lean'])pos[key]=lerp(prev[key]||0,tgt[key]||0,e);
+   put(pos,pos);
+   attacker.slash=pos.slash;attacker.guard=pos.guard;victim.slash=-(pos.slash*.42);victim.guard=pos.vguard;
+   attacker.lean=pos.lean;victim.lean=-pos.lean*.63;
+   attacker.height=(.015+.023*Math.max(0,pos.af)) *Math.sin(progress*Math.PI);
+   victim.height=.013*Math.sin(progress*Math.PI);
+   attacker.fall=.035*Math.sin(progress*Math.PI)*Math.sign(pos.slash);
+   victim.fall=-.018*Math.sin(progress*Math.PI);
+  });
+  if(!ok||token!==thisToken)return false;
+  prev=tgt;
+  if(['lunge','slash','counter','charge','block','sweep'].includes(style.steps[index])){
+   const strike=[(attacker.pos[0]+victim.pos[0])/2,.88,(attacker.pos[1]+victim.pos[1])/2];
+   if(fxOn){sparks(strike,style.steps[index]==='charge'?12:6);}
+   if(index%2)clang();else swish();
+  }
+ }
+ // Gradual transition back to the exact base points (critical to the chess engine).
+ const start={...prev};
+ const ended=await tween(210,t=>{
+  const e=smooth(t),pos={};for(const key of ['af','as','vf','vs','slash','guard','vguard','lean'])pos[key]=lerp(start[key]||0,0,e);
+  put(pos,pos);attacker.slash=pos.slash;victim.slash=-pos.slash*.42;attacker.guard=pos.guard;victim.guard=pos.vguard;attacker.lean=pos.lean;victim.lean=-pos.lean*.63;
+ });
+ attacker.pos=[...a0];victim.pos=[...v0];attacker.height=0;victim.height=0;attacker.fall=0;victim.fall=0;attacker.slash=0;victim.slash=0;attacker.guard=0;victim.guard=0;attacker.lean=0;victim.lean=0;
+ return ended&&token===thisToken;
+}
 async function animateCombat(attacker,victim,to,thisToken){
  const type=attacker.type;const target=[victim.pos[0],.91,victim.pos[1]];
  const muzzle=[attacker.pos[0],type==='R'?.83:type==='B'?.96:1.04,attacker.pos[1]];
  const isCurrent=()=>token===thisToken;
+ if(!await kineticDuel(attacker,victim,thisToken))return false;
  async function projectile(kind,duration){combatFx={kind,start:[...muzzle],end:[...target],t:0};
   const ok=await tween(duration,f=>{combatFx&&(combatFx.t=smooth(f));victim.guard=f*.6;});combatFx=null;return ok&&isCurrent();}
  if(type==='R'){
@@ -1422,6 +1513,19 @@ async function execute(input){
  if(m.promo){m.promotion=mode==='local'||engine.turn===human?await choosePromotion():'Q';if(thisToken!==token){busy=false;return;}}
  uiState();const attacker=actorAt(m.r,m.c),victim=m.enPassant?actorAt(m.r,m.tc):actorAt(m.tr,m.tc);
  if(!attacker){busy=false;return;}
+ if(victim&&!combatOn){
+  // Quick capture: no artificial timing, animations, or waiting. Rules and AI remain intact.
+  const rook=m.castle?actorAt(m.r,m.castle==='K'?7:0):null;
+  actors=actors.filter(a=>a!==victim);attacker.pos=X(m.tr,m.tc);attacker.r=m.tr;attacker.c=m.tc;
+  attacker.height=0;attacker.awake=0;attacker.slash=0;attacker.guard=0;attacker.lean=0;
+  if(rook){rook.r=m.tr;rook.c=m.castle==='K'?5:3;rook.pos=X(rook.r,rook.c);}
+  const moved=engine.perform(m);if(m.promo){attacker.type=m.promotion;showToast('✦ Premena pešiaka');}
+  last=moved;selected=null;busy=false;uiState();
+  if(state.check||state.result==='mate')showCheckNotice(state.result==='mate');
+  if(state.over){$('gameoverTitle').textContent=state.result==='mate'?'Šach-mat!':'Remíza';$('gameoverText').textContent=state.result==='mate'?('Víťazí '+(state.winner==='w'?'Biele':'Červené')+' kráľovstvo.'):'Partia sa skončila remízou.';$('gameoverDialog').hidden=false;}
+  else if(mode==='ai'&&engine.turn!==human)queueAI();
+  return;
+ }
  battleCry(attacker,!!victim);
  const from=[...attacker.pos],to=X(m.tr,m.tc),face=Math.atan2(-(to[0]-from[0]),-(to[1]-from[1]));attacker.yaw=face;
  let rook=null,rookFrom,rookTo;
@@ -1544,7 +1648,7 @@ canvas.addEventListener('click',e=>{
 canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7.7,Math.min(23,dist*(e.deltaY>0?1.075:.925)));updateCamera();},{passive:false});canvas.addEventListener('contextmenu',e=>e.preventDefault());
 window.addEventListener('keydown',e=>{if(document.activeElement?.tagName==='SELECT'||document.activeElement?.tagName==='INPUT')return;let handled=true;switch(e.key.toLowerCase()){case'arrowleft':case'a':yaw-=.15;break;case'arrowright':case'd':yaw+=.15;break;case'arrowup':case'w':pitch=Math.min(1.54,pitch+.11);break;case'arrowdown':case's':pitch=Math.max(.42,pitch-.11);break;case'+':case'=':dist=Math.max(7.7,dist-.9);break;case'-':dist=Math.min(23,dist+.9);break;case'0':case'r':defaultCamera();break;default:handled=false;}if(handled){e.preventDefault();cameraAnim=null;updateCamera();}});
 $('camReset').onclick=()=>{cameraAnim=null;defaultCamera();};$('camTop').onclick=()=>{let target={yaw,pitch:1.53,dist:16,target:[0,.24,0]};startCam(target,600);};$('camLeft').onclick=()=>{yaw-=.3;updateCamera()};$('camRight').onclick=()=>{yaw+=.3;updateCamera()};$('camZoomIn').onclick=()=>{dist=Math.max(7.7,dist-1.2);updateCamera()};$('camZoomOut').onclick=()=>{dist=Math.min(23,dist+1.2);updateCamera()};
-$('modeSeg').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b||busy)return;mode=b.dataset.mode;reset()};$('sideSeg').onclick=e=>{let b=e.target.closest('button[data-side]');if(!b||busy)return;human=b.dataset.side;flip=human==='b';defaultCamera();reset()};$('newGame').onclick=reset;$('undoBtn').onclick=undo;$('flipBtn').onclick=()=>{flip=!flip;yaw+=Math.PI;updateCamera();showToast('↻ Pohľad otočený o 180°');};$('effectsBtn').onclick=()=>{fxOn=!fxOn;$('effectsBtn').textContent='✧ Efekty: '+(fxOn?'zap.':'vyp.')};$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'♫':'♩'};$('helpBtn').onclick=()=>{$('helpDialog').hidden=false};$('helpClose').onclick=()=>{$('helpDialog').hidden=true};$('againBtn').onclick=reset;$('closeGameover').onclick=()=>{$('gameoverDialog').hidden=true};for(let id of ['helpDialog','gameoverDialog'])$(id).onclick=e=>{if(e.target===$(id))$(id).hidden=true};
+$('modeSeg').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b||busy)return;mode=b.dataset.mode;reset()};$('sideSeg').onclick=e=>{let b=e.target.closest('button[data-side]');if(!b||busy)return;human=b.dataset.side;flip=human==='b';defaultCamera();reset()};$('newGame').onclick=reset;$('undoBtn').onclick=undo;$('flipBtn').onclick=()=>{flip=!flip;yaw+=Math.PI;updateCamera();showToast('↻ Pohľad otočený o 180°');};$('effectsBtn').onclick=()=>{fxOn=!fxOn;$('effectsBtn').textContent='✧ Efekty: '+(fxOn?'zap.':'vyp.')};$('combatBtn').onclick=()=>{combatOn=!combatOn;$('combatBtn').textContent='⚔ Súboje: '+(combatOn?'zap.':'vyp.');$('combatBtn').setAttribute('aria-pressed',String(combatOn));showToast(combatOn?'⚔ FILMOVÉ SÚBOJE ZAPNUTÉ':'♟ RÝCHLA ŠACHOVÁ HRA · BEZ SÚBOJOV');};$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'♫':'♩'};$('helpBtn').onclick=()=>{$('helpDialog').hidden=false};$('helpClose').onclick=()=>{$('helpDialog').hidden=true};$('againBtn').onclick=reset;$('closeGameover').onclick=()=>{$('gameoverDialog').hidden=true};for(let id of ['helpDialog','gameoverDialog'])$(id).onclick=e=>{if(e.target===$(id))$(id).hidden=true};
 function updateHUD(){info.textContent='KAMERA '+Math.round(yaw*180/Math.PI%360)+'° · '+Math.round(pitch*180/Math.PI)+'°';}
 let lastFrame=0,prevFallback=0;
 function drawSoftware3D(){
@@ -1574,7 +1678,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v21',cinematicPawnMerged:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v22',combatStyles:FIGHT_STYLES.length,fractureModes:DEATH_MODES.length,cinematicPawnMerged:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight,enabled:combatOn,lastStyle:fightHistory.at(-1)||null,history:[...fightHistory]}),combatStyles:()=>FIGHT_STYLES.map(x=>({...x})),deathModes:()=>[...DEATH_MODES],ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
