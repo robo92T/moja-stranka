@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: elegantná hradná 3D šachovnica, detailnejšie textúry figúrok, čitateľnejšie siluety a ladnejšie pohyby po doske.">
-<title>Kráľovské živé šachy 3D | Hradná edícia v11</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>Kráľovské živé šachy 3D | Hradná edícia v14 · Živé sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -12%,#8a5a35 0,transparent 45%),radial-gradient(circle at 18% 24%,#5c2b1d55 0,transparent 26%),radial-gradient(circle at 82% 16%,#c18a4455 0,transparent 22%),linear-gradient(180deg,#1a100d 0%,#2a1a13 28%,#120b09 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#00000012 0 1px,transparent 1px 84px),radial-gradient(circle at 50% 0%,#f5c67c10 0,transparent 40%)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -150,6 +150,25 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 .sparkLayer i.spark:nth-child(4n){width:3px;height:9px;border-radius:2px;box-shadow:0 0 11px 2px #ffb34f}
 @media(max-width:660px){.castle-light{animation-duration:3.1s}.royal-banner{animation:none}}
 
+
+/* V14 — fully interactive carved-statue battle scene; real 3D meshes remain the game. */
+.royal-hall-backdrop{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.93;background:radial-gradient(ellipse at 50% 32%,#e4b77715,transparent 52%),repeating-linear-gradient(0deg,transparent 0 63px,#150d0c39 64px 66px),repeating-linear-gradient(90deg,#57402c35 0 2px,#271b162b 3px 112px)}
+.hall-balcony{position:absolute;left:0;right:0;top:17%;height:7%;border-top:8px ridge #957252aa;border-bottom:9px ridge #65472db8;background:repeating-linear-gradient(90deg,#39241a 0 13px,#9c774a 14px 18px,#37231a 19px 68px);box-shadow:0 8px 17px #0008}
+.hall-gallery{position:absolute;top:1%;bottom:12%;width:19%;border:17px ridge #7d5737;border-radius:48% 48% 3px 3px / 12% 12% 3px 3px;box-shadow:inset 11px 9px 15px #120a09c7,12px 5px 15px #000b;background:repeating-linear-gradient(90deg,#493122 0 24px,#785039 25px 28px,#322219 29px 69px)}
+.gallery-left{left:12%}.gallery-right{right:12%}
+.hall-pediment{position:absolute;left:32%;right:32%;top:1%;height:13%;border:8px ridge #b48b58;background:repeating-linear-gradient(90deg,#4c301d 0 18px,#8f6e47 19px 23px,#452b1c 24px 44px);box-shadow:0 10px 28px #0009}
+.hall-relief{position:absolute;top:31%;font-size:clamp(45px,6vw,80px);color:#b28b557e;text-shadow:0 5px 8px #0009,0 0 24px #b37f3928}
+.relief-left{left:5%}.relief-right{right:5%}
+.hall-brazier{position:absolute;top:26%;width:55px;text-align:center;color:#ffd77a;font-size:39px;filter:drop-shadow(0 0 12px #ff9c44);animation:torchFlicker 2.6s infinite alternate}
+.brazier-left{left:3%}.brazier-right{right:3%;animation-delay:-1.8s}
+.war-cry{position:absolute;top:26%;left:50%;z-index:22;padding:9px 15px;pointer-events:none;border-radius:16px 16px 16px 3px;min-width:75px;max-width:min(52vw,260px);background:linear-gradient(135deg,#f7e9cd,#e0c39a);box-shadow:0 10px 23px #000b,0 0 0 2px #a77844;color:#3d2418;font:italic 700 clamp(13px,1.6vw,19px) Georgia,serif;text-align:center;line-height:1.24;opacity:0;transform:translate(-50%,6px) scale(.85);transition:opacity .18s,transform .27s;white-space:normal}
+.war-cry.active{opacity:1;transform:translate(-50%,-12px) scale(1)}
+.war-cry:after{content:'';position:absolute;bottom:-10px;left:24px;border-width:11px 12px 0 0;border-style:solid;border-color:#e0c39a transparent transparent transparent}
+.chess-alert{position:absolute;top:11%;left:50%;z-index:25;pointer-events:none;padding:12px 28px;border:2px solid #f2cb81;border-radius:6px;background:linear-gradient(115deg,#3d0c0eeb,#9c302ae8,#380e11ef);box-shadow:0 0 0 4px #402517b0,0 0 28px #f8b851ad,0 15px 35px #000a;color:#fff0bf;text-shadow:0 2px 5px #210708;font:700 clamp(23px,4vw,41px)/1 Georgia,serif;letter-spacing:.13em;opacity:0;transform:translate(-50%,-30px) scale(.72);transition:opacity .21s,transform .28s}
+.chess-alert.show{opacity:1;transform:translate(-50%,0) scale(1);animation:checkPulse 1s ease-in-out infinite alternate}
+@keyframes checkPulse{from{box-shadow:0 0 0 3px #b17a30ac,0 0 20px #ffb36e86,0 12px 32px #000c}to{box-shadow:0 0 0 4px #efbf75af,0 0 45px #ff624cad,0 12px 32px #000c}}
+@media(max-width:660px){.hall-gallery{border-width:10px}.war-cry{top:26%;max-width:52%;font-size:12px;padding:8px 10px}.chess-alert{top:15%;padding:8px 16px}.royal-hall-backdrop{opacity:.67}}
+
 </style>
 </head><body>
 <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -158,12 +177,12 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 <main class="layout">
 <section class="arena" aria-label="Skutočná 3D šachovnica s priestorovými modelmi">
 <div class="fighter black" id="blackFighter"><div class="fighter-id"><div class="team-avatar">♚</div><div><div class="team-name" id="blackName">Červené kráľovstvo</div><div class="team-tag">Rytieri Červenej ruže</div></div></div><span class="turn-flag" id="blackFlag">ČAKÁ</span></div>
-<div class="castle-scene"><div class="castle-environment" aria-hidden="true"><div class="stained-glass"></div><div class="stone-pillar pillar-a"></div><div class="stone-pillar pillar-b"></div><div class="stone-sconce sconce-a">✦</div><div class="stone-sconce sconce-b">✦</div><div class="floor-line"></div></div><div class="arch arch-one"></div><div class="arch arch-two"></div><div class="arch arch-three"></div><div class="castle-light left"></div><div class="castle-light right"></div><div class="royal-banner">✝</div>
+<div class="castle-scene"><div class="royal-hall-backdrop" aria-hidden="true"><div class="hall-balcony"></div><div class="hall-gallery gallery-left"></div><div class="hall-gallery gallery-right"></div><div class="hall-pediment"></div><div class="hall-relief relief-left">⚜</div><div class="hall-relief relief-right">⚜</div><div class="hall-brazier brazier-left">♨</div><div class="hall-brazier brazier-right">♨</div></div><div class="castle-environment" aria-hidden="true"><div class="stained-glass"></div><div class="stone-pillar pillar-a"></div><div class="stone-pillar pillar-b"></div><div class="stone-sconce sconce-a">✦</div><div class="stone-sconce sconce-b">✦</div><div class="floor-line"></div></div><div class="arch arch-one"></div><div class="arch arch-two"></div><div class="arch arch-three"></div><div class="castle-light left"></div><div class="castle-light right"></div><div class="royal-banner">✝</div>
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V13</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
-    <div id="battleToast" class="battle-toast" aria-live="polite"></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V14</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
       <button id="camZoomIn" title="Priblížiť">＋</button><button id="camZoomOut" title="Oddialiť">－</button>
@@ -347,6 +366,39 @@ class ChessEngine {
 'use strict';
 const $=id=>document.getElementById(id), canvas=$('royalCanvas'), stage=$('board3dStage'), info=$('cameraInfo'),toast=$('battleToast');
 const engine=new ChessEngine(), pieceNames={P:'pešiak',N:'jazdec',B:'strelec',R:'veža',Q:'dáma',K:'kráľ'};
+const WAR_LINES={
+ P:['Za kráľa!','Nevzdáme sa!','Držte líniu!','Krok vpred!','Na štíty!','Zvíťazíme!'],
+ N:['Vpred, jazdci!','Kopije vpred!','Za česť!','Cesta je voľná!'],
+ B:['Šíp na cieľ!','Zamier!','Neunikneš!','Luk pripravený!'],
+ R:['Hradby držia!','Pal!','Na povel!','Brána padne!'],
+ Q:['Pocíť moju moc!','Šach je osud!','Kráľovská vôľa!','Ustúp!'],
+ K:['Za korunu!','Kráľ sa nevzdáva!','Bráňte kráľovstvo!','Za naše hradby!']
+};
+let lastWarPhrase='',warExpiry=0,warActor=null,checkExpiry=0;
+function battleCry(actor,capture=false){
+ if(!actor)return;
+ const choices=WAR_LINES[actor.type]||WAR_LINES.P;
+ const filtered=choices.filter(x=>x!==lastWarPhrase),pool=filtered.length?filtered:choices;
+ lastWarPhrase=pool[Math.floor(Math.random()*pool.length)];
+ warExpiry=performance.now()+(capture?2250:1250);warActor=actor;
+ const el=$('warCry');el.textContent=lastWarPhrase;el.classList.add('active');
+ positionWarCry();
+}
+function positionWarCry(){
+ const el=$('warCry');if(!el||!warActor)return;
+ const pos=project([warActor.pos[0],(warActor.type==='K'?2.05:warActor.type==='Q'?1.85:1.48)+warActor.height,warActor.pos[1]]);
+ if(pos){el.style.left=Math.max(65,Math.min(canvas.clientWidth-65,pos.x))+'px';el.style.top=Math.max(56,Math.min(canvas.clientHeight-72,pos.y-27))+'px';}
+}
+function updateBattleOverlays(now){
+ if(warExpiry&&now>warExpiry){$('warCry').classList.remove('active');warExpiry=0;warActor=null;}
+ if(warActor&&warExpiry)positionWarCry();
+ if(checkExpiry&&now>checkExpiry){$('chessAlert').classList.remove('show');checkExpiry=0;}
+}
+function showCheckNotice(isMate){
+ const el=$('chessAlert');el.textContent=isMate?'ŠACH-MAT!':'ŠACH!';el.classList.add('show');checkExpiry=performance.now()+(isMate?3600:2800);
+ audio(isMate?140:365,.48,'sawtooth',.095);
+}
+
 const X=(r,c)=>[c-3.5,r-3.5]; // world x,z
 let actors=[],mode='ai',human='w',selected=null,hovered=null,last=null,state=engine.state(),busy=false,aiBusy=false,soundOn=true,fxOn=true,token=0,showMoves=true,flip=false,soundCtx=null;
 let yaw=0,pitch=.89,dist=14,camTarget=[0,.2,0],camera=[0,0,0],camForward=[0,0,-1],camRight=[1,0,0],camUp=[0,1,0];
@@ -476,83 +528,115 @@ function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[
 // then shrink and dissipate ONLY after a 1.3 second hold.
 let debris=null;
 // Porcelain fracture physics: each type determines the radius of the breakage.
-const SHATTER_RADII={P:.32,N:1.18,B:1.36,R:1.52,Q:1.70,K:1.78};
+const SHATTER_RADII={P:.30,N:1.13,B:1.32,R:1.40,Q:1.72,K:1.75};
+const DEATH_MODES=['shattered','halved','toppled','cracked'];
+let forcedDeathMode=null; // available for deterministic animation tests only
 function shatterVictim(victim){
  const type=victim.type,light=victim.side==='w';
- const palette=light?['#f3e9dc','#d8cbb9','#aebccc','#d8b77b','#f9f6ec','#7a5141']:['#b94040','#87353a','#c2cbd3','#e4bc73','#f1d4c2','#553135'];
+ const palette=light?['#f3e9dc','#e5d7c4','#c5b7a4','#f9f4eb','#d3b68c']:['#a85045','#873e35','#c08b78','#e1ad83','#713a32'];
+ const roll=Math.random();
+ const deathMode=forcedDeathMode|| (roll<.35?'shattered':roll<.67?'halved':roll<.88?'toppled':'cracked');
  const maxRange=SHATTER_RADII[type],fragments=[];
- const quantity={P:27,N:39,B:39,R:44,Q:49,K:53}[type];
+ const nominal={P:24,N:38,B:38,R:41,Q:46,K:50}[type];
+ const quantity=deathMode==='shattered'?nominal:deathMode==='halved'?Math.round(nominal*.49):deathMode==='toppled'?Math.round(nominal*.19):Math.round(nominal*.28);
  for(let i=0;i<quantity;i++){
-  const a=Math.random()*Math.PI*2,radius=(.12+Math.random()*.88)*maxRange;
-  const height=.30+Math.random()*(type==='P'?.59:1.48);
-  const material=i%9===0?2:i%6===0?4:i%4===0?1:5;
-  const shell=i%5!==0;
-  const color=palette[i%palette.length];
+  const a=Math.random()*Math.PI*2,radius=(.08+Math.random()*.92)*maxRange;
+  const height=.20+Math.random()*(type==='P'?.62:1.55);
   fragments.push({
-   mesh: i%6===0?'chip':i%5===0?'cone':'shard',color,material,
+   mesh:i%4===0?'chip':i%5===0?'cone':'shard',color:palette[i%palette.length],material:i%5===0?2:5,
    ox:(Math.random()-.5)*.12,oz:(Math.random()-.5)*.12,startY:height,
-   dx:Math.cos(a)*radius,dz:Math.sin(a)*radius,
-   angle:a,delay:Math.min(.25,(1-height/(type==='P'?1.1:1.9))*.15+Math.random()*.09),
-   size:.052+Math.random()*(type==='P'?.073:.098),stretch:.65+Math.random()*1.55,
-   spin:Math.random()*6.28,turn:(Math.random()-.5)*7.2,
-   impact:(Math.random()-.5)*.08,glaze:shell
+   dx:Math.cos(a)*radius,dz:Math.sin(a)*radius,angle:a,
+   delay:Math.min(.31,(1-height/(type==='P'?1.1:1.9))*.17+Math.random()*.12),
+   size:.051+Math.random()*(type==='P'?.066:.086),stretch:.68+Math.random()*1.6,
+   spin:Math.random()*6.28,turn:(Math.random()-.5)*7.8,impact:(Math.random()-.5)*.055,
+   glaze:i%4!==0
   });
  }
- debris={origin:[victim.pos[0],victim.pos[1]],side:victim.side,type,fragments,progress:0,fade:0,maxRange,stamp:performance.now()};
- victim.shattered=true;
+ debris={origin:[...victim.pos],side:victim.side,type,deathMode,fragments,progress:0,fade:0,maxRange,stamp:performance.now()};
+ victim.shattered=true;victim.damageMode=deathMode;victim.damageFade=0;
+}
+function drawBrokenRemnant(a,now){
+ if(!debris || a!==activeFight?.victim)return;
+ const mode=debris.deathMode,fade=debris.fade;
+ const w=a.side==='w';const base=w?'#e9dfcd':'#9a463f',trim=w?'#d8bd94':'#b17c5b';
+ const shrink=Math.max(.012,1-.93*fade),scale={P:.8,N:1.05,B:1.0,R:1.08,Q:1.12,K:1.20}[a.type]*shrink;
+ const tilt=mode==='toppled'?1.42:mode==='cracked'?.23:.14;
+ const root=T(I,[a.pos[0],.20+(mode==='toppled'?.08:0),a.pos[1]],[tilt,a.yaw,.18],[scale,scale,scale]);
+ if(mode==='shattered')return;
+ if(mode==='toppled'){
+  // The defeated statuette remains almost complete, lying on the board with a cracked crown/helmet.
+  cn([0,.50,0],[.29,.84,.27],base,5,[0,0,0],root);
+  sp([0,.91,0],[.19,.18,.18],base,5,[0,0,0],root);
+  cy([0,.08,0],[.31,.11,.31],trim,2,[0,0,0],root);
+  beam([-.24,.43,-.23],[.17,.72,-.23],.012,trim,root);
+  beam([.17,.72,-.23],[.08,.93,-.12],.011,trim,root);
+ }else if(mode==='halved'){
+  // A tall lower half remains, with jagged porcelain fracture line and rough interior.
+  cy([0,.08,0],[.31,.11,.31],trim,2,[0,0,0],root);
+  cn([0,.40,0],[.30,.64,.27],base,5,[.10,0,.18],root);
+  for(let j=0;j<7;j++){
+   const a=j*Math.PI*2/7;
+   ch([Math.sin(a)*.19,.77+.05*Math.sin(j*3),Math.cos(a)*.18],[.09,.11,.085],w?'#faf5ed':'#c39c86',5,[j*.38,a,.2],root);
+  }
+  beam([-.14,.46,-.22],[.08,.57,-.22],.014,trim,root);
+ }else{
+  // Distinct cracked-but-standing statue, tipped under impact, with engraved fissures.
+  cy([0,.07,0],[.31,.10,.31],trim,2,[0,0,0],root);
+  cn([0,.51,0],[.31,.9,.29],base,5,[0,0,0],root);
+  sp([0,1.01,0],[.20,.18,.20],base,5,[0,0,0],root);
+  for(const path of [[[-.2,.63,-.22],[.09,.53,-.24]],[[.09,.53,-.24],[-.04,.37,-.24]],[[-.04,.37,-.24],[.16,.28,-.15]]])beam(path[0],path[1],.013,trim,root);
+ }
 }
 function drawDebris(now){
  if(!debris)return;
- const d=debris,fade=d.fade,f=d.progress;
- const shrink=Math.max(.001,1-fade*.997);
- const hitX=d.origin[0],hitZ=d.origin[1];
+ const d=debris,f=d.progress,fade=d.fade,shrink=Math.max(.001,1-fade*.997),hitX=d.origin[0],hitZ=d.origin[1];
  for(const p of d.fragments){
   const t=Math.min(1,Math.max(0,(f-p.delay)/(1-p.delay)));
-  // Top cracks split first; the lower body collapses a moment later, rather than exploding in one frame.
-  const flight=Math.min(1,t/.84),settle=Math.max(0,(t-.84)/.16);
-  const drift=flight*flight*(3-2*flight);
-  const tx=Math.max(-3.91,Math.min(3.91,hitX+p.dx));
-  const tz=Math.max(-3.91,Math.min(3.91,hitZ+p.dz));
+  const flight=Math.min(1,t/.84),settle=Math.max(0,(t-.84)/.16),drift=flight*flight*(3-2*flight);
+  const tx=Math.max(-3.89,Math.min(3.89,hitX+p.dx)),tz=Math.max(-3.89,Math.min(3.89,hitZ+p.dz));
   const slide=(1-settle)*p.impact;
   const x=hitX+p.ox*(1-drift)+(tx-hitX)*drift+slide*Math.cos(p.angle);
   const z=hitZ+p.oz*(1-drift)+(tz-hitZ)*drift+slide*Math.sin(p.angle);
-  const size=p.size*shrink;
-  const ground=.172+size*.35;
-  const arc=Math.max(0,Math.sin(Math.PI*flight))*(.30+.34*p.startY);
+  const size=p.size*shrink,ground=.17+size*.35;
+  const arc=Math.sin(Math.PI*flight)*(.25+.28*p.startY);
   const falling=(p.startY-ground)*(1-drift)*(1-drift);
-  const bounce=settle>0?.075*(1-settle)*Math.abs(Math.sin(settle*Math.PI*2.5)):0;
-  const y=ground+falling+arc+bounce;
+  const y=ground+falling+arc+(settle>0?.055*(1-settle)*Math.abs(Math.sin(settle*Math.PI*2)):0);
   const rot=[p.spin+t*p.turn*1.65,p.angle+t*p.turn*.95,t*p.turn*1.25];
   if(p.mesh==='cone')cn([x,y,z],[size*.74,size*p.stretch,size*.74],p.color,p.material,rot);
-  else if(p.mesh==='chip')ch([x,y,z],[size*1.13,size*p.stretch,size*.83],p.color,p.material,rot);
-  else sh([x,y,z],[size*1.12,size*p.stretch,size*.85],p.color,p.material,rot);
-  // Pale chalk interior makes glazed porcelain shards visibly fractured.
-  if(p.glaze&&size>.008){const whiten=d.side==='w'?'#fcf9f2':'#eadbd0';sp([x,y+size*.16,z],[size*.20,size*.09,size*.18],whiten,5,rot);}
+  else if(p.mesh==='chip')ch([x,y,z],[size*1.1,size*p.stretch,size*.82],p.color,p.material,rot);
+  else sh([x,y,z],[size*1.1,size*p.stretch,size*.84],p.color,p.material,rot);
+  if(p.glaze&&size>.008){sp([x,y+size*.12,z],[size*.20,size*.065,size*.17],d.side==='w'?'#faf6ef':'#ead1c1',5,rot);}
  }
- if(f<.99){const rad=.16+Math.min(1,f)*d.maxRange*.70;rg([hitX,.188,hitZ],[rad,.016,rad],d.side==='w'?'#e9d9ac':'#e7a19a',2);}
+ if(f<.99){const rad=.16+f*d.maxRange*.7;rg([hitX,.187,hitZ],[rad,.016,rad],d.side==='w'?'#e6d4ae':'#e9ac9f',2);}
 }
 async function shatterAfterHit(victim,thisToken){
  if(token!==thisToken)return false;
  shatterVictim(victim);
- if(fxOn&&activeFight)startCam({yaw:yaw+.12,pitch:.87,dist:Math.max(8.2,dist*.9),target:[victim.pos[0],.7,victim.pos[1]]},350);
- const hit=[victim.pos[0],.70,victim.pos[1]];
- showToast('✦ PORCELÁN SA LÁME · ÚLOMKY PODĽA VEĽKOSTI FIGÚRKY');
- sparks(hit,victim.type==='P'?23:39);clang();
+ if(fxOn&&activeFight)startCam({yaw:yaw+.12,pitch:.84,dist:Math.max(8.3,dist*.92),target:[victim.pos[0],.70,victim.pos[1]]},360);
+ const hit=[victim.pos[0],.72,victim.pos[1]];
+ const names={shattered:'ÚPLNÝ ROZPAD',halved:'ROZBITÁ POLOVICA',toppled:'PÁD SOCHY',cracked:'PRASKLINY V PORCELÁNE'};
+ showToast('✧ '+names[debris.deathMode]+' · BOJ POKRAČUJE');
+ sparks(hit,debris.deathMode==='shattered'?36:debris.deathMode==='halved'?24:12);clang();
  stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');
- if(!await tween(1200,t=>{if(debris)debris.progress=t;}))return false;
- if(!await tween(1300,()=>{}))return false;
- if(!await tween(560,t=>{if(debris)debris.fade=smooth(t);} ))return false;
+ if(!await tween(980,t=>{if(debris)debris.progress=t;}))return false;
+ // The fragments will remain visible until the victor enters the conquered square.
+ return token===thisToken;
+}
+async function finishDebrisAfterArrival(thisToken){
  if(token!==thisToken)return false;
- debris=null;victim.fade=1;
- return true;
+ if(!debris)return true;
+ // The defeated figure visibly occupies the square before the attacking piece settles there.
+ if(!await tween(1050,()=>{}))return false;
+ if(!await tween(820,t=>{if(debris){debris.fade=smooth(t);activeFight?.victim&&(activeFight.victim.damageFade=smooth(t));}}))return false;
+ debris=null;return token===thisToken;
 }
 
 function regen(){debris=null;actors=[];for(let r=0;r<8;r++)for(let c=0;c<8;c++){const a=newActor(r,c);if(a)actors.push(a);}}
 function actorAt(r,c){return actors.find(a=>a.r===r&&a.c===c)}
 // Six different silhouettes and type-specific weapons. Every object is an actual 3D mesh.
 function drawFighter(a,now){
- const w=a.side==='w',body=w?'#e9e0c9':'#9a3033',dark=w?'#b8ac94':'#59222b',trim=w?'#b02f2d':'#f0c88a';
- const gold=C.brightGold,steel=C.armor,cloth=w?'#f4e9d5':'#831f2b';
+ const w=a.side==='w',body=w?'#eee3d2':'#9e4a41',dark=w?'#c6b8a6':'#713329',trim=w?'#d9c09b':'#d09a72';
+ const gold=w?'#ecd2a3':'#bb8163',steel=w?'#ded7c9':'#b8796e',cloth=w?'#f0e5d3':'#8d4137';
  const size={P:.78,N:1.04,B:.97,R:1.05,Q:1.10,K:1.14}[a.type],heightFactor={P:1.02,N:1.13,B:1.20,R:1.14,Q:1.23,K:1.24}[a.type];
  const sizeFade=size*(1-Math.max(0,a.fade)*.25),idleSway=Math.sin(now/950+a.idle)*.009,walkLift=Math.sin((a.walk||0)*Math.PI)*.028,walkRoll=Math.sin((a.walk||0)*Math.PI*2)*.026;
  const root=T(I,[a.pos[0],.184+a.height+walkLift,a.pos[1]],[a.fall,a.yaw,a.lean+idleSway+walkRoll],[sizeFade,sizeFade*heightFactor,sizeFade]);
@@ -676,7 +760,7 @@ function drawFighter(a,now){
   cy([0,.28,0],[.23,.24,.19],dark,0,[0,0,0],root);
  }
  const hh=pawn?.61:king?.93:queen?.90:.78;
- sp([0,hh,0],[pawn?.13:.15,pawn?.14:.165,.145],C.skin,0,[0,0,0],root);
+ sp([0,hh,0],[pawn?.13:.15,pawn?.14:.165,.145],w?'#e8d7c2':'#a15f51',0,[0,0,0],root);
  if(pawn){ // simple metal cap and large shield, clear silhouette
   sp([0,hh+.11,0],[.155,.135,.155],steel,2,[0,0,0],root);
   sp([0,hh+.058,-.135],[.15,.037,.035],C.black,2,[0,0,0],root);
@@ -964,7 +1048,7 @@ function uiState(){state=engine.state();let side=engine.turn,ai=mode==='ai'&&sid
  $('currentSquare').textContent=selected?'Vybraná figúrka: '+pieceNames[engine.board[selected.r][selected.c]?.[1]]+' · '+ChessEngine.sq(selected.r,selected.c):hovered?'Políčko: '+ChessEngine.sq(hovered.r,hovered.c):'Ťukni na figúrku a vyber ťah';
 }
 function uiMode(){for(const b of $('modeSeg').querySelectorAll('button'))b.classList.toggle('on',b.dataset.mode===mode);for(const b of $('sideSeg').querySelectorAll('button'))b.classList.toggle('on',b.dataset.side===human);$('aiOptions').style.display=mode==='ai'?'block':'none';$('blackName').textContent=mode==='ai'&&human==='w'?'Červené kráľovstvo · AI':'Červené kráľovstvo';$('whiteName').textContent=mode==='ai'&&human==='b'?'Biele kráľovstvo · AI':'Biele kráľovstvo';}
-function reset(){token++;engine.reset();busy=false;aiBusy=false;selected=null;hovered=null;last=null;activeFight=null;combatFx=null;debris=null;regen();uiMode();$('promotionDialog').hidden=true;$('gameoverDialog').hidden=true;uiState();if(mode==='ai'&&human==='b')queueAI();}
+function reset(){warExpiry=0;warActor=null;checkExpiry=0;$('warCry').classList.remove('active');$('chessAlert').classList.remove('show');token++;engine.reset();busy=false;aiBusy=false;selected=null;hovered=null;last=null;activeFight=null;combatFx=null;debris=null;regen();uiMode();$('promotionDialog').hidden=true;$('gameoverDialog').hidden=true;uiState();if(mode==='ai'&&human==='b')queueAI();}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function selectedMove(r,c){return state.legal.find(a=>a.r===selected.r&&a.c===selected.c&&a.tr===r&&a.tc===c);}
 function clickSquare(r,c){if(busy||state.over||mode==='ai'&&engine.turn!==human)return;const p=engine.board[r][c],own=p&&p[0]===engine.turn;if(selected){const m=selectedMove(r,c);if(m){selected=null;execute(m);return;}}selected=own?{r,c}:null;uiState();if(own)audio(470,.06);}
@@ -1035,6 +1119,7 @@ async function execute(input){
  if(m.promo){m.promotion=mode==='local'||engine.turn===human?await choosePromotion():'Q';if(thisToken!==token){busy=false;return;}}
  uiState();const attacker=actorAt(m.r,m.c),victim=m.enPassant?actorAt(m.r,m.tc):actorAt(m.tr,m.tc);
  if(!attacker){busy=false;return;}
+ battleCry(attacker,!!victim);
  const from=[...attacker.pos],to=X(m.tr,m.tc),face=Math.atan2(-(to[0]-from[0]),-(to[1]-from[1]));attacker.yaw=face;
  let rook=null,rookFrom,rookTo;
  if(m.castle){rook=actorAt(m.r,m.castle==='K'?7:0);if(rook){rookFrom=[...rook.pos];rookTo=X(m.tr,m.castle==='K'?5:3);}}
@@ -1054,16 +1139,19 @@ async function execute(input){
   startCam({yaw:yaw+(attacker.side==='w'?.14:-.14),pitch:.84,dist:Math.min(16.2,Math.max(8.1,range*2.1+5.9)),target:center},520);
   const ok=await animateCombat(attacker,victim,to,thisToken);
   combatFx=null;if(!ok){debris=null;busy=false;return;}
-  actors=actors.filter(x=>x!==victim);activeFight=null;
   attacker.slash=0;attacker.guard=0;attacker.lean=0;attacker.charge=0;attacker.height=0;
   // Ranged pieces walk onto the newly conquered field after their projectile hits.
   if(ranged){const movingFrom=[...attacker.pos];if(!await tween(560,f=>{let e=smooth(f),g=e*e*(3-2*e);attacker.pos=[movingFrom[0]+(to[0]-movingFrom[0])*g,movingFrom[1]+(to[1]-movingFrom[1])*g];attacker.height=.09*Math.sin(f*Math.PI);attacker.lean=.04*Math.sin(f*Math.PI);})){busy=false;return;}}
-  attacker.pos=[...to];attacker.height=0;startCam(old,620);
+  // Move onto the conquered square before the remaining pieces dissolve.
+  if(!ranged){const stepFrom=[...attacker.pos];if(!await tween(380,f=>{let e=smooth(f);attacker.pos=[stepFrom[0]+(to[0]-stepFrom[0])*e,stepFrom[1]+(to[1]-stepFrom[1])*e];attacker.height=.055*Math.sin(f*Math.PI);})){busy=false;return;}}
+  attacker.pos=[...to];attacker.height=0;
+  if(!await finishDebrisAfterArrival(thisToken)){busy=false;return;}
+  actors=actors.filter(x=>x!==victim);activeFight=null;startCam(old,620);
  }else audio(260,.15);
  attacker.r=m.tr;attacker.c=m.tc;
  if(rook){rook.r=m.tr;rook.c=m.castle==='K'?5:3;rook.pos=rookTo;}
  const move=engine.perform(m);if(m.promo){attacker.type=m.promotion;showToast('✦ Premena pešiaka');}
- last=move;busy=false;selected=null;uiState();
+ last=move;busy=false;selected=null;uiState();if(state.check||state.result==='mate')showCheckNotice(state.result==='mate');
  if(state.over){$('gameoverTitle').textContent=state.result==='mate'?'Šach-mat!':'Remíza';$('gameoverText').textContent=state.result==='mate'?('Víťazí '+(state.winner==='w'?'Biele':'Červené')+' kráľovstvo.'):'Partia sa skončila remízou.';$('gameoverDialog').hidden=false;}else if(mode==='ai'&&engine.turn!==human)queueAI();
 }
 function evaluate(side){let values={P:100,N:310,B:325,R:500,Q:950,K:10000},sum=0;for(let r=0;r<8;r++)for(let c=0;c<8;c++){const p=engine.board[r][c];if(!p)continue;let central=3.5-(Math.abs(r-3.5)+Math.abs(c-3.5))/2;sum+=(p[0]===side?1:-1)*(values[p[1]]+central*(p[1]==='P'?6:2));}return sum;}
@@ -1165,14 +1253,14 @@ function drawSoftware3D(){
 function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestAnimationFrame(frame);return;}lastFrame=now;
  // Low-end 2D fallback preserves projected 3D and picking without a GPU
  if(!gl&&now-prevFallback<220){requestAnimationFrame(frame);return;}prevFallback=now;
- resize();animateCamera(dt);updateCamera();updateHUD();count=0;drawBoard(now);boardEndCount=count;for(const a of actors)if(!a.shattered)drawFighter(a,now);drawAttackFx(now);drawWeaponTrails(now);drawDebris(now);
+ resize();animateCamera(dt);updateCamera();updateHUD();updateBattleOverlays(now);count=0;drawBoard(now);boardEndCount=count;for(const a of actors){if(!a.shattered)drawFighter(a,now);else drawBrokenRemnant(a,now);}drawAttackFx(now);drawWeaponTrails(now);drawDebris(now);
  if(gl){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,pool.subarray(0,count),gl.DYNAMIC_DRAW);gl.uniformMatrix4fv(uVP,false,new Float32Array(M.mul(pMatrix(canvas.width/canvas.height),vMatrix())));gl.uniform3fv(uCamera,new Float32Array(camera));gl.uniform1f(uTime,now/1000);gl.drawArrays(gl.TRIANGLES,0,count/10);}else{drawSoftware3D();}
  // Show clickable coordinates around perimeter; aids accurate selection with any camera yaw
  for(let i=0;i<16;i++){let el=coords[i],p=i<8?[i-3.5,.18,4.25]:[-4.29,.18,i-8-3.5],pr=project(p);if(pr){el.style.left=pr.x+'px';el.style.top=pr.y+'px';el.style.display='block';}else el.style.display='none';}
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,debrisInfo:()=>debris?{type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
