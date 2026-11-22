@@ -520,7 +520,12 @@ function buildCinemaPawnMesh(name,profile,sides){
  }
  mesh['cinema_'+name]=verts;stoneNormals['cinema_'+name]=norms;
 }
-for(const [n,p] of Object.entries(cinemaPawnProfiles))buildCinemaPawnMesh(n,p,gl?(n==='torso'?38:34):10);
+for(const [n,p] of Object.entries(cinemaPawnProfiles)){
+ buildCinemaPawnMesh(n,p,gl?(n==='torso'?38:34):10);
+ // Always render a recognizably carved silhouette, but keep distant pieces lightweight on mobiles.
+ const coarse=p.filter((_,i)=>i===0||i===p.length-1||i%2===0);
+ buildCinemaPawnMesh(n+'Lo',coarse,gl?13:8);
+}
 // Fine carved fillets, an engraved visor and shield details follow the same piece geometry.
 function drawCinemaPawn(a,now){
  const pale=a.side==='w';
@@ -532,12 +537,13 @@ function drawCinemaPawn(a,now){
  const inspect=dist<9.2&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<2.1;
  const fine=isDuel||inspect;
  const root=T(I,[a.pos[0],.184+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[.70,.70,.70]);
- shape('cinema_base',[0,0,0],[1,1,1],stone,6,[0,0,0],root);
- shape('cinema_torso',[0,0,0],[1,1,1],stone,6,[0,0,0],root);
- shape('cinema_rib',[0,.04,0],[1.01,1,1.01],light,6,[0,0,0],root);
+ const meshFor=(name)=>'cinema_'+name+(fine?'':'Lo');
+ shape(meshFor('base'),[0,0,0],[1,1,1],stone,6,[0,0,0],root);
+ shape(meshFor('torso'),[0,0,0],[1,1,1],stone,6,[0,0,0],root);
+ shape(meshFor('rib'),[0,.04,0],[1.01,1,1.01],light,6,[0,0,0],root);
  // The helmet starts as the same rock; it merely nods as the statue awakens.
  const headRoot=T(root,[0,1.60,0],[head+(a.guard||0)*.022,0,0]);
- shape('cinema_helmet',[0,-1.60,0],[1,1,1],stone,6,[0,0,0],headRoot);
+ shape(meshFor('helmet'),[0,-1.60,0],[1,1,1],stone,6,[0,0,0],headRoot);
  sp([0,-.025,-.14],[.16,.10,.09],light,6,[0,0,0],headRoot);
  sp([0,.10,-.18],[.13,.077,.020],tone,6,[0,0,0],headRoot);
  // Identical stone arms rest against the torso and unlock in order, not a model swap.
@@ -547,19 +553,19 @@ function drawCinemaPawn(a,now){
   const opening=shoulder*.60+(right?sSwing*.095*shoulder:-(a.guard||0)*.08*shoulder);
   const arm=T(root,[side*.24,1.36,.02],[0,0,side*(.08+opening)]);
   sp([0,0,0],[.13,.115,.125],light,6,[0,0,0],arm);
-  shape('cinema_arm',[0,0,0],[.85,.92,.88],stone,6,[Math.PI,0,0],arm);
+  shape(meshFor('arm'),[0,0,0],[.85,.92,.88],stone,6,[Math.PI,0,0],arm);
   const bend=(right?elbow*(.72+sSwing*.15):elbow*.26+(a.guard||0)*.1);
   const wrist=T(arm,[0,-.66,0],[bend*(right?1:-1),0,0]);
   sp([0,0,0],[.084,.075,.087],tone,6,[0,0,0],wrist);
-  shape('cinema_arm',[0,0,0],[.72,.72,.72],stone,6,[Math.PI,0,0],wrist);
+  shape(meshFor('arm'),[0,0,0],[.72,.72,.72],stone,6,[Math.PI,0,0],wrist);
   sp([0,-.55,-.01],[.083,.085,.080],light,6,[0,0,0],wrist);
   if(fine)for(let j=0;j<4;j++)sp([(j-1.5)*.028,-.61,-.066],[.012,.041,.012],tone,6,[0,0,0],wrist);
   if(right){
    // The sword comes out of the statue's own hand after head, shoulders and wrists move.
    if(blade>.012){
     const bladeRoot=T(wrist,[0,-.56,-.01],[(a.slash||0)*.22,0,0],[blade,blade,blade]);
-    shape('cinema_guard',[0,-.05,0],[.48,.46,.48],tone,6,[Math.PI,0,0],bladeRoot);
-    shape('cinema_blade',[0,-.04,-.03],[.70,.92,.55],light,6,[Math.PI,0,0],bladeRoot);
+    shape(meshFor('guard'),[0,-.05,0],[.48,.46,.48],tone,6,[Math.PI,0,0],bladeRoot);
+    shape(meshFor('blade'),[0,-.04,-.03],[.70,.92,.55],light,6,[Math.PI,0,0],bladeRoot);
     sp([0,-.115,-.03],[.037,.027,.035],tone,6,[0,0,0],bladeRoot);
    }
   }else{
@@ -1568,7 +1574,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v21',cinematicPawnMerged:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v21',cinematicPawnMerged:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
