@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="sk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24150f"><title>Kráľovské živé šachy 3D · opravené figúrky v30</title><style>body{background:#20130f;color:#f7dfb0;font:18px Georgia,serif;display:grid;place-items:center;min-height:100vh;text-align:center;margin:0}.loading{padding:30px;max-width:520px}a{color:#ffd590}</style></head><body><div class="loading"><h1>♜ Kráľovské živé šachy</h1><p>Pripravujem detailné 3D figúrky…</p></div>
+<html lang="sk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24150f"><title>Kráľovské živé šachy 3D · opravené figúrky v31</title><style>body{background:#20130f;color:#f7dfb0;font:18px Georgia,serif;display:grid;place-items:center;min-height:100vh;text-align:center;margin:0}.loading{padding:30px;max-width:520px}a{color:#ffd590}</style></head><body><div class="loading"><h1>♜ Kráľovské živé šachy</h1><p>Pripravujem správne natočené 3D figúrky…</p></div>
 <script>
 (async()=>{
  const substitutions=[
@@ -9,6 +9,10 @@
    "const p=a.side==='w'?'#f0e0ca':'#a86a55';"],
   ["if(stlLoadState.loaded)showToast('♜ NAČÍTANÝCH '+stlLoadState.loaded+'/6 ORIGINÁLNYCH 3D STL MODELOV');",
    "if(stlLoadState.loaded)showToast('♜ PRIPRAVENÝCH '+stlLoadState.loaded+'/6 DETAILNÝCH 3D FIGÚROK'); if(stlLoadState.errors.length)console.warn('3D mesh loading',stlLoadState.errors);"],
+  // The supplied sculptures' front axis differs from the actor's local forward.
+  // Rotate imported stone statues by 90 degrees while preserving opposing side directions.
+  ["a.yaw+(a.torsoTwist||0)*.17,a.lean+(a.torsoTwist||0)*.07",
+   "a.yaw+Math.PI/2+(a.torsoTwist||0)*.17,a.lean+(a.torsoTwist||0)*.07"],
   ["stlModels:()=>({source:'Six user-supplied STL files'",
    "stlModels:()=>({source:'Six user supplied 3D sculpt meshes, high-detail desktop LOD'"]
  ];
