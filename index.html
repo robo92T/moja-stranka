@@ -192,7 +192,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V19</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V20</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -500,7 +500,7 @@ function drawCarvedStatue(a,now){
  shape('sculpt_'+a.type,[0,0,0],[1,1,1],stone,6,[0,0,0],root);
  // Distance-based mesh detail: sculpt geometry/engravings always exist; fine relief only near camera.
  const duelDetail=activeFight&&(a===activeFight.attacker||a===activeFight.victim);
- const closeInspect=dist<8.2&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<1.8;
+ const closeInspect=dist<9.3&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<2.2;
  if(!duelDetail&&!closeInspect){
    // Distinct carved silhouettes even from afar, without hundreds of high-poly tiny details.
    if(a.type==='P'){sp([0,.56,-.19],[.094,.13,.018],light,6,[0,0,0],root);}
@@ -585,84 +585,93 @@ function carvedRadius(type,y){
 }
 function carvedAnatomy(a,now,root,stone,light,dark){
  const type=a.type,wake=Math.max(0,Math.min(1,a.awake||0));
+ const stage=(x0,x1,v)=>Math.max(0,Math.min(1,(v-x0)/Math.max(.0001,x1-x0)));
+ const ease=t=>t*t*(3-2*t);
+ const headWake=ease(stage(0,.38,wake)),torsoWake=ease(stage(.12,.58,wake)),armWake=ease(stage(.28,.82,wake)),weaponWake=ease(stage(.60,1,wake));
  const bodyFront=(x,y)=>{
   const r=carvedRadius(type,y),xx=Math.max(-r*.92,Math.min(r*.92,x));
   return [xx,y,-Math.sqrt(Math.max(.0004,r*r-xx*xx))-.010];
  };
- const groove=(points,thick=.007,color=dark)=>{
-  for(let i=1;i<points.length;i++)beam(bodyFront(...points[i-1]),bodyFront(...points[i]),thick,color,root);
- };
- const ringNail=(x,y,z,scale=.016)=>sp([x,y,z],[scale,scale*.72,scale*.46],light,6,[0,0,0],root);
- // Fine circumferential chisel bands and miniature relief medallions on the plinth.
- for(let j=0;j<12;j++){
-  let th=j*Math.PI/6;const x=.270*Math.cos(th),z=.270*Math.sin(th);
-  ringNail(x,.102,z,.009);
-  sp([x*.91,.144,z*.91],[.016,.010,.016],j%2?dark:light,6,[0,0,0],root);
+ const groove=(points,thick=.007,color=dark)=>{for(let i=1;i<points.length;i++)beam(bodyFront(...points[i-1]),bodyFront(...points[i]),thick,color,root);};
+ const chip=(x,y,z,sx=.022,sy=.018,sz=.010,col=light)=>sp([x,y,z],[sx,sy,sz],col,6,[0,0,0],root);
+ const band=(y,r=.86,col=dark)=>{for(let j=0;j<10;j++){let th=j*2*Math.PI/10;chip(Math.cos(th)*carvedRadius(type,y)*r,y,Math.sin(th)*carvedRadius(type,y)*r,.010,.008,.008,col);}};
+ // pedestal ornament and lathe rings
+ for(const y of [.11,.18,.24]) band(y,.96,y===.18?light:dark);
+ for(let j=0;j<8;j++){let th=j*Math.PI/4;chip(.27*Math.sin(th),.105,.27*Math.cos(th),.011,.012,.011,light);} 
+ // torso and drapery grooves — more figurine-like detail even at rest
+ for(let lane=-2;lane<=2;lane++) groove([[lane*.045,.73],[lane*.052,.59],[lane*.058,.45],[lane*.065,.30]], lane===0?.0055:.0048, lane%2?light:dark);
+ for(const side of [-1,1]){
+  groove([[side*.09,.96],[side*.12,.85],[side*.14,.73]],.005,dark);
+  groove([[side*.15,.55],[side*.18,.42],[side*.19,.28]],.004,light);
  }
- for(let y of [.052,.075,.128,.151])rg([0,y,0],[.275+(y<.11?.020:-.020),.007,.275+(y<.11?.020:-.020)],y<.11?dark:light,6,root);
- if(type==='R'){
-  for(let y of [.40,.58,.78,.96,1.17])for(let j=0;j<16;j++){
-   const ang=j*Math.PI/8,r=carvedRadius(type,y);
-   sp([Math.sin(ang)*r,y,Math.cos(ang)*r],[.011,.007,.014],j%2?dark:light,6,[0,0,0],root);
-  }
-  // A stone turret stays rigid, but the muzzle is cut from its face on attack.
-  if(wake>.02){
-   const x=0,y=.69,push=wake*.43;
-   cy([x,y,-.23-push*.45],[.075,.14+push,.075],stone,6,[Math.PI/2,0,0],root);
-   cy([x,y,-.32-push],[.085,.018,.085],dark,6,[Math.PI/2,0,0],root);
-   rg([x,y,-.29-push],[.094,.012,.094],light,6,root);
-  }
-  return;
+ // type-specific surface carving cues inspired by cinematic wizard-chess atmosphere, but original.
+ if(type==='P'){
+  groove([[-.10,.70],[-.03,.60],[0,.50]],.006,light); groove([[.10,.70],[.03,.60],[0,.50]],.006,light);
+  groove([[-.09,.48],[-.06,.34]],.004,dark); groove([[.09,.48],[.06,.34]],.004,dark);
+  chip(0,.80,-.152,.145,.13,.024,light); chip(0,.55,-.205,.105,.18,.020,dark);
+  cy([0,.55,-.224],[.015,.24,.012],light,6,[0,0,0],root);
+  for(const x of [-.072,.072])chip(x,.61,-.218,.026,.028,.012,light);
+ }else if(type==='R'){
+  for(let y of [.39,.59,.78,.98]) for(let j=0;j<12;j++){let th=j*2*Math.PI/12; chip(Math.cos(th)*.266,y,Math.sin(th)*.266,.014,.009,.012,dark);}
+  for(let j=0;j<8;j++){let th=j*Math.PI/4; chip(Math.cos(th)*.227,1.38,Math.sin(th)*.227,.043,.055,.045,light);} 
+  groove([[-.12,.76],[-.14,.55],[-.13,.34]],.0055,dark); groove([[.12,.76],[.14,.55],[.13,.34]],.0055,dark);
+  chip(0,.62,-.277,.13,.21,.022,dark); chip(0,.59,-.301,.021,.15,.012,light);
+ }else if(type==='N'){
+  chip(0,.79,-.09,.176,.34,.19,stone); chip(0,1.075,-.29,.163,.18,.255,stone);
+  for(const x of [-.108,.108]){cn([x,1.23,-.22],[.044,.16,.049],light,6,[0,0,0],root); chip(x,.999,-.515,.022,.018,.012,dark);} 
+  for(let i=0;i<6;i++)chip(0,.77+i*.056,-.004-i*.060,.050,.028,.024,light);
+  groove([[.03,1.12],[.08,.99],[.10,.88]],.004,dark); groove([[-.03,1.12],[-.08,.99],[-.10,.88]],.004,dark);
+  chip(0,1.07,-.513,.085,.044,.018,dark);
+ }else if(type==='B'){
+  cn([0,1.34,0],[.16,.34,.16],stone,6,[0,0,0],root); chip(0,1.21,-.17,.082,.038,.028,light);
+  for(let j=0;j<7;j++){const yy=.42+j*.107; chip(0,yy,-(.204-(yy-.4)*.032),.012,.025,.013,j%2?light:dark);} 
+  groove([[0,1.42],[0,1.20],[0,1.01]],.006,dark);
+ }else if(type==='Q'){
+  for(let j=0;j<8;j++){const ang=j*2*Math.PI/8; chip(.166*Math.cos(ang),1.48,.166*Math.sin(ang),.034,.086,.034,light);} 
+  chip(0,1.26,-.166,.11,.15,.036,light);
+  for(let j=0;j<7;j++){const x=(j-3)*.049; chip(x,.54,-.245,.013,.20,.013,j%2?light:dark);} 
+  groove([[-.08,1.00],[-.05,.82],[-.03,.66]],.005,light); groove([[.08,1.00],[.05,.82],[.03,.66]],.005,light);
+ }else if(type==='K'){
+  for(let j=0;j<5;j++){const th=j*2*Math.PI/5; cn([.158*Math.cos(th),1.63,.158*Math.sin(th)],[.046,.14,.048],stone,6,[0,0,0],root);} 
+  chip(0,1.18,-.215,.14,.16,.045,light); chip(0,.91,-.303,.045,.28,.025,dark); chip(0,1.00,-.313,.20,.038,.020,light);
+  for(let j=0;j<5;j++){const x=(j-2)*.082; chip(x,.49,-.295,.016,.15,.015,light);} 
+  groove([[0,1.46],[0,1.28],[0,1.10]],.006,dark);
  }
- // Deep narrow engraving lines: arm separations from shoulder to wrists and two shins.
- const h=type==='P'?.69:type==='N'?1.02:type==='B'?1.04:type==='Q'?1.16:1.22;
- for(let side of [-1,1]){
-  groove([[side*.14,h],[side*.18,h-.12],[side*.17,h-.26],[side*.11,h-.38]],.008);
-  groove([[side*.11,.49],[side*.11,.39],[side*.075,.26]],.007);
-  groove([[side*.115,.39],[side*.155,.29]],.005,light);
-  for(let j=0;j<3;j++){
-   const y=.40+j*.11,r=carvedRadius(type,y);
-   ringNail(side*Math.min(r*.73,.12),y,-r*.8,.009);
-  }
+ // knees, greaves and lower robe segmentation
+ for(const side of [-1,1]){
+  groove([[side*.09,.42],[side*.11,.33],[side*.115,.25]],.004,dark);
+  chip(side*.09,.38,-.165,.020,.050,.010,light);
+  chip(side*.08,.26,-.155,.018,.045,.009,dark);
  }
- groove([[0,.30],[0,.36],[0,.48]],.008);
- if(type==='N'){
-  // Horse mane strands and reins engraved rather than a floating weapon.
-  for(let j=0;j<7;j++)groove([[.07+j*.012,1.10-j*.035],[.025+j*.016,.97-j*.04]],.005);
- }
- if(type==='Q'||type==='K'||type==='B'){
-  // Chiseled robe drapery and layered ceremonial tunic.
-  for(let side of [-1,1])for(let j=0;j<2;j++){
-   const x=side*(.05+j*.06);
-   groove([[x,.76],[x*1.14,.62],[x*1.32,.47],[x*1.40,.30]],.005,j%2?light:dark);
-  }
- }
+ // face: the same figurine gradually awakens in stages
  const headY=type==='P'?.83:type==='N'?1.15:type==='B'?1.25:type==='Q'?1.33:1.41;
- // Eyes and mouth score into face. The face and head slowly incline; stone stays stone.
- const nod=wake*(.07+Math.max(-.12,Math.min(.16,a.guard*.09)));
+ const nod=headWake*(.10+Math.max(-.10,Math.min(.18,a.guard*.08)));
  const face=T(root,[0,headY,-carvedRadius(type,headY)*.91],[nod,0,0]);
  for(const sx of [-1,1]){
   sp([sx*.046,.025,-.018],[.031,.010,.009],dark,6,[0,0,0],face);
   sp([sx*.043,.000,-.019],[.008,.013,.008],dark,6,[0,0,0],face);
+  sp([sx*.060,.046,-.014],[.018,.008,.007],light,6,[0,0,0],face);
  }
  sp([0,-.026,-.031],[.016,.039,.016],light,6,[0,0,0],face);
  sp([0,-.063,-.019],[.060,.006,.006],dark,6,[0,0,0],face);
- // Same-material carved arms, folded against the body at rest; individual joints move only when awakened.
+ sp([0,.058,-.012],[.082,.006,.006],dark,6,[0,0,0],face);
+ // articulated stone arms remain tucked in the relief at rest, then progressively free themselves.
  const shoulderY=type==='P'?.65:type==='N'?.92:type==='B'?.91:type==='Q'?.96:1.03;
  for(const side of [-1,1]){
   const forward=side===1?Math.max(-1.1,Math.min(1.4,a.slash||0)):(a.guard||0)*.52;
-  const open=wake*(side===1?(0.32+.18*Math.sin(forward*1.5)):-.25);
-  const arm=T(root,[side*.20,shoulderY,-.010],[.05*wake,side*.08*wake,side*(open+.20*wake*forward)]);
-  sp([side*.012,-.085,0],[.085,.17,.092],stone,6,[0,0,0],arm);
-  cn([side*.014,-.26,-.025],[.073,.25,.074],stone,6,[0,0,0],arm);
-  // Collar, elbow hinge, wrist and four engraved fingers cut into the arm.
-  rg([side*.014,-.23,-.028],[.074,.013,.074],dark,6,arm);
-  sp([side*.012,-.39,-.035],[.077,.075,.077],light,6,[0,0,0],arm);
-  for(let finger=0;finger<3;finger++)sp([side*.012+(finger-1)*.025,-.435,-.082],[.008,.040,.008],dark,6,[0,0,0],arm);
-  // Attack-only weapons are extruded from the lower relief, with no model-swap.
-  if(side===1&&wake>.025){
-   const draw=Math.pow(Math.max(0,(wake-.02)/.98),1.7);
-   const weapon=T(arm,[side*.015,-.42,-.044],[Math.max(-.55,Math.min(1.1,forward))*.32,0,0],[draw,draw,draw]);
+  const open=armWake*(side===1?(0.22+.34*Math.sin(forward*1.3)):-.16)+torsoWake*.08*side;
+  const arm=T(root,[side*.19,shoulderY,-.010],[.02+.07*armWake,side*.06*armWake,side*(open+.12*armWake*forward)]);
+  sp([side*.012,-.082,0],[.090,.18,.094],stone,6,[0,0,0],arm);
+  rg([side*.012,-.145,-.012],[.082,.010,.082],dark,6,arm);
+  cn([side*.014,-.27,-.025],[.075,.26,.076],stone,6,[0,0,0],arm);
+  sp([side*.014,-.39,-.035],[.081,.080,.079],light,6,[0,0,0],arm);
+  for(let finger=0;finger<4;finger++) sp([side*.012+(finger-1.5)*.020,-.442,-.082],[.008,.040,.008],dark,6,[0,0,0],arm);
+  sp([side*.012,-.35,-.060],[.020,.055,.012],dark,6,[0,0,0],arm);
+  sp([side*.012,-.19,-.048],[.018,.045,.010],light,6,[0,0,0],arm);
+  // Only when nearly fully awakened does the weapon emerge from the same stone hand.
+  if(side===1&&weaponWake>.01){
+   const draw=Math.pow(weaponWake,1.35);
+   const weapon=T(arm,[side*.015,-.42,-.044],[Math.max(-.55,Math.min(1.1,forward))*.30,0,0],[draw,draw,draw]);
    if(type==='P'||type==='K'||type==='Q'){
     const blade=type==='Q'?.28:type==='P'?.34:.64;
     cy([0,-.065,0],[.027,.13,.027],dark,6,[0,0,0],weapon);
@@ -670,10 +679,7 @@ function carvedAnatomy(a,now,root,stone,light,dark){
     cn([0,-.20-blade*.44,0],[type==='Q'?.035:.060,blade,.025],light,6,[Math.PI,0,0],weapon);
     cn([0,-.24-blade*.75,0],[.027,.11,.017],stone,6,[Math.PI,0,0],weapon);
    }else if(type==='B'){
-    for(let j=0;j<6;j++){
-     const t0=j/6,t1=(j+1)/6;
-     beam([.12+Math.sin(t0*Math.PI)*.13,-.10-t0*.65,-.06],[.12+Math.sin(t1*Math.PI)*.13,-.10-t1*.65,-.06],.024,stone,weapon);
-    }
+    for(let j=0;j<6;j++){const t0=j/6,t1=(j+1)/6;beam([.12+Math.sin(t0*Math.PI)*.13,-.10-t0*.65,-.06],[.12+Math.sin(t1*Math.PI)*.13,-.10-t1*.65,-.06],.024,stone,weapon);} 
     beam([.12,-.10,-.06],[.12,-.75,-.06],.008,light,weapon);
    }else if(type==='N'){
     cy([0,-.30,-.20],[.036,.90,.036],stone,6,[Math.PI/2,0,0],weapon);
@@ -1323,7 +1329,7 @@ async function execute(input){
  if(victim){
   activeFight={attacker,victim};
   // Gradually animate the same stone arms, wrists and face; no separate warrior mesh is drawn.
-  if(!await tween(860,t=>{const v=smooth(t);attacker.awake=v;victim.awake=v;attacker.lean=.048*Math.sin(v*Math.PI);victim.lean=-.038*Math.sin(v*Math.PI);attacker.guard=.12*v;victim.guard=.15*v;})){
+  if(!await tween(1180,t=>{const v=smooth(t);attacker.awake=v;victim.awake=v;attacker.lean=.040*Math.sin(v*Math.PI);victim.lean=-.030*Math.sin(v*Math.PI);attacker.guard=.10*v;victim.guard=.13*v;})){
     busy=false;return;
   }
   attacker.lean=0;victim.lean=0;
@@ -1341,7 +1347,7 @@ async function execute(input){
   attacker.pos=[...to];attacker.height=0;
   if(!await finishDebrisAfterArrival(thisToken)){busy=false;return;}
   actors=actors.filter(x=>x!==victim);activeFight=null;
-  if(!await tween(740,t=>{attacker.awake=1-smooth(t);attacker.lean=.022*Math.sin(t*Math.PI);attacker.guard=.12*(1-smooth(t));})){
+  if(!await tween(920,t=>{attacker.awake=1-smooth(t);attacker.lean=.018*Math.sin(t*Math.PI);attacker.guard=.10*(1-smooth(t));})){
     busy=false;return;
   }
   attacker.awake=0;attacker.lean=0;
@@ -1459,7 +1465,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'continuous-carved-relief',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v20'}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
