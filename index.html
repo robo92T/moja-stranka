@@ -551,6 +551,15 @@ function drawCinemaPawn(a,now){
  shape(meshFor('helmet'),[0,-1.60,0],[1,1,1],stone,6,[0,0,0],headRoot);
  sp([0,-.025,-.14],[.16,.10,.09],light,6,[0,0,0],headRoot);
  sp([0,.10,-.18],[.13,.077,.020],tone,6,[0,0,0],headRoot);
+ if(fine){
+  // Chisel strokes on the same stone helmet, emerging from its continuous sculptural surface.
+  for(let j=-2;j<=2;j++)sp([j*.056,.108-Math.abs(j)*.010,-.195],[.011,.025,.008],j%2?light:tone,6,[0,0,0],headRoot);
+  for(const side of [-1,1]){
+   beam([side*.055,.055,-.206],[side*.096,-.018,-.186],.006,tone,headRoot);
+   sp([side*.092,-.038,-.167],[.018,.012,.010],light,6,[0,0,0],headRoot);
+  }
+ }
+
  // Identical stone arms rest against the torso and unlock in order, not a model swap.
  for(const side of [-1,1]){
   const right=side===1;
@@ -565,6 +574,13 @@ function drawCinemaPawn(a,now){
   shape(meshFor('arm'),[0,0,0],[.72,.72,.72],stone,6,[Math.PI,0,0],wrist);
   sp([0,-.55,-.01],[.083,.085,.080],light,6,[0,0,0],wrist);
   if(fine)for(let j=0;j<4;j++)sp([(j-1.5)*.028,-.61,-.066],[.012,.041,.012],tone,6,[0,0,0],wrist);
+  if(fine){
+   // Armor bands, chiseled shoulder and articulated wrist continue to move with one figure.
+   for(const yy of [-.12,-.24,-.39])rg([0,yy,-.012],[.078,.012,.080],tone,6,arm);
+   for(let j=0;j<3;j++)beam([-.052+j*.05,-.17,-.078],[-.044+j*.05,-.37,-.074],.005,j%2?light:tone,arm);
+   for(let j=0;j<4;j++)sp([(j-1.5)*.027,-.618,-.066],[.006,.025,.008],light,6,[0,0,0],wrist);
+  }
+
   if(right){
    // The sword comes out of the statue's own hand after head, shoulders and wrists move.
    if(blade>.012){
@@ -580,6 +596,14 @@ function drawCinemaPawn(a,now){
    sp([0,0,-.17],[.23,.32,.035],tone,6,[0,0,0],shieldRoot);
    bx([0,0,-.207],[.028,.38,.010],light,6,[0,0,0],shieldRoot);
    bx([0,0,-.208],[.23,.026,.010],light,6,[0,0,0],shieldRoot);
+   if(fine){
+    for(const side of [-1,1]){
+     beam([side*.095,.19,-.204],[side*.16,.05,-.202],.005,light,shieldRoot);
+     beam([side*.16,.05,-.202],[side*.095,-.19,-.204],.005,light,shieldRoot);
+     for(const yy of [-.21,0,.21])sp([side*.18,yy,-.14],[.018,.018,.009],tone,6,[0,0,0],shieldRoot);
+    }
+   }
+
   }
  }
  if(!fine){
@@ -601,6 +625,17 @@ function drawCinemaPawn(a,now){
  path([[-.12,1.18,-.210],[0,1.07,-.242],[.12,1.18,-.210]],.008);
  path([[0,1.28,-.248],[0,1.16,-.252]],.011);
  for(let y of [.53,.80,1.06])sp([0,y,-.235],[.018,.016,.013],light,6,[0,0,0],root);
+ // Additional carved folds, little stone rivets and shin-armor lines, close/duel LOD only.
+ for(const sign of [-1,1]){
+  for(let j=0;j<3;j++){
+   const yy=.42+j*.19;
+   path([[sign*.065,yy,-.235],[sign*.103,yy-.040,-.218],[sign*.144,yy-.07,-.18]],.005,j%2?light:tone);
+  }
+  path([[sign*.105,.28,-.192],[sign*.13,.36,-.209],[sign*.145,.43,-.20]],.006);
+  path([[sign*.16,.86,-.20],[sign*.18,.93,-.17],[sign*.15,1.04,-.18]],.005,light);
+ }
+ for(let j=0;j<6;j++)sp([-.13+j*.052,1.21,-.221],[.012,.014,.011],j%2?tone:light,6,[0,0,0],root);
+
  for(let j=0;j<8;j++){const th=j*Math.PI/4;
   path([[(.30*Math.cos(th))*.94,.045,(.30*Math.sin(th))*.94],[.30*Math.cos(th),.09,.30*Math.sin(th)],[.30*Math.cos(th)*.92,.145,.30*Math.sin(th)*.92]],.005);
  }
