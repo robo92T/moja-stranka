@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: elegantná hradná 3D šachovnica, detailnejšie textúry figúrok, čitateľnejšie siluety a ladnejšie pohyby po doske.">
-<title>Kráľovské živé šachy 3D | Hradná edícia v25 · Ožívajúce vyrezávané sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>Kráľovské živé šachy 3D | Hradná edícia v27 · Ožívajúce vyrezávané sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -12%,#8a5a35 0,transparent 45%),radial-gradient(circle at 18% 24%,#5c2b1d55 0,transparent 26%),radial-gradient(circle at 82% 16%,#c18a4455 0,transparent 22%),linear-gradient(180deg,#1a100d 0%,#2a1a13 28%,#120b09 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#00000012 0 1px,transparent 1px 84px),radial-gradient(circle at 50% 0%,#f5c67c10 0,transparent 40%)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -197,7 +197,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V25</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V27</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -213,7 +213,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
  <div class="precise-grid" id="touchGrid" role="group" aria-label="Kontrolná šachovnica, 8 krát 8 políčok"></div>
  <div class="companion-bottom"><span>◉ Posledný ťah</span><span>● Možný ťah</span><span>♔ Biele dole</span></div>
 </section>
-<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia V25: figúrka na ťahu vykoná jeden rozhodujúci útok, úlomky reagujú na zbraň a smer zásahu. Animácie možno vypnúť.</div>
+<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Filmová edícia V27: prepracované kamenné sochy, dynamický nájazd koňa, viditeľné naťahovanie luku a pomalý pád po bodnutí. Animácie možno vypnúť.</div>
 </section>
 <aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé vyrezávané sochy. Pri zajatí útočí iba figúrka, ktorá je na ťahu: pešiak sekne dvakrát, veža vystrelí, jazdec narazí, strelec zasiahe šípom, kráľ rozsekne a kráľovná bodne dýkou. Každý zásah má vlastnú fyziku pádu a rozbitia. Útočné animácie môžeš kedykoľvek vypnúť. Dole zostáva ovládateľná 2D šachovnica.</p>
 <span class="field-label">HERNÝ REŽIM</span><div class="seg" id="modeSeg"><button class="on" data-mode="ai">⚔ Proti počítaču</button><button data-mode="local">♟ Dvaja hráči</button></div>
@@ -232,10 +232,10 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 </div><div class="pane moves-pane"><div class="moves-top"><h2>Kronika <i>bitky</i></h2><span id="moveCount" class="move-count">0 ťahov</span></div><div id="moveList" class="moves" aria-live="polite"><div class="empty-moves">Pergamen je zatiaľ čistý. Začni prvým ťahom.</div></div></div>
 <div class="small-note">♜ &nbsp; Šach je strategická hra. Figúrky po zásahu zostávajú kamennými sochami, ktoré padajú, praskajú a postupne miznú.</div>
 </aside>
-</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V25</footer>
+</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V27</footer>
 </div>
 <div class="dialog" id="promotionDialog" hidden><div class="modal-card"><div class="eyebrow">POVÝŠENIE</div><h2>Komu dáš korunu?</h2><p>Tvoj pešiak dorazil na koniec bojiska. Vyber figúrku.</p><div class="promote-items" id="promotionChoices"></div></div></div>
-<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>⚔ Útoky: zap./vyp. prepína filmový boj a rozbíjanie. Pri vypnutí sa zajatia vykonajú okamžite.</li><li>Pri zapnutých súbojoch figúrky vyrazia, ustúpia, vyhnú sa útoku a náhodne kombinujú obrany a protiútoky.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
+<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>⚔ Útoky: zap./vyp. prepína filmový boj a rozbíjanie. Pri vypnutí sa zajatia vykonajú okamžite.</li><li>Pri zapnutých útokoch figúrka na ťahu vykoná vlastný filmový zásah; jazdec naráža už počas dojazdu, strelec viditeľne natiahne luk a kráľovná útočí zboku.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
 <div class="dialog" id="gameoverDialog" hidden><div class="modal-card"><div class="gameover-mark">♛</div><div class="eyebrow">KONIEC KRÁĽOVSKEJ BITKY</div><h2 id="gameoverTitle">Koniec hry</h2><p id="gameoverText"></p><button class="action primary help-close" id="againBtn">⚔ Hrať znova</button><button class="action help-close" id="closeGameover">Pozrieť šachovnicu</button></div></div>
 <script>// Self-contained chess rules engine. No external services are required.
 class ChessEngine {
@@ -417,7 +417,7 @@ function showCheckNotice(isMate){
 
 const X=(r,c)=>[c-3.5,r-3.5]; // world x,z
 let actors=[],mode='ai',human='w',selected=null,hovered=null,last=null,state=engine.state(),busy=false,aiBusy=false,soundOn=true,fxOn=true,combatOn=true,token=0,showMoves=true,flip=false,soundCtx=null;
-let yaw=0,pitch=.89,dist=14,camTarget=[0,.2,0],camera=[0,0,0],camForward=[0,0,-1],camRight=[1,0,0],camUp=[0,1,0];
+let yaw=0,pitch=.82,dist=12.8,camTarget=[0,.2,0],camera=[0,0,0],camForward=[0,0,-1],camRight=[1,0,0],camUp=[0,1,0];
 let savedCam=null,cameraAnim=null,activeFight=null;
 const gl=canvas.getContext('webgl',{alpha:true,antialias:true,depth:true,premultipliedAlpha:false,powerPreference:'high-performance'});
 const ctx2d=gl?null:canvas.getContext('2d',{alpha:true});
@@ -443,6 +443,15 @@ function generateShapes(){
  const pt=(th,ph)=>[Math.sin(th)*Math.cos(ph),Math.cos(th),Math.sin(th)*Math.sin(ph)];
  pushTriangle(sphere,pt(a,u),pt(b,u),pt(b,v));pushTriangle(sphere,pt(a,u),pt(b,v),pt(a,v));}}
  mesh.cyl=cyl;mesh.cone=cone;mesh.sphere=sphere;mesh.ring=ring;
+ // Higher subdivision silhouettes only when inspecting/filming a sculpture up close.
+ const hiSphere=[],latFine=17,lonFine=24;
+ for(let i=0;i<latFine;i++)for(let j=0;j<lonFine;j++){
+  const pt=(row,col)=>{let a=Math.PI*row/latFine,b=Math.PI*2*col/lonFine;return [Math.sin(a)*Math.cos(b),Math.cos(a),Math.sin(a)*Math.sin(b)];};
+  pushTriangle(hiSphere,pt(i,j),pt(i+1,j),pt(i+1,j+1));
+  pushTriangle(hiSphere,pt(i,j),pt(i+1,j+1),pt(i,j+1));
+ }
+ mesh.sphereFine=hiSphere;
+
  // Irregular fractured porcelain, not cubes. Each fragment has a thin triangular shell.
  const shard=[],chip=[];
  const a=[-.60,-.42,-.32],b=[.68,-.37,-.36],c=[-.08,-.39,.63],d=[.13,.77,.04];
@@ -623,7 +632,15 @@ function drawCinemaPawn(a,now){
   }
  }
  if(!fine){
-  for(const side of [-1,1])sp([side*.11,.53,-.16],[.080,.12,.050],tone,6,[0,0,0],root);
+  // V27: no smooth cone in the wide board view; still see the armored soldier's relief.
+  sp([0,1.73,-.185],[.12,.065,.020],tone,6,[0,0,0],root);
+  sp([0,1.20,-.237],[.125,.145,.026],light,6,[0,0,0],root);
+  for(const side of [-1,1]){
+   sp([side*.12,1.27,-.17],[.057,.13,.045],stone,6,[0,0,0],root);
+   sp([side*.13,.50,-.18],[.060,.18,.048],tone,6,[0,0,0],root);
+   sp([side*.12,.33,-.18],[.060,.063,.065],stone,6,[0,0,0],root);
+  }
+  sp([0,.92,-.24],[.035,.08,.018],tone,6,[0,0,0],root);
   return;
  }
  // Engraved chisel-cut armor: V20 demo detail, now moving on the actual chessboard.
@@ -665,6 +682,177 @@ function drawCinemaPawn(a,now){
  }
 }
 
+// V27 museum-carved sculptural silhouettes: shoulders, readable faces, heraldic armor and horse anatomy.
+// Materials are cut from the same ivory/terracotta stone as the continuous lathed core.
+function drawMuseumRelief(a,now,root,stone,dark,light,fine){
+ const type=a.type,wake=Math.max(0,Math.min(1,a.awake||0));
+ const hs=(p,size,c=stone,ang=[0,0,0],par=root)=>shape(fine?'sphereFine':'sphere',p,size,c,6,ang,par);
+ const seg=(p,q,r,c=dark,par=root)=>beam(p,q,r,c,par);
+ const close=fine;
+ const face=(height,r=.125)=>{
+   const tilt=wake*.095+Math.max(-.16,Math.min(.16,a.headTurn||0))*.35;
+   const head=T(root,[0,height,0],[tilt,0,0]);
+   hs([0,0,-.055],[r,r*1.20,r*.85],stone,[0,0,0],head);
+   hs([0,-.016,-r*.84],[r*.20,r*.36,r*.26],light,[0,0,0],head);
+   for(const side of [-1,1]){
+     hs([side*r*.40,.016,-r*.79],[r*.17,r*.095,r*.075],dark,[0,0,0],head);
+     hs([side*r*.39,.023,-r*.85],[r*.061,r*.049,r*.036],light,[0,0,0],head);
+     hs([side*r*.68,-.006,-r*.30],[r*.18,r*.29,r*.15],stone,[0,0,0],head);
+   }
+   hs([0,-r*.58,-r*.68],[r*.36,r*.07,r*.09],dark,[0,0,0],head);
+   if(close){
+     seg([-r*.34,r*.66,-r*.71],[r*.32,r*.66,-r*.71],.005,light,head);
+     for(let side of [-1,1])seg([side*r*.64,-r*.38,-r*.36],[side*r*.37,-r*.70,-r*.54],.006,dark,head);
+   }
+ };
+ // All 3-D ornaments are carved from the block and keep their stone palette in combat.
+ const pedestal=()=>{
+   cy([0,.108,0],[.294,.078,.294],stone,6,[0,0,0],root);
+   rg([0,.159,0],[.288,.018,.288],light,6,root);
+   if(close)for(let i=0;i<12;i++){
+     const angle=i*Math.PI/6,x=Math.cos(angle)*.264,z=Math.sin(angle)*.264;
+     hs([x,.115,z],[.015,.025,.017],i%3?stone:light);
+   }
+ };
+ pedestal();
+ if(type==='N'){
+   // Actual horse-head bust with articulated poll and muzzle, ears, forehead, nostrils and bridle.
+   const gallop=(a.horseBeat||0),rear=(a.horseRear||0),nod=(a.horseNod||0);
+   const neck=T(root,[0,.84,-.065],[-.16+nod*.24+rear*.10,0,Math.sin(gallop*2.2)*.035]);
+   hs([0,-.04,-.04],[.19,.34,.19],stone,[-.28,0,0],neck);
+   const poll=T(neck,[0,.235,-.22],[nod*.22-.12,0,0]);
+   hs([0,.03,-.040],[.165,.21,.18],stone,[-.22,0,0],poll);
+   hs([0,-.046,-.218],[.133,.132,.20],stone,[-.13,0,0],poll);
+   hs([0,-.070,-.363],[.12,.085,.09],light,[0,0,0],poll);
+   for(let side of [-1,1]){
+     cn([side*.100,.254,-.01],[.046,.18,.065],stone,6,[-.21,0,side*.20],poll);
+     hs([side*.135,.055,-.154],[.026,.029,.018],dark,[0,0,0],poll);
+     hs([side*.073,-.076,-.428],[.016,.021,.010],dark,[0,0,0],poll);
+   }
+   // Continuous bridle and horse mane; decorative rows of stone ringlets.
+   seg([-.135,-.030,-.259],[.135,-.030,-.259],.011,dark,poll);
+   seg([-.129,-.044,-.250],[-.138,.13,-.145],.009,light,poll);
+   seg([.129,-.044,-.250],[.138,.13,-.145],.009,light,poll);
+   if(close){
+     for(let j=0;j<7;j++)hs([0,.085-j*.077,.15-j*.028],[.067,.033,.050],j%2?light:dark,[0,0,0],neck);
+     for(let j=0;j<5;j++)seg([-.130,.25-j*.04,-.205],[.130,.25-j*.04,-.205],.005,stone,poll);
+   }
+   // Forelegs are sculpted directly into the same pedestal-mounted stone block.
+   for(let side of [-1,1]){
+     const fore=T(root,[side*.156,.51,-.064],[Math.sin(gallop*2.2+side)*.14,0,side*.04]);
+     hs([0,-.085,-.033],[.067,.19,.082],stone,[.08,0,0],fore);
+     hs([0,-.247,-.065],[.083,.059,.123],light,[0,0,0],fore);
+     if(close)seg([0,-.094,-.128],[0,-.205,-.144],.007,dark,fore);
+   }
+   hs([0,.68,-.168],[.175,.11,.090],light);
+   if(close){hs([0,.64,-.243],[.12,.13,.035],dark);hs([0,.64,-.275],[.082,.087,.016],stone);}
+   return;
+ }
+ if(type==='R'){
+   // Heavily chased medieval tower: battlements, masonry courses, arched entry and crest.
+   for(let yy of [.31,.57,.86,1.08])rg([0,yy,0],[.273,.020,.273],yy===1.08?light:dark,6,root);
+   for(let j=0;j<8;j++){
+     let ang=j*Math.PI/4,x=Math.cos(ang),z=Math.sin(ang);
+     bx([.228*x,1.35,.228*z],[.077,.145,.079],stone,6,[0,-ang,0],root);
+   }
+   hs([0,.64,-.272],[.135,.195,.033],dark);
+   hs([0,.630,-.295],[.105,.151,.022],stone);
+   hs([0,.625,-.319],[.020,.140,.014],dark);
+   hs([0,.73,-.313],[.09,.017,.013],light);
+   if(close){
+     for(let y of [.35,.54,.73,.94])for(let j=0;j<10;j++){
+       let t=j*Math.PI/5;hs([Math.cos(t)*.270,y,Math.sin(t)*.270],[.015,.009,.011],j%3?dark:light);
+     }
+     for(let y of [.32,.49,.66])seg([-.145,y,-.251],[.145,y,-.251],.007,dark);
+     for(let y of [.4,.6,.8])hs([0,y,-.293],[.016,.018,.009],light);
+   }
+   return;
+ }
+ if(type==='B'||type==='Q'||type==='K'){
+   const royal=type==='Q'||type==='K',king=type==='K';
+   const shoulderY=king?1.06:type==='Q'?1.02:.92;
+   const faceY=king?1.365:type==='Q'?1.305:1.225;
+   const shoulders=king?.246:royal?.207:.195;
+   // Sculpted sculptural shoulder plates, chest, cinched waist and continuous cloak.
+   hs([0,shoulderY-.14,-.096],[royal?.205:.175,.30,.125],stone);
+   hs([0,shoulderY-.10,-.207],[.132,.183,.034],light);
+   for(let side of [-1,1]){
+     hs([side*shoulders,shoulderY,-.005],[king?.128:.106,.106,.13],light);
+     hs([side*shoulders*.83,shoulderY-.12,-.055],[.073,.16,.09],stone,[0,0,side*.13]);
+     if(close){
+       seg([side*shoulders*.54,shoulderY+.065,-.126],[side*shoulders,shoulderY-.028,-.112],.007,dark);
+       hs([side*.11,.80,-.210],[.03,.078,.02],dark);
+     }
+   }
+   face(faceY,king?.135:type==='Q'?.126:.116);
+   // Hair or sculpted hood close to the face — remains the same material in motion.
+   if(king){
+     for(let j=-2;j<=2;j++)hs([j*.051,1.244,-.145],[.034,.087,.043],j%2?stone:light);
+     hs([0,1.201,-.161],[.114,.043,.049],stone);
+   }else if(type==='Q'){
+     for(let side of [-1,1]){
+       hs([side*.132,1.12,.005],[.060,.255,.090],stone,[0,0,side*.10]);
+       hs([side*.145,1.248,-.065],[.069,.13,.075],stone);
+     }
+   }else{
+     // Cloaked archer with pointed hood: broad face opening and chiselled collar.
+     cn([0,1.37,0],[.17,.25,.17],stone,6,[0,0,0],root);
+     hs([0,1.238,-.174],[.092,.107,.045],light);
+     hs([0,1.248,-.204],[.071,.079,.014],dark);
+     hs([0,1.235,-.218],[.050,.064,.012],stone);
+   }
+   // Crowns carved as a ring of tall scallops instead of indistinct spires.
+   if(royal){
+     const crownY=king?1.565:1.485;
+     cy([0,crownY,0],[king?.176:.148,.10,king?.176:.148],light,6,[0,0,0],root);
+     for(let j=0;j<(king?7:6);j++){
+       let angle=j*2*Math.PI/(king?7:6),x=Math.cos(angle)*(king?.137:.126),z=Math.sin(angle)*(king?.137:.126);
+       cn([x,crownY+.11,z],[.042,.17,.040],stone,6,[0,0,0],root);
+       if(close)hs([x,crownY+.122,z],[.020,.022,.021],dark);
+     }
+   }
+   for(let side of [-1,1]){
+     // Hem of cloak and raised carved pleats.
+     hs([side*.125,.46,.105],[.085,.31,.115],stone,[0,0,-side*.13]);
+     if(close){
+       for(let j=0;j<3;j++)seg([side*(.055+j*.047),.69,-.220],[side*(.075+j*.049),.29,-.245],.005,j%2?light:dark);
+     }
+   }
+   if(close){
+     // Tiny geometric inlays instead of free-standing metal plates.
+     for(let i=0;i<4;i++){
+       let y=.72+i*.115;hs([0,y,-.234],[.024,.018,.012],i%2?dark:light);
+     }
+     seg([-.10,shoulderY-.22,-.216],[0,shoulderY-.31,-.242],.006,dark);
+     seg([0,shoulderY-.31,-.242],[.10,shoulderY-.22,-.216],.006,dark);
+   }
+ }
+}
+
+// Bow of stone emerges during combat. A real drawn string, visible nocked arrow, release motion.
+function drawArcherBow(a,now){
+ if(a.type!=='B'||(a.awake||0)<.45||!activeFight||activeFight.attacker!==a)return;
+ const draw=Math.min(1,Math.max(0,(a.bowDraw||0))),w=a.side==='w';
+ const root=T(I,[a.pos[0],.182+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[1.01,1.01,1.01]);
+ const ash=w?'#cfc0a9':'#774638',fine=w?'#e9decd':'#a47664';
+ const bow=T(root,[.225,.86,-.25],[0,.10,0]);
+ for(let i=0;i<10;i++){
+   const t=i/10,n=(i+1)/10;
+   const pos=p=>[.16*Math.sin(Math.PI*p),.47-p*.94,-.02-.075*Math.sin(Math.PI*p)];
+   beam(pos(t),pos(n),.016,ash,bow);
+ }
+ const notch=[.13*draw,.0,.02+draw*.23];
+ const upper=[0,.47,-.02],lower=[0,-.47,-.02];
+ beam(upper,notch,.0048,fine,bow);beam(notch,lower,.0048,fine,bow);
+ if(draw>.10){
+   // Shaft rests on taut string and points at the victim until release.
+   beam(notch,[notch[0],notch[1],-.68],.015,ash,bow);
+   cn([notch[0],notch[1],-.69],[.036,.085,.033],fine,6,[Math.PI/2,0,0],bow);
+   for(let side of [-1,1])hsArrowWing(bow,notch,side,ash);
+ }
+}
+function hsArrowWing(parent,notch,side,col){sp([notch[0]+side*.042,notch[1],notch[2]+.035],[.045,.012,.055],col,6,[0,0,0],parent);}
+
 function drawCarvedStatue(a,now){
  const w=a.side==='w',stone=w?'#e3d5c0':'#80483c',shadow=w?'#c5b39a':'#69372f',light=w?'#f1e4d2':'#945c4f',incise=w?'#baa88c':'#66382f';
  const ratio={P:.90,N:1.02,B:1.01,R:1.05,Q:1.00,K:1.05}[a.type]*Math.max(.025,1-Math.pow(a.defeatFade||0,1.4)*.975);
@@ -674,76 +862,19 @@ function drawCarvedStatue(a,now){
  // Distance-based mesh detail: sculpt geometry/engravings always exist; fine relief only near camera.
  const duelDetail=activeFight&&(a===activeFight.attacker||a===activeFight.victim);
  const closeInspect=dist<9.3&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<2.2;
- if(!duelDetail&&!closeInspect){
-   // Distinct carved silhouettes even from afar, without hundreds of high-poly tiny details.
-   if(a.type==='P'){sp([0,.56,-.19],[.094,.13,.018],light,6,[0,0,0],root);}
-   else if(a.type==='N'){
-     sp([0,.88,-.17],[.14,.20,.18],stone,6,[-.3,0,0],root);
-     sp([0,1.09,-.31],[.15,.14,.23],stone,6,[0,0,0],root);
-   }else if(a.type==='R'){
-     for(let j=0;j<6;j++){let th=j*Math.PI/3;sp([Math.cos(th)*.23,1.38,Math.sin(th)*.23],[.035,.044,.035],light,6,[0,0,0],root);}
-   }else if(a.type==='B'){cn([0,1.32,0],[.15,.31,.15],stone,6,[0,0,0],root);}
-   else if(a.type==='Q'){for(let j=0;j<5;j++){let th=j*2*Math.PI/5;sp([.15*Math.cos(th),1.47,.15*Math.sin(th)],[.026,.060,.026],light,6,[0,0,0],root);}}
-   else if(a.type==='K'){for(let j=0;j<5;j++){let th=j*2*Math.PI/5;cn([.15*Math.cos(th),1.60,.15*Math.sin(th)],[.045,.12,.045],stone,6,[0,0,0],root);}}
-   return;
- }
+ // Museum sculpt is recognizably anatomical even from the default chess-camera distance.
+ drawMuseumRelief(a,now,root,stone,shadow,light,!!(duelDetail||closeInspect));
+ if(!duelDetail&&!closeInspect)return;
  // Subtle bas-relief belongs to the block: carved folds and features lie against its outer shell.
  const handCarve=(p,s,color=incise)=>sp(p,s,color,6,[0,0,0],root);
- if(a.type==='P'){
-   // A soldier relief sunk into one solid tapered miniature: shield and helmet are relief, not loose objects.
-   handCarve([0,.80,-.152],[.135,.12,.025],light);
-   handCarve([0,.55,-.205],[.105,.18,.021],shadow);
-   cy([0,.55,-.224],[.015,.24,.012],light,6,[0,0,0],root);
-   for(const x of [-.072,.072])handCarve([x,.61,-.218],[.026,.027,.012],light);
- }else if(a.type==='R'){
-   // Tower masonry integrated into the monolithic rook; no cannon at rest.
-   for(let y of [.39,.59,.78,.98]){
-     for(let j=0;j<12;j++){let th=j*2*Math.PI/12;sp([Math.cos(th)*.266,y,Math.sin(th)*.266],[.014,.009,.012],shadow,6,[0,0,0],root);}
-   }
-   for(let j=0;j<8;j++){let th=j*Math.PI/4;sp([Math.cos(th)*.227,1.38,Math.sin(th)*.227],[.043,.055,.045],light,6,[0,0,0],root);}
-   handCarve([0,.62,-.277],[.13,.21,.022],shadow);
-   handCarve([0,.59,-.301],[.021,.15,.012],light);
- }else if(a.type==='N'){
-   // Chess-knight silhouette: horse neck and face carved as one rising shape, without a lance.
-   sp([0,.79,-.09],[.176,.34,.19],stone,6,[-.32,0,0],root);
-   sp([0,1.075,-.29],[.163,.18,.255],stone,6,[0,0,0],root);
-   for(const x of [-.108,.108]){
-     cn([x,1.23,-.22],[.044,.16,.049],light,6,[0,0,0],root);
-     handCarve([x,.999,-.515],[.022,.018,.012],shadow);
-   }
-   for(let i=0;i<6;i++)handCarve([0,.77+i*.056,-.004-i*.060],[.050,.028,.024],light);
-   handCarve([0,1.07,-.513],[.085,.044,.018],shadow);
- }else if(a.type==='B'){
-   // Carved mitre and a folded figure hidden within one compact silhouette.
-   cn([0,1.34,0],[.16,.34,.16],stone,6,[0,0,0],root);
-   handCarve([0,1.21,-.17],[.082,.038,.028],light);
-   for(let j=0;j<7;j++){const yy=.42+j*.107;handCarve([0,yy,-(.204-(yy-.4)*.032)],[.012,.025,.013],j%2?light:shadow);}
- }else if(a.type==='Q'){
-   // Tall goddess-like regent carved with draped robe and restrained tiara.
-   for(let j=0;j<8;j++){
-     const ang=j*2*Math.PI/8;
-     handCarve([.166*Math.cos(ang),1.48,.166*Math.sin(ang)],[.034,.086,.034],light);
-   }
-   handCarve([0,1.26,-.166],[.11,.15,.036],light);
-   for(let j=0;j<7;j++){const x=(j-3)*.049;handCarve([x,.54,-.245],[.013,.20,.013],j%2?light:shadow);}
- }else if(a.type==='K'){
-   // King has a five-tooth crown and elaborate royal mantle carved into the same stone.
-   for(let j=0;j<5;j++){
-     const th=j*2*Math.PI/5;
-     cn([.158*Math.cos(th),1.63,.158*Math.sin(th)],[.046,.14,.048],stone,6,[0,0,0],root);
-   }
-   handCarve([0,1.18,-.215],[.14,.16,.045],light);
-   handCarve([0,.91,-.303],[.045,.28,.025],shadow);
-   handCarve([0,1.00,-.313],[.20,.038,.020],light);
-   for(let j=0;j<5;j++){const x=(j-2)*.082;handCarve([x,.49,-.295],[.016,.15,.015],light);}
- }
+ // Detailed chiselling and articulated stone limbs remain on the same sculptural core.
  // Shallow marble strata and engraved plinth rosettes, still one monochrome stone.
  for(let j=0;j<8;j++){
   const th=j*Math.PI/4;
   handCarve([.27*Math.sin(th),.105,.27*Math.cos(th)],[.011,.012,.011],light);
  }
  // Chiseled anatomy remains visible throughout the animation, with stone articulated joints.
- carvedAnatomy(a,now,root,stone,light,shadow);
+ if(a.type!=='N')carvedAnatomy(a,now,root,stone,light,shadow);
 }
 
 
@@ -902,7 +1033,7 @@ function emit(key,m,col,kind=0){
   for(let v=0;v<3;v++){
    const p=local[v],pos=pts[v];let n=flat;
    if(key.startsWith('sculpt_')||key.startsWith('cinema_')){const nrm=stoneNormals[key],offset=j+v*3;n=smoothN(nrm[offset],nrm[offset+1],nrm[offset+2]);}
-   else if(key==='sphere')n=smoothN(p[0],p[1],p[2]);
+   else if(key==='sphere'||key==='sphereFine')n=smoothN(p[0],p[1],p[2]);
    else if(key==='cyl'&&!cap)n=smoothN(p[0],0,p[2]);
    else if(key==='cone'&&!cap){const radius=Math.max(.18,Math.hypot(p[0],p[2]));n=smoothN(p[0]/radius,.81,p[2]/radius);}
    ar[count++]=pos[0];ar[count++]=pos[1];ar[count++]=pos[2];ar[count++]=n[0];ar[count++]=n[1];ar[count++]=n[2];ar[count++]=rr;ar[count++]=gg;ar[count++]=bb;ar[count++]=kind;
@@ -1166,31 +1297,31 @@ async function shatterAfterHit(victim,thisToken,plan){
  if(plan.mode==='arrowfall'||plan.mode==='daggerfade'){
   shatterVictim(victim,plan);
   const sideways=plan.side;
-  const duration=plan.mode==='daggerfade'?2540:1500;
+  const duration=plan.mode==='daggerfade'?3550:1500;
   const setback=plan.mode==='daggerfade'?.13:.40;
   if(!await tween(duration,t=>{
-   const late=plan.mode==='daggerfade'?Math.max(0,(t-.22)/.78):Math.max(0,(t-.04)/.96);
-   // A slow loss of strength for the queen; an arrow instantly removes balance.
+   const late=plan.mode==='daggerfade'?Math.max(0,(t-.32)/.68):Math.max(0,(t-.04)/.96);
+   // Queen: brief stunned hold, staggered shoulders and a long, delayed collapse.
    const fall=smooth(late),e=smooth(t);
    victim.fall=fall*(plan.mode==='daggerfade'?1.34:sideways===0?1.50:1.08);
    victim.lean=fall*(plan.mode==='daggerfade'?.28:sideways*.82);
    victim.pos=[boundSquare(origin[0]+dir[0]*setback*fall+right[0]*sideways*.18*fall),boundSquare(origin[1]+dir[1]*setback*fall+right[1]*sideways*.18*fall)];
    victim.height=plan.mode==='daggerfade'?.07*Math.sin(t*Math.PI)*(.6+.4*fall):.06*Math.sin(t*Math.PI);
    victim.guard=(1-fall)*(plan.mode==='daggerfade'?.20:.65);
-   victim.hitReact=fall;victim.armDrive=-.4*fall;victim.offhand=(plan.mode==='daggerfade'?.45:0)*(1-fall);
+   victim.hitReact=fall;victim.armDrive=plan.mode==='daggerfade'?-.44*fall+.19*Math.sin(t*12)*(1-fall):-.4*fall;victim.offhand=(plan.mode==='daggerfade'?.75:0)*(1-fall);
    if(debris)debris.progress=e;
   }))return false;
   victim.height=0;victim.guard=0;
-  if(!await tween(plan.mode==='daggerfade'?600:490,()=>{}))return false;
+  if(!await tween(plan.mode==='daggerfade'?850:490,()=>{}))return false;
   return token===thisToken;
  }
  if(plan.mode==='ram'){
   // The horse hits, the entire statue flies, rotates and hits the floor before cracking.
-  const step=1.10+Math.random()*.28,sideways=plan.side*.26;
+  const step=1.46+Math.random()*.32,sideways=plan.side*.34;
   if(!await tween(1190,t=>{
    const e=smooth(t),rise=Math.sin(Math.PI*t);
    victim.pos=[boundSquare(origin[0]+dir[0]*step*e+right[0]*sideways*e),boundSquare(origin[1]+dir[1]*step*e+right[1]*sideways*e)];
-   victim.height=.49*rise;victim.fall=1.24*e;victim.lean=.28*plan.side*e;
+   victim.height=.72*rise;victim.fall=1.42*e;victim.lean=.28*plan.side*e;
    victim.hitReact=1.38*e;
   }))return false;
   victim.height=0;plan.origin=[...victim.pos];
@@ -1358,7 +1489,7 @@ function drawFighter(a,now){
  // One continuous sculptural 3D model: movement is expressed through the same stone relief
  // and its articulated stone shoulders and wrists; it never turns into a different mesh.
  drawCarvedStatue(a,now);
- drawEmbeddedArrow(a);drawCheckedKingShield(a);
+ drawEmbeddedArrow(a);drawCheckedKingShield(a);drawArcherBow(a,now);
  if((a.awake||0)>.06&&fxOn){
   const wake=Math.min(1,a.awake),intensity=Math.sin(Math.PI*wake)*.38;
   for(let j=0;j<3;j++){
@@ -1452,14 +1583,16 @@ void main(){
  float diffuse=max(dot(n,light),0.0),fill=max(dot(n,fillLight),0.0)*0.20;
  vec3 c=vColor;float rough=0.13,sharp=24.0;
  if(vKind>5.5){ // detailed carved limestone / terracotta stone, on actual 3D sculpted geometry
-  float p=sin(vPos.x*20.0+vPos.y*5.0+vPos.z*12.0);
-  float grain=sin(vPos.x*73.0+vPos.y*11.0)*sin(vPos.z*59.0-vPos.y*3.0);
-  float pores=hash(floor(vPos*72.0));
-  float veins=sin(vPos.y*13.0+sin(vPos.x*7.0)*2.1+vPos.z*6.0);
-  float chisel=sin(vPos.y*95.0+sin(vPos.x*31.0)*2.0+vPos.z*24.0)*.011;
-  c*=1.0+chisel;
-  c*=.90+.060*p+.035*grain+.040*pores+.027*veins;
-  rough=.15;sharp=17.0;
+  float p=sin(vPos.x*18.0+vPos.y*4.0+vPos.z*12.0);
+  float grain=sin(vPos.x*83.0+vPos.y*13.0)*sin(vPos.z*69.0-vPos.y*5.0);
+  float pores=hash(floor(vPos*80.0));
+  float marble=sin(vPos.y*11.0+sin(vPos.x*5.0)*2.5+vPos.z*8.0+sin(vPos.x*19.0+vPos.z*17.0)*.42);
+  float vein=pow(max(0.0,1.0-abs(marble)),9.0);
+  float chips=sin(vPos.y*125.0+sin(vPos.x*39.0)*2.0+vPos.z*27.0)*.009;
+  c*=.94+.035*p+.020*grain+.022*pores+.016*marble-.065*vein+chips;
+  vec3 micro=vec3(sin(vPos.y*103.0+vPos.z*53.0),sin(vPos.x*71.0),cos(vPos.x*39.0+vPos.y*51.0));
+  n=normalize(n+micro*.020);
+  rough=.095;sharp=27.0;
  }else if(vKind>4.5){ // ivory wax: soft translucency, drip strata and subtle marbling
   float drip=sin(vPos.y*24.0+sin(vPos.x*25.0)*0.5)*0.020;
   c*=0.975+drip;rough=0.14;sharp=19.0;
@@ -1479,14 +1612,14 @@ void main(){
   float pleat=sin(vPos.y*21.0+vPos.z*3.0);
   c*=0.955+0.030*weave+0.019*pleat;rough=0.085;sharp=18.0;
  }
- float shade=0.42+0.50*diffuse+fill;
+ float shade=0.33+0.61*diffuse+fill;
  float warmFlicker=0.88+0.08*sin(uTime*3.9)+0.04*sin(uTime*8.3);
  float fire1=1.0/(1.0+0.15*dot(vPos-vec3(-5.1,1.55,-5.1),vPos-vec3(-5.1,1.55,-5.1)));
  float fire2=1.0/(1.0+0.15*dot(vPos-vec3(5.1,1.55,5.1),vPos-vec3(5.1,1.55,5.1)));
  vec3 torch=vec3(1.0,0.54,0.28)*(fire1+fire2)*0.11*warmFlicker;
  vec3 halfway=normalize(view+light);
  float spec=pow(max(0.0,dot(n,halfway)),sharp)*rough;
- float rim=pow(max(0.0,1.0-dot(n,view)),2.3)*0.061;
+ float rim=pow(max(0.0,1.0-dot(n,view)),2.6)*0.093;
  vec3 finalColor=c*(shade+torch)+vec3(1.0,0.87,0.67)*(spec+rim);
  gl_FragColor=vec4(pow(max(finalColor,vec3(0.0)),vec3(0.94)),1.0);
 }`;
@@ -1557,7 +1690,7 @@ function pickTarget(cx,cy,touch=false){
  return square||figure;
 }
 function setCamera(newYaw,newPitch,newDist,newTarget=null){yaw=newYaw;pitch=Math.max(.42,Math.min(1.54,newPitch));dist=Math.max(7.7,Math.min(28,newDist));if(newTarget)camTarget=newTarget;updateCamera();}
-function defaultCamera(){setCamera(flip?Math.PI:0,1.04,(canvas.clientWidth/canvas.clientHeight<.83?17.3:14.8),[0,.34,0]);}
+function defaultCamera(){setCamera(flip?Math.PI:0,.93,(canvas.clientWidth/canvas.clientHeight<.83?17.3:13.75),[0,.38,0]);}
 function animateCamera(dt){if(!cameraAnim)return;const c=cameraAnim;c.t=Math.min(1,c.t+dt/c.duration);let e=c.t*c.t*(3-2*c.t);yaw=c.from.yaw+(c.to.yaw-c.from.yaw)*e;pitch=c.from.pitch+(c.to.pitch-c.from.pitch)*e;dist=c.from.dist+(c.to.dist-c.from.dist)*e;camTarget=c.from.target.map((n,i)=>n+(c.to.target[i]-n)*e);if(c.t>=1)cameraAnim=null;}
 function startCam(target,duration=700){cameraAnim={from:{yaw,pitch,dist,target:[...camTarget]},to:target,t:0,duration};}
 function showToast(msg){toast.textContent=msg;toast.classList.add('visible');clearTimeout(showToast.id);showToast.id=setTimeout(()=>toast.classList.remove('visible'),1400);}
@@ -1648,8 +1781,7 @@ const moviePulse=(p)=>Math.sin(Math.PI*p);
 function resetBattleAnatomy(a){if(!a)return;for(const prop of ['armDrive','elbowDrive','wristRoll','offhand','torsoTwist','headTurn','stepPhase','horseBeat','horseRear','horseNod','hitReact'])a[prop]=0;}
 const fightHistory=[];
 const lerp=(a,b,t)=>a+(b-a)*t;
-// V25: no alternating fencing. Only the piece on turn attacks, and its exact final
-// impact triggers the type-dependent motion and fracture. The defender never hits back.
+// V26: one-way capture strikes remain, but knight impact starts during the advance, the archer visibly draws and releases the bow, and the queen attacks from the side to avoid mesh overlap.
 async function animateCombat(attacker,victim,to,thisToken){
  const type=attacker.type;
  const initial=[...attacker.pos],initialVictim=[...victim.pos];
@@ -1696,26 +1828,35 @@ async function animateCombat(attacker,victim,to,thisToken){
    if(!await fire('cannon',710))return false;
    if(fxOn)sparks(target,15);
   }else if(type==='B'){
-   showToast('🏹 STRELEC · JEDEN ŠÍP');
-   if(!await pose(480,e=>{attacker.slash=e;attacker.armDrive=.46*e;attacker.offhand=.24*e;}))return false;
-   swish();if(!await fire('arrow',650))return false;
+   showToast('🏹 STRELEC · NATIAHNE LUK A VYSTRELÍ');
+   if(!await pose(430,e=>{attacker.bowDraw=.25*e;attacker.offhand=.92*e;attacker.armDrive=-.30*e;attacker.elbowDrive=.34*e;attacker.wristRoll=-.28*e;attacker.torsoTwist=-.16*e;attacker.slash=-.22*e;}))return false;
+   if(!await pose(740,e=>{attacker.bowDraw=.25+.75*e;attacker.offhand=.92+.54*e;attacker.armDrive=-.30-.52*e;attacker.elbowDrive=.34+.42*e;attacker.wristRoll=-.28-.40*e;attacker.torsoTwist=-.16-.10*e;attacker.guard=.24*e;}))return false;
+   swish();
+   if(!await pose(140,e=>{attacker.bowDraw=1-e;attacker.armDrive=-.82+1.35*e;attacker.elbowDrive=.76-.48*e;attacker.wristRoll=-.68+.62*e;attacker.offhand=1.46-.36*e;attacker.torsoTwist=-.26+.18*e;attacker.slash=-.22+.36*e;}))return false;
+   attacker.bowDraw=0;if(!await fire('arrow',620))return false;
    victim.hitArrow=true; // visible immediately when the projectile reaches the body
   }else if(type==='N'){
-   showToast('♞ JAZDEC · PRIAMY NÁRAZ');
-   if(!await pose(330,e=>{attacker.horseRear=.6*e;attacker.horseNod=-.35*e;attacker.horseBeat=.45*e;attacker.armDrive=-.30*e;}))return false;
+   showToast('♞ JAZDEC · NÁRAZ PRI PRECHODE NA POĽE');
+   if(!await pose(300,e=>{attacker.horseRear=.72*e;attacker.horseNod=-.38*e;attacker.horseBeat=.55*e;attacker.armDrive=-.32*e;attacker.stepPhase=.22*e;}))return false;
    swish();
-   if(!await pose(580,e=>{attacker.horseBeat=1.3;attacker.horseRear=.6*(1-e);attacker.horseNod=.30*e;attacker.stepPhase=e;attacker.armDrive=-.30+1.75*e;attacker.pos=actorStep(.29*e);attacker.height=.095*Math.sin(e*Math.PI);victim.hitReact=.25*e;}))return false;
+   if(!await pose(700,e=>{
+     attacker.horseBeat=1.45;attacker.horseRear=.72*(1-e);attacker.horseNod=.36*e;attacker.stepPhase=.28+.95*e;
+     attacker.armDrive=-.32+1.92*e;attacker.elbowDrive=.10+.58*e;attacker.torsoTwist=.10+.28*e;
+     attacker.pos=actorStep(.96*e);attacker.height=.16*Math.sin(e*Math.PI);
+     const hit=Math.max(0,(e-.68)/.32);victim.hitReact=.58*hit;victim.lean=.14*hit;victim.height=.03*Math.sin(hit*Math.PI);
+   }))return false;
    if(fxOn)sparks(target,9);clang();
   }else if(type==='K'){
    showToast('♚ KRÁĽ · ŤAŽKÝ SEK MEČOM');
    if(!await strike('♚ KRÁĽ SEČIE NA DVE ALEBO TRI ČASTI',510,650,1,9))return false;
    clang();
   }else if(type==='Q'){
-   showToast('🗡 KRÁĽOVNÁ · PRIBLÍŽENIE A BODNUTIE');
-   if(!await pose(380,e=>{attacker.pos=actorStep(.33*e);attacker.stepPhase=.8*e;attacker.torsoTwist=.12*e;attacker.charge=e;attacker.offhand=.1*e;}))return false;
-   if(!await pose(330,e=>{attacker.armDrive=-.55*e;attacker.elbowDrive=-.25*e;attacker.slash=-.28*e;attacker.wristRoll=-.15*e;}))return false;
+   showToast('🗡 KRÁĽOVNÁ · PRÍDE ZBOKU A PICHNE');
+   const qSide=(attacker.side==='w'?1:-1)*.18;
+   if(!await pose(360,e=>{attacker.pos=actorStep(.14*e,qSide*e);attacker.stepPhase=.72*e;attacker.torsoTwist=.10*e;attacker.charge=e;attacker.offhand=.14*e;}))return false;
+   if(!await pose(280,e=>{attacker.armDrive=-.52*e;attacker.elbowDrive=-.22*e;attacker.slash=-.26*e;attacker.wristRoll=-.14*e;attacker.pos=actorStep(.14+.03*e,qSide);} ))return false;
    swish();
-   if(!await pose(530,e=>{attacker.pos=actorStep(.33+.10*e);attacker.armDrive=-.55+1.78*e;attacker.elbowDrive=-.25+1.46*e;attacker.slash=-.28+1.08*e;attacker.wristRoll=-.15+.52*e;victim.hitReact=.12*e;victim.lean=.05*e;}))return false;
+   if(!await pose(520,e=>{attacker.pos=actorStep(.18+.05*e,qSide);attacker.armDrive=-.52+1.66*e;attacker.elbowDrive=-.22+1.28*e;attacker.slash=-.26+.94*e;attacker.wristRoll=-.14+.46*e;attacker.torsoTwist=.10+.16*e;victim.hitReact=.12*e;victim.lean=.05*e;}))return false;
   }
   if(!current())return false;
   // The last contact and start of the fracture are in the SAME animation tick.
@@ -1724,7 +1865,7 @@ async function animateCombat(attacker,victim,to,thisToken){
   // The victor may advance after the target has fallen; never leave dangling attacks.
   attacker.slash=0;attacker.armDrive=0;attacker.elbowDrive=0;attacker.wristRoll=0;
   attacker.offhand=0;attacker.torsoTwist=0;attacker.stepPhase=0;attacker.horseBeat=0;attacker.horseRear=0;attacker.horseNod=0;
-  attacker.height=0;attacker.pos=[...initial];attacker.charge=0;
+  attacker.height=0;if(type!=='N'||!current())attacker.pos=[...initial];attacker.charge=0;attacker.bowDraw=0;
   victim.slash=0;victim.armDrive=0;
   combatFx=null;
  }
@@ -1753,7 +1894,7 @@ async function execute(input){
  if(m.castle){rook=actorAt(m.r,m.castle==='K'?7:0);if(rook){rookFrom=[...rook.pos];rookTo=X(m.tr,m.castle==='K'?5:3);}}
  const ranged=victim&&['R','B'].includes(attacker.type);
  const vec=V.norm([to[0]-from[0],0,to[1]-from[1]]);
- const destination=ranged?from:victim?[to[0]-vec[0]*(attacker.type==='Q'?.28:.55),to[1]-vec[2]*(attacker.type==='Q'?.28:.55)]:to;
+ const destination=ranged?from:attacker.type==='N'&&victim?from:victim?[to[0]-vec[0]*(attacker.type==='Q'?.42:.55)+(attacker.type==='Q'?-vec[2]*.18:0),to[1]-vec[2]*(attacker.type==='Q'?.42:.55)+(attacker.type==='Q'?vec[0]*.18:0)]:to;
  const moved=await tween(victim&&ranged?210:victim?760:720,f=>{
   const e=smooth(f), glide=e*e*(3-2*e), arc=victim&&ranged?0:(.065*Math.sin(Math.PI*e));
   attacker.pos=[from[0]+(destination[0]-from[0])*glide,from[1]+(destination[1]-from[1])*glide];
@@ -1899,7 +2040,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v25',combatStyles:FIGHT_STYLES.length,fractureModes:DEATH_MODES.length,cinematicPawnMerged:true,independentSwordAndShield:true,articulatedHorse:true,oneWayFinishers:true,checkDefenseShield:true,arrowEmbedded:true,directionalFinishers:true,contactDrivenBreakage:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},lastFinisher:()=>lastFinisher,quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,finisher:()=>lastFinisher?{attacker:lastFinisher.attacker,mode:lastFinisher.mode,dir:[...lastFinisher.dir],side:lastFinisher.side,power:lastFinisher.power,origin:[...lastFinisher.origin]}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight,enabled:combatOn,lastStyle:fightHistory.at(-1)||null,history:[...fightHistory],horseMotion:actors.filter(x=>x.type==='N'&&x.awake>.1).map(x=>({beat:x.horseBeat,rear:x.horseRear})),independentHands:true}),combatStyles:()=>FIGHT_STYLES.map(x=>({...x})),deathModes:()=>[...DEATH_MODES],ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v27',combatStyles:FIGHT_STYLES.length,fractureModes:DEATH_MODES.length,cinematicPawnMerged:true,independentSwordAndShield:true,articulatedHorse:true,oneWayFinishers:true,museumCarvedStatues:true,closeMeshSmoothing:true,visibleBowDraw:true,checkDefenseShield:true,arrowEmbedded:true,directionalFinishers:true,contactDrivenBreakage:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},lastFinisher:()=>lastFinisher,quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,finisher:()=>lastFinisher?{attacker:lastFinisher.attacker,mode:lastFinisher.mode,dir:[...lastFinisher.dir],side:lastFinisher.side,power:lastFinisher.power,origin:[...lastFinisher.origin]}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight,enabled:combatOn,lastStyle:fightHistory.at(-1)||null,history:[...fightHistory],horseMotion:actors.filter(x=>x.type==='N'&&x.awake>.1).map(x=>({beat:x.horseBeat,rear:x.horseRear})),independentHands:true}),combatStyles:()=>FIGHT_STYLES.map(x=>({...x})),deathModes:()=>[...DEATH_MODES],ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
