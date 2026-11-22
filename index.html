@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: elegantná hradná 3D šachovnica, detailnejšie textúry figúrok, čitateľnejšie siluety a ladnejšie pohyby po doske.">
-<title>Kráľovské živé šachy 3D | Hradná edícia v24 · Ožívajúce vyrezávané sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>Kráľovské živé šachy 3D | Hradná edícia v25 · Ožívajúce vyrezávané sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -12%,#8a5a35 0,transparent 45%),radial-gradient(circle at 18% 24%,#5c2b1d55 0,transparent 26%),radial-gradient(circle at 82% 16%,#c18a4455 0,transparent 22%),linear-gradient(180deg,#1a100d 0%,#2a1a13 28%,#120b09 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#00000012 0 1px,transparent 1px 84px),radial-gradient(circle at 50% 0%,#f5c67c10 0,transparent 40%)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -181,7 +181,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 .castle-scene{filter:contrast(1.035)}
 #royalCanvas{filter:contrast(1.075) saturate(.93)}
 
-/* Filmové súboje sú samostatný herný prepínač: stále zachováva ťahy a pravidlá. */
+/* Filmové útoky sú samostatný herný prepínač: stále zachováva ťahy a pravidlá. */
 #combatBtn[aria-pressed="true"]{background:linear-gradient(145deg,#684331,#3d241d);color:#ffe5ba;border-color:#b7864f}
 #combatBtn[aria-pressed="false"]{background:rgba(86,78,70,.18);color:#c7baa7;border-color:#645448}
 @media(max-width:700px){#combatBtn{min-width:132px;min-height:44px}}
@@ -197,7 +197,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V24</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V25</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -213,9 +213,9 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
  <div class="precise-grid" id="touchGrid" role="group" aria-label="Kontrolná šachovnica, 8 krát 8 políčok"></div>
  <div class="companion-bottom"><span>◉ Posledný ťah</span><span>● Možný ťah</span><span>♔ Biele dole</span></div>
 </section>
-<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia V22: 12 náhodných choreografií súbojov, 10 variantov rozbitia, fyzika úlomkov a ovládanie animácií.</div>
+<div class="footnote">✦ Potiahni myšou alebo prstom pre otočenie kamery. Klikni na figúrku a označené políčko. Hradná edícia V25: figúrka na ťahu vykoná jeden rozhodujúci útok, úlomky reagujú na zbraň a smer zásahu. Animácie možno vypnúť.</div>
 </section>
-<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé vyrezávané sochy. Pri zajatí sa prebudia, spravia niekoľko náhodných výpadov, ústupov, úhybov a protiútokov. Porazené sa rozbijú jedným z 10 spôsobov; úlomky dopadajú, odskakujú, šmýkajú sa a pomaly miznú. Bojové animácie môžeš kedykoľvek vypnúť. Dole zostáva ovládateľná 2D šachovnica.</p>
+<aside class="side"><div class="pane"><div class="eyebrow">✦ &nbsp;KRÁĽOVSKÝ VEĽITEĽSKÝ STÔL</div><h2>Ovládni <i>kráľovstvo</i></h2><p class="lead">Živé vyrezávané sochy. Pri zajatí útočí iba figúrka, ktorá je na ťahu: pešiak sekne dvakrát, veža vystrelí, jazdec narazí, strelec zasiahe šípom, kráľ rozsekne a kráľovná bodne dýkou. Každý zásah má vlastnú fyziku pádu a rozbitia. Útočné animácie môžeš kedykoľvek vypnúť. Dole zostáva ovládateľná 2D šachovnica.</p>
 <span class="field-label">HERNÝ REŽIM</span><div class="seg" id="modeSeg"><button class="on" data-mode="ai">⚔ Proti počítaču</button><button data-mode="local">♟ Dvaja hráči</button></div>
 <div id="aiOptions"><span class="field-label">VYBER SVOJE KRÁĽOVSTVO</span><div class="seg colors" id="sideSeg"><button class="on" data-side="w">♔ Biele</button><button data-side="b">♚ Červené</button></div><label for="difficulty" class="field-label">SILA SÚPERA</label><select id="difficulty" class="difficulty"><option value="easy">Panoš · ľahká</option><option selected value="medium">Rytier · stredná</option><option value="hard">Veľmajster · ťažká</option></select></div>
 <div class="statusbox"><div class="status-seal">⚜</div><div><div id="status" class="status-text">Na ťahu: Biele kráľovstvo</div><div id="substatus" class="status-sub">Vyber figúrku na šachovnici</div></div></div>
@@ -228,14 +228,14 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 <div><span>♚</span><strong>Kráľ</strong><small>Veľká koruna · meč</small></div>
 <div><span>♛</span><strong>Kráľovná</strong><small>Tiara · krátka dýka</small></div>
 </div></details>
-<div class="buttons"><button id="newGame" class="action primary">✦ Nová partia</button><button id="undoBtn" class="action">↶ Vrátiť ťah</button><button id="flipBtn" class="action">↕ Otočiť dosku</button><button id="effectsBtn" class="action">✧ Efekty: zap.</button><button id="combatBtn" class="action" aria-pressed="true" title="Zapnúť alebo vypnúť celé bojové animácie, nie šachové pravidlá">⚔ Súboje: zap.</button></div>
+<div class="buttons"><button id="newGame" class="action primary">✦ Nová partia</button><button id="undoBtn" class="action">↶ Vrátiť ťah</button><button id="flipBtn" class="action">↕ Otočiť dosku</button><button id="effectsBtn" class="action">✧ Efekty: zap.</button><button id="combatBtn" class="action" aria-pressed="true" title="Zapnúť alebo vypnúť celé bojové animácie, nie šachové pravidlá">⚔ Útoky: zap.</button></div>
 </div><div class="pane moves-pane"><div class="moves-top"><h2>Kronika <i>bitky</i></h2><span id="moveCount" class="move-count">0 ťahov</span></div><div id="moveList" class="moves" aria-live="polite"><div class="empty-moves">Pergamen je zatiaľ čistý. Začni prvým ťahom.</div></div></div>
-<div class="small-note">♜ &nbsp; Šach je strategická hra. Figúrky pri súboji nekrvácajú — iba padnú a rozplynú sa v iskrach.</div>
+<div class="small-note">♜ &nbsp; Šach je strategická hra. Figúrky po zásahu zostávajú kamennými sochami, ktoré padajú, praskajú a postupne miznú.</div>
 </aside>
-</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V22</footer>
+</main><footer>KRÁĽOVSKÉ ŽIVÉ ŠACHY <span>✦</span> FILMOVÁ HRADNÁ EDÍCIA V25</footer>
 </div>
 <div class="dialog" id="promotionDialog" hidden><div class="modal-card"><div class="eyebrow">POVÝŠENIE</div><h2>Komu dáš korunu?</h2><p>Tvoj pešiak dorazil na koniec bojiska. Vyber figúrku.</p><div class="promote-items" id="promotionChoices"></div></div></div>
-<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>⚔ Súboje: zap./vyp. prepína filmový boj a rozbíjanie. Pri vypnutí sa zajatia vykonajú okamžite.</li><li>Pri zapnutých súbojoch figúrky vyrazia, ustúpia, vyhnú sa útoku a náhodne kombinujú obrany a protiútoky.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
+<div class="dialog" id="helpDialog" hidden><div class="modal-card"><div class="eyebrow">KRÁĽOVSKÝ KÓDEX</div><h2>Ako hrať</h2><ul class="help-list"><li>Ťukni na figúrku, potom na označené políčko. Výber funguje z každej strany 3D šachovnice.</li><li>Myšou alebo jedným prstom ťahaj po ploche pre otočenie kamery.</li><li>Kolieskom alebo dvoma prstami priblíž a oddiaľ. Šípky/WASD otáčajú kameru; R resetuje pohľad.</li><li>Platí šach, mat, rošáda, en passant aj premena pešiaka.</li><li>⚔ Útoky: zap./vyp. prepína filmový boj a rozbíjanie. Pri vypnutí sa zajatia vykonajú okamžite.</li><li>Pri zapnutých súbojoch figúrky vyrazia, ustúpia, vyhnú sa útoku a náhodne kombinujú obrany a protiútoky.</li><li>Možno hrať proti počítaču alebo s druhým hráčom na jednom zariadení.</li></ul><button class="action primary help-close" id="helpClose">Rozumiem</button></div></div>
 <div class="dialog" id="gameoverDialog" hidden><div class="modal-card"><div class="gameover-mark">♛</div><div class="eyebrow">KONIEC KRÁĽOVSKEJ BITKY</div><h2 id="gameoverTitle">Koniec hry</h2><p id="gameoverText"></p><button class="action primary help-close" id="againBtn">⚔ Hrať znova</button><button class="action help-close" id="closeGameover">Pozrieť šachovnicu</button></div></div>
 <script>// Self-contained chess rules engine. No external services are required.
 class ChessEngine {
@@ -974,22 +974,20 @@ function newActor(r,c){const type=engine.board[r][c];return type?{r,c,side:type[
 let debris=null;
 // Porcelain fracture physics: each type determines the radius of the breakage.
 const SHATTER_RADII={P:.30,N:1.13,B:1.32,R:1.40,Q:1.72,K:1.75};
-const DEATH_MODES=['headfall','armfall','halved','cracked','shattered','cannon','ram','arrowfall','bisected','daggerfade'];
-let forcedDeathMode=null; // available for deterministic animation tests only
-// Directional finishing blows. The attacker type controls the contact response,
-// and the incoming world-space vector controls where large fragments travel.
+const DEATH_MODES=['headfall','halved','quartered','cannon','ram','arrowfall','bisected','thirded','daggerfade'];
+let forcedDeathMode=null;
 let lastFinisher=null;
 function makeFinisher(attacker,victim){
  const vx=victim.pos[0]-attacker.pos[0],vz=victim.pos[1]-attacker.pos[1],length=Math.hypot(vx,vz)||1;
- const straight=[vx/length,vz/length],right=[-straight[1],straight[0]],side=Math.random()<.5?-1:1;
- const cutRoll=['P','Q','K'].includes(attacker.type)?Math.max(-.44,Math.min(.44,(attacker.wristRoll||0)*.32)):0;
- const dir=[straight[0]*Math.cos(cutRoll)+right[0]*Math.sin(cutRoll),straight[1]*Math.cos(cutRoll)+right[1]*Math.sin(cutRoll)];
- const choose=a=>a[Math.floor(Math.random()*a.length)];
- const kinds={P:['headfall','armfall','halved','cracked','shattered'],R:['cannon'],N:['ram'],B:['arrowfall'],K:['bisected'],Q:['daggerfade']};
- const mode=forcedDeathMode||choose(kinds[attacker.type]||kinds.P);
- const tilt=attacker.type==='B'?choose([-1,0,1]):side;
- const power={P:.30,R:1.65,N:1.14,B:.46,K:.72,Q:.18}[attacker.type];
- const plan={attacker:attacker.type,mode,dir,right,side:tilt,power,origin:[...victim.pos],impact:[victim.pos[0],victim.type==='P'?.74:1.02,victim.pos[1]],strikeAngle:Math.atan2(dir[1],dir[0]),phase:'contact'};
+ const direct=[vx/length,vz/length],right=[-direct[1],direct[0]],side=Math.random()<.5?-1:1;
+ const rawCut=attacker.type==='P'||attacker.type==='K'?Math.max(-.48,Math.min(.48,(attacker.wristRoll||0)*.34)):0;
+ const dir=[direct[0]*Math.cos(rawCut)+right[0]*Math.sin(rawCut),direct[1]*Math.cos(rawCut)+right[1]*Math.sin(rawCut)];
+ const options={P:['headfall','halved','quartered'],R:['cannon'],N:['ram'],B:['arrowfall'],K:['bisected','thirded'],Q:['daggerfade']};
+ const choices=options[attacker.type]||options.P;
+ const kind=forcedDeathMode||choices[Math.floor(Math.random()*choices.length)];
+ const tilt=attacker.type==='B'?[-1,0,1][Math.floor(Math.random()*3)]:side;
+ const power={P:.34,R:2.45,N:1.22,B:.48,K:1.14,Q:.14}[attacker.type];
+ const plan={attacker:attacker.type,mode:kind,dir,right,side:tilt,power,origin:[...victim.pos],impact:[victim.pos[0],victim.type==='P'?.74:1.0,victim.pos[1]],strikeAngle:Math.atan2(dir[1],dir[0]),phase:'contact',leaveBase:attacker.type==='R'&&Math.random()<.68,checkShield:attacker.type==='K'};
  lastFinisher=plan;return plan;
 }
 function boundSquare(x){return Math.max(-3.82,Math.min(3.82,x));}
@@ -997,89 +995,145 @@ function shatterVictim(victim,plan){
  const type=victim.type,light=victim.side==='w',deathMode=plan.mode;
  const palette=light?['#efe3d2','#dfd1bd','#c8b9a3','#f5eee2','#baaa95']:['#8f584b','#76473d','#a96f62','#6b3f38','#9c6658'];
  const center=plan.origin,dir=plan.dir,right=plan.right;
- const fullRadius=SHATTER_RADII[type],maxRange=Math.min(1.80,fullRadius);
- const nominal={P:24,N:38,B:38,R:41,Q:46,K:50}[type];
- const ratio={headfall:.24,armfall:.20,halved:.50,cracked:.24,shattered:.88,cannon:1.0,ram:.26,bisected:.38,arrowfall:0,daggerfade:0}[deathMode]??.35;
- const quantity=Math.max(0,Math.round(nominal*ratio));
- const fragments=[];
+ // A king's sword can send pieces across a 5x5-square footprint.
+ // Cannon fragments may reach any part of the playable board, but never outside it.
+ const range=deathMode==='cannon'?8.7:deathMode==='bisected'||deathMode==='thirded'?2.40:deathMode==='ram'?1.55:deathMode==='quartered'?.53:.35;
+ const nominal={P:24,N:40,B:40,R:45,Q:47,K:51}[type];
+ const ratio={headfall:.14,halved:.38,quartered:.58,cannon:1,ram:.12,bisected:.30,thirded:.38,arrowfall:0,daggerfade:0}[deathMode]??.28;
+ const quantity=Math.round(nominal*ratio),fragments=[];
  for(let i=0;i<quantity;i++){
   const theta=Math.random()*Math.PI*2;
-  const spread=deathMode==='cannon'?(.76+Math.random()*.24):deathMode==='shattered'?(.38+Math.random()*.51):deathMode==='ram'?(.12+Math.random()*.32):(.06+Math.random()*.35);
-  const cone=(Math.random()-.5)*(deathMode==='cannon'?1.12:deathMode==='bisected'?2.1:2.7);
-  let axial=spread*(deathMode==='cannon'?.72:deathMode==='ram'?.55:.20)*maxRange;
-  let sideways=(Math.random()-.5)*maxRange*(deathMode==='cannon'?.76:deathMode==='bisected'?.58:.46);
-  if(deathMode==='headfall'){axial=.07+Math.random()*.12;sideways=(Math.random()-.5)*.25;}
-  if(deathMode==='armfall'){axial=.07+Math.random()*.12;sideways=plan.side*(.05+Math.random()*.14);}
-  if(deathMode==='halved'||deathMode==='bisected')sideways+=(i%2?1:-1)*(.08+.22*Math.random());
-  if(deathMode==='shattered'){axial+=Math.cos(theta)*maxRange*.24;sideways+=Math.sin(theta)*maxRange*.20;}
-  if(deathMode==='cannon'){axial+=Math.cos(cone)*maxRange*.12;sideways+=Math.sin(cone)*maxRange*.15;}
-  const outX=dir[0]*axial+right[0]*sideways,outZ=dir[1]*axial+right[1]*sideways;
-  const dx=boundSquare(center[0]+outX)-center[0],dz=boundSquare(center[1]+outZ)-center[1];
-  const zone=deathMode==='headfall'?(.70+Math.random()*.14):deathMode==='armfall'?(.46+Math.random()*.26):(.13+Math.random()*(type==='P'?.60:1.18));
+  let axial=0,lateral=0,zone=.19+Math.random()*.65,arcMul=.30+Math.random()*.20,scale=.048+Math.random()*.060;
+  if(deathMode==='cannon'){
+   // 65% of shards are propelled forward; the rest ricochet in random directions.
+   const frontal=i<quantity*.65;
+   const distance=(frontal?.8:1.0)+Math.random()*(frontal?5.9:7.5);
+   const angle=frontal?(Math.random()-.5)*2.6:theta;
+   axial=Math.cos(angle)*distance;lateral=Math.sin(angle)*distance;
+   zone=.12+Math.random()*1.43;arcMul=1.05+Math.random()*.86;
+  }else if(deathMode==='bisected'||deathMode==='thirded'){
+   const major=i<3;
+   const branch=i%2===0?-1:1;
+   axial=(.22+Math.random()*.62)*range;
+   lateral=branch*(.23+Math.random()*.56)*range;
+   zone=major?.95:.26+Math.random()*1.1;arcMul=major?1.2:.50+Math.random()*.48;
+   scale=major?.16:.065+Math.random()*.095;
+  }else if(deathMode==='headfall'){
+   axial=.08+Math.random()*.14;lateral=(Math.random()-.5)*.25;
+   zone=.75+Math.random()*.18;arcMul=.40;scale=i===0?.19:.042+Math.random()*.035;
+  }else if(deathMode==='quartered'){
+   const quadrant=i%4;
+   axial=(quadrant%2?-.35:.35)*(.35+Math.random()*.40);
+   lateral=(quadrant<2?-1:1)*(.25+Math.random()*.35);
+   zone=.38+Math.random()*.60;arcMul=.58+Math.random()*.23;
+   scale=i<4?.14:.045+Math.random()*.055;
+  }else if(deathMode==='halved'){
+   axial=.10+Math.random()*.22;lateral=(i%2?1:-1)*(.14+Math.random()*.20);
+   zone=.36+Math.random()*.5;arcMul=.44+Math.random()*.22;
+  }else if(deathMode==='ram'){
+   axial=.14+Math.random()*.30;lateral=(Math.random()-.5)*.25;
+   zone=.12+Math.random()*.34;arcMul=.30;
+  }
+  const outX=dir[0]*axial+right[0]*lateral,outZ=dir[1]*axial+right[1]*lateral;
+  const kCut=deathMode==='bisected'||deathMode==='thirded';
+  const dx=boundSquare(center[0]+(kCut?Math.max(-2,Math.min(2,outX)):outX))-center[0],dz=boundSquare(center[1]+(kCut?Math.max(-2,Math.min(2,outZ)):outZ))-center[1];
   fragments.push({
    mesh:i%4===0?'chip':i%5===0?'cone':'shard',color:palette[i%palette.length],material:5,
-   ox:(Math.random()-.5)*.07,oz:(Math.random()-.5)*.07,startY:zone,dx,dz,
-   delay:deathMode==='cannon'?Math.random()*.055:(i%4)*.035+Math.random()*.055,
-   size:(deathMode==='headfall'&&i===0?.15:.044+Math.random()*(type==='P'?.055:.084)),
-   stretch:(deathMode==='headfall'&&i===0?1.22:.62+Math.random()*1.52),
-   spin:Math.random()*6.28,turn:(Math.random()-.5)*(deathMode==='cannon'?11:4.1),
-   slide:deathMode==='cannon'?.08+Math.random()*.16:.03+Math.random()*.065,
-   arcMul:deathMode==='cannon'?1.25+Math.random()*.44:deathMode==='headfall'?.50:.40+Math.random()*.48,
-   settleJitter:Math.random()*.028,bounces:1+Math.floor(Math.random()*2),spinDamp:.40+Math.random()*.4,
+   ox:(Math.random()-.5)*.06,oz:(Math.random()-.5)*.06,startY:zone,dx,dz,
+   delay:deathMode==='cannon'?Math.random()*.07:(i%4)*.030+Math.random()*.05,
+   size:scale,stretch:.68+Math.random()*1.48,spin:Math.random()*6.28,
+   turn:(Math.random()-.5)*(deathMode==='cannon'?12:4.4),
+   slide:deathMode==='cannon'?.09+Math.random()*.20:.024+Math.random()*.085,
+   arcMul,settleJitter:Math.random()*.028,bounces:1+Math.floor(Math.random()*2),spinDamp:.38+Math.random()*.45,
    impact:0,glaze:i%5!==0,angle:theta
   });
  }
- debris={origin:[...center],side:victim.side,type,deathMode,fragments,progress:0,fade:0,maxRange,stamp:performance.now(),lingerBeforeMove:1000,plan};
+ debris={origin:[...center],side:victim.side,type,deathMode,fragments,progress:0,fade:0,maxRange:range,stamp:performance.now(),lingerBeforeMove:deathMode==='daggerfade'?700:deathMode==='arrowfall'?500:850,plan};
  victim.shattered=!(deathMode==='arrowfall'||deathMode==='daggerfade');
  victim.damageMode=deathMode;victim.damageFade=0;victim.defeatFade=0;
+ if(deathMode==='arrowfall')victim.hitArrow=true;
 }
 function drawBrokenRemnant(a,now){
- if(!debris || a!==activeFight?.victim)return;
- const mode=debris.deathMode,fade=debris.fade,w=a.side==='w';
- const base=w?'#e9dfcd':'#8b5045',trim=w?'#c7b69a':'#6c3c33';
- const scale={P:.8,N:1.05,B:1.0,R:1.08,Q:1.12,K:1.20}[a.type]*Math.max(.018,1-.95*fade);
- const dir=debris.plan?.dir||[0,1],side=debris.plan?.side||1;
- const angle=Math.atan2(-dir[0],-dir[1]);
+ if(!debris||a!==activeFight?.victim)return;
+ const d=debris,mode=d.deathMode,fade=d.fade,w=a.side==='w';
+ const body=w?'#e9dfcd':'#8b5045',core=w?'#c7b69a':'#6c3c33';
+ const scale={P:.80,N:1.05,B:1.0,R:1.08,Q:1.12,K:1.20}[a.type]*Math.max(.020,1-.95*fade);
+ const dir=d.plan?.dir||[0,1],side=d.plan?.side||1,angle=Math.atan2(-dir[0],-dir[1]);
  const root=T(I,[a.pos[0],.18,a.pos[1]],[0,angle,0],[scale,scale,scale]);
- if(mode==='cannon'||mode==='shattered')return;
- if(mode==='bisected'||mode==='halved'){
-  // Two massive stone halves separate across the actual sword cut, not a radial explosion.
-  for(const s of [-1,1]){
-   const half=T(root,[s*(.14+debris.progress*.13),.14,s*.03],[s*.18*debris.progress,0,s*(.16+.45*debris.progress)],[.46,1,.94]);
-   cn([0,.45,0],[.27,.80,.27],base,5,[0,0,0],half);
-   sp([0,.89,0],[.16,.17,.17],base,5,[0,0,0],half);
-   rg([0,.12,0],[.29,.03,.29],trim,5,half);
+ if(mode==='cannon'){
+  // A cannon sometimes leaves nothing except an immovable pedestal.
+  if(!d.plan.leaveBase)return;
+  cy([0,.07,0],[.32,.13,.32],core,5,[0,0,0],root);
+  rg([0,.145,0],[.30,.022,.30],body,5,root);
+  for(let i=0;i<5;i++){const t=i*Math.PI*2/5;ch([Math.cos(t)*.17,.19,Math.sin(t)*.17],[.07,.08,.08],body,5,[i*.29,t,.14],root);}return;
+ }
+ if(mode==='bisected'||mode==='thirded'||mode==='halved'||mode==='quartered'){
+  // Large cut pieces move along the sword plane, not away in a radial detonation.
+  const parts=mode==='quartered'?4:mode==='thirded'?3:2;
+  for(let i=0;i<parts;i++){
+   const spread=(i-(parts-1)/2),progress=d.progress;
+   const offset=spread*(mode==='bisected'||mode==='thirded'?.16:.11)*(1+.8*progress);
+   const tilt=spread*(.18+.30*progress);
+   const part=T(root,[offset,.14+Math.max(0,progress*.03),-.045*Math.abs(spread)],[tilt*.4,0,tilt],[1/parts+.08,1,.93]);
+   cn([0,.48,0],[.32,.79,.29],body,5,[0,0,0],part);
+   if(i===0||i===parts-1)sp([0,.91,0],[.17,.15,.16],body,5,[0,0,0],part);
+   for(let j=0;j<3;j++)ch([0,.37+j*.23,-.18],[.10,.045,.055],core,5,[j*.19,i*.29,0],part);
   }
   return;
  }
  if(mode==='ram'){
-  // Horse impact: defeated statue lies where it landed with chipped armor.
-  const fallen=T(root,[.12,.17,.16],[1.30,0,side*.25]);
-  cn([0,.50,0],[.28,.88,.27],base,5,[0,0,0],fallen);
-  sp([0,.96,0],[.18,.18,.18],base,5,[0,0,0],fallen);
-  cy([0,.09,0],[.28,.08,.28],trim,5,[0,0,0],fallen);
+  const fallen=T(root,[.10,.14,.12],[1.30,0,side*.24]);
+  cn([0,.50,0],[.28,.86,.27],body,5,[0,0,0],fallen);
+  sp([0,.96,0],[.18,.17,.17],body,5,[0,0,0],fallen);
+  cy([0,.08,0],[.28,.08,.28],core,5,[0,0,0],fallen);
   return;
  }
  if(mode==='headfall'){
-  // Pawn with lost helmet/head: body remains standing; the head is among the chips.
-  cy([0,.095,0],[.30,.10,.30],trim,5,[0,0,0],root);
-  cn([0,.45,0],[.25,.70,.24],base,5,[0,0,0],root);
-  for(let x of [-.16,.16])cy([x,.43,-.02],[.06,.31,.07],base,5,[0,0,0],root);
-  return;
+  // Beheaded pawn: the plinth and torso remain, no helmet atop the figure.
+  cy([0,.095,0],[.30,.10,.30],core,5,[0,0,0],root);
+  cn([0,.45,0],[.25,.70,.24],body,5,[0,0,0],root);
+  for(const x of [-.16,.16])cy([x,.43,-.02],[.06,.31,.07],body,5,[0,0,0],root);
  }
- if(mode==='armfall'){
-  cy([0,.095,0],[.30,.10,.30],trim,5,[0,0,0],root);
-  cn([0,.52,0],[.26,.91,.25],base,5,[0,0,0],root);
-  sp([0,1.02,0],[.17,.18,.17],base,5,[0,0,0],root);
-  cy([-.19,.62,0],[.07,.35,.07],base,5,[0,0,0],root);
-  return;
- }
- const fallen=T(root,[0,.08,0],[mode==='cracked'?.23:1.22,0,side*.18]);
- cy([0,.09,0],[.30,.10,.30],trim,5,[0,0,0],fallen);
- cn([0,.50,0],[.28,.85,.27],base,5,[0,0,0],fallen);
- sp([0,.96,0],[.18,.18,.18],base,5,[0,0,0],fallen);
- if(mode==='cracked')for(const path of [[[-.15,.65,-.20],[.09,.54,-.23]],[[.09,.54,-.23],[-.04,.37,-.23]]])beam(path[0],path[1],.012,trim,fallen);
 }
+
+function drawEmbeddedArrow(a){
+ if(!a.hitArrow||!activeFight||activeFight.victim!==a)return;
+ const shrink=Math.max(.05,1-(a.defeatFade||0)*.94);
+ const scale=(a.type==='P'?.71:1.0)*shrink;
+ const root=T(I,[a.pos[0],.185+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[scale,scale,scale]);
+ const shaft=a.type==='P'?.82:1.06;
+ // Arrow remains lodged in the chest and follows rotation as the statue falls.
+ beam([.02,shaft,-.25],[.02,shaft,-.79],.015,C.arrowwood,root);
+ cn([.02,shaft,-.24],[.044,.12,.044],C.steel,2,[Math.PI/2,0,0],root);
+ sp([-.045,shaft,-.72],[.018,.064,.09],C.ivory,5,[0,.15,.50],root);
+ sp([.08,shaft,-.72],[.018,.064,.09],C.ivory,5,[0,-.15,-.50],root);
+}
+function animateCheckedKing(dt){
+ for(const a of actors){
+  if(a.type!=='K')continue;
+  const check=!busy&&!!state.check&&engine.turn===a.side;
+  const goal=check?1:0;
+  const speed=Math.min(1,dt/(check?350:600));
+  a.checkDefense=(a.checkDefense||0)+(goal-(a.checkDefense||0))*speed;
+  if(!busy){
+   a.awake=Math.max(a.awake||0,a.checkDefense*.78);
+   if(!check&&a.checkDefense<.03){a.awake=Math.max(0,(a.awake||0)-dt*.002);}
+   a.guard=a.checkDefense*1.35;
+  }
+ }
+}
+function drawCheckedKingShield(a){
+ const d=a.checkDefense||0;
+ if(a.type!=='K'||d<.025||a.shattered)return;
+ const s=Math.min(1,d),w=a.side==='w';
+ const root=T(I,[a.pos[0],.182+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[1.02,1.02,1.02]);
+ // A stone shield swings from the king's left side in front of his chest.
+ const shield=T(root,[-.15+.10*s,.92,-.19-.14*s],[-.12-.16*s,0,-.14*s]);
+ sp([0,0,0],[.23*s,.32*s,.045],w?'#ddd0bc':'#835247',6,[0,0,0],shield);
+ bx([0,0,-.048],[.035*s,.45*s,.014],w?'#b5a48c':'#653c35',6,[0,0,0],shield);
+ bx([0,0,-.049],[.30*s,.030*s,.014],w?'#b5a48c':'#653c35',6,[0,0,0],shield);
+}
+
 function drawDebris(now){
  if(!debris)return;
  const d=debris,f=d.progress,fade=d.fade,shrink=Math.max(.001,1-fade*.997),hitX=d.origin[0],hitZ=d.origin[1];
@@ -1107,50 +1161,55 @@ function drawDebris(now){
 async function shatterAfterHit(victim,thisToken,plan){
  if(token!==thisToken)return false;
  const origin=[...victim.pos],dir=plan.dir,right=plan.right;
- const names={headfall:'ODLOMENÁ HLAVA',armfall:'ODLOMENÁ RUKA',halved:'ROZŤATÁ POLOVICA',cracked:'PRASKNUTIE A PÁD',shattered:'LOKÁLNE ROZBITIE',cannon:'KANÓNOVÉ ROZMETANIE',ram:'NÁRAZ A ODLET SOCHY',arrowfall:'ŠÍP · PÁD BEZ ROZBITIA',bisected:'KRÁĽOVSKÝ SEK NA POLOVICU',daggerfade:'DÝKA · POMALÉ ZOSUNUTIE'};
- showToast('⚔ '+names[plan.mode]);
- // Arrow / dagger: keep the same intact 3-D statue on the board, and physically topple it.
+ const names={headfall:'ODPADLA HLAVA',halved:'ROZSEKNUTIE NA POLOVICU',quartered:'ROZSEKNUTIE NA ŠTVRTINY',cannon:'KANÓNOVÁ GUĽA · ROZMETANIE',ram:'NÁRAZ KOŇA · ODLET',arrowfall:'ŠÍP V TELE · PÁD',bisected:'KRÁĽOV SEK · DVE ČASTI',thirded:'KRÁĽOV SEK · TRI ČASTI',daggerfade:'BODNUTIE DÝKOU · POMALÝ PÁD'};
+ showToast('⚔ '+(names[plan.mode]||plan.mode));
  if(plan.mode==='arrowfall'||plan.mode==='daggerfade'){
   shatterVictim(victim,plan);
-  const sideways=plan.side,angle=plan.mode==='daggerfade'?.15:sideways*.94;
-  const setback=plan.mode==='daggerfade'?.16:.37;
-  const duration=plan.mode==='daggerfade'?1820:1190;
+  const sideways=plan.side;
+  const duration=plan.mode==='daggerfade'?2540:1500;
+  const setback=plan.mode==='daggerfade'?.13:.40;
   if(!await tween(duration,t=>{
-   const e=smooth(t),lag=plan.mode==='daggerfade'?Math.max(0,(t-.26)/.74):t,fall=smooth(lag);
-   victim.fall=fall*(plan.mode==='daggerfade'?1.48:sideways===0?1.49:.87);
-   victim.lean=fall*(plan.mode==='daggerfade'?.29:angle);
-   victim.pos=[boundSquare(origin[0]+dir[0]*setback*fall+right[0]*sideways*.15*fall),boundSquare(origin[1]+dir[1]*setback*fall+right[1]*sideways*.15*fall)];
-   victim.height=.035*Math.sin(Math.PI*e);
-   victim.guard=1-fall;victim.hitReact=fall;
+   const late=plan.mode==='daggerfade'?Math.max(0,(t-.22)/.78):Math.max(0,(t-.04)/.96);
+   // A slow loss of strength for the queen; an arrow instantly removes balance.
+   const fall=smooth(late),e=smooth(t);
+   victim.fall=fall*(plan.mode==='daggerfade'?1.34:sideways===0?1.50:1.08);
+   victim.lean=fall*(plan.mode==='daggerfade'?.28:sideways*.82);
+   victim.pos=[boundSquare(origin[0]+dir[0]*setback*fall+right[0]*sideways*.18*fall),boundSquare(origin[1]+dir[1]*setback*fall+right[1]*sideways*.18*fall)];
+   victim.height=plan.mode==='daggerfade'?.07*Math.sin(t*Math.PI)*(.6+.4*fall):.06*Math.sin(t*Math.PI);
+   victim.guard=(1-fall)*(plan.mode==='daggerfade'?.20:.65);
+   victim.hitReact=fall;victim.armDrive=-.4*fall;victim.offhand=(plan.mode==='daggerfade'?.45:0)*(1-fall);
    if(debris)debris.progress=e;
   }))return false;
   victim.height=0;victim.guard=0;
-  if(!await tween(950,()=>{}))return false;
+  if(!await tween(plan.mode==='daggerfade'?600:490,()=>{}))return false;
   return token===thisToken;
  }
  if(plan.mode==='ram'){
-  // Horse hits the *whole* statue; it flies and rotates first. The fracture happens on landing.
-  const step=Math.min(1.08,Math.max(.65,plan.power*.76)),sideways=plan.side*.21;
-  if(!await tween(1170,t=>{
-   const e=t*t*(3-2*t),rise=Math.sin(Math.PI*t);
+  // The horse hits, the entire statue flies, rotates and hits the floor before cracking.
+  const step=1.10+Math.random()*.28,sideways=plan.side*.26;
+  if(!await tween(1190,t=>{
+   const e=smooth(t),rise=Math.sin(Math.PI*t);
    victim.pos=[boundSquare(origin[0]+dir[0]*step*e+right[0]*sideways*e),boundSquare(origin[1]+dir[1]*step*e+right[1]*sideways*e)];
-   victim.height=.31*rise;victim.fall=1.22*e;victim.lean=.24*plan.side*e;
-   victim.hitReact=1.35*e;victim.horseRear=0;
+   victim.height=.49*rise;victim.fall=1.24*e;victim.lean=.28*plan.side*e;
+   victim.hitReact=1.38*e;
   }))return false;
   victim.height=0;plan.origin=[...victim.pos];
-  if(fxOn)sparks([victim.pos[0],.28,victim.pos[1]],11);
+  if(fxOn)sparks([victim.pos[0],.25,victim.pos[1]],7);
   shatterVictim(victim,plan);
-  if(!await tween(770,t=>{if(debris)debris.progress=smooth(t);} ))return false;
-  if(!await tween(930,()=>{}))return false;
+  if(!await tween(810,t=>{if(debris)debris.progress=smooth(t);} ))return false;
+  if(!await tween(650,()=>{}))return false;
   return token===thisToken;
  }
  shatterVictim(victim,plan);
- const strong=plan.mode==='cannon',sever=plan.mode==='bisected'||plan.mode==='halved';
- if(strong&&fxOn){stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');}
- if(fxOn)sparks(plan.impact,strong?37:sever?10:plan.mode==='headfall'?7:5);
- const duration=strong?1300:sever?1210:plan.mode==='headfall'?1020:920;
- if(!await tween(duration,t=>{if(debris)debris.progress=smooth(t);victim.damageFade=Math.max(0,t-.68)*.25;}))return false;
- if(!await tween(1000,()=>{}))return false;
+ const cannon=plan.mode==='cannon',king=plan.mode==='bisected'||plan.mode==='thirded';
+ if(cannon&&fxOn){stage.classList.remove('shatter-flash');void stage.offsetWidth;stage.classList.add('shatter-flash');}
+ if(fxOn)sparks(plan.impact,cannon?30:king?10:5);
+ const duration=cannon?1550:king?1160:plan.mode==='quartered'?1150:920;
+ if(!await tween(duration,t=>{
+  if(debris)debris.progress=smooth(t);
+  victim.damageFade=Math.max(0,t-.70)*.23;
+ }))return false;
+ if(!await tween(plan.mode==='cannon'?900:820,()=>{}))return false;
  return token===thisToken;
 }
 async function finishDebrisAfterArrival(thisToken){
@@ -1295,10 +1354,11 @@ function drawLivingWarrior(a,now){
 
 
 function drawFighter(a,now){
- if(a.type==='P'){drawCinemaPawn(a,now);return;}
+ if(a.type==='P'){drawCinemaPawn(a,now);drawEmbeddedArrow(a);return;}
  // One continuous sculptural 3D model: movement is expressed through the same stone relief
  // and its articulated stone shoulders and wrists; it never turns into a different mesh.
  drawCarvedStatue(a,now);
+ drawEmbeddedArrow(a);drawCheckedKingShield(a);
  if((a.awake||0)>.06&&fxOn){
   const wake=Math.min(1,a.awake),intensity=Math.sin(Math.PI*wake)*.38;
   for(let j=0;j<3;j++){
@@ -1504,7 +1564,7 @@ function showToast(msg){toast.textContent=msg;toast.classList.add('visible');cle
 const sparkLayer=$('sparks');function sparks(p,n=18){if(!fxOn)return;n=Math.round(n*1.25);const projection=project(p);if(!projection)return;for(let i=0;i<n;i++){let e=document.createElement('i'),a=Math.random()*6.28,range=(24+Math.random()*118);e.className='spark';e.style.left=projection.x+'px';e.style.top=projection.y+'px';e.style.setProperty('--dx',Math.cos(a)*range+'px');e.style.setProperty('--dy',Math.sin(a)*range+'px');e.style.setProperty('--dur',(420+Math.random()*520)+'ms');sparkLayer.appendChild(e);setTimeout(()=>e.remove(),1050);}stage.classList.remove('impact');void stage.offsetWidth;stage.classList.add('impact');stage.style.boxShadow='inset 0 0 120px #ffd27c1f';setTimeout(()=>{stage.classList.remove('impact');stage.style.boxShadow='';},360);}
 function audio(f,d,wave='triangle',vol=.06){if(!soundOn)return;try{soundCtx=soundCtx||new(window.AudioContext||window.webkitAudioContext)();if(soundCtx.state==='suspended')soundCtx.resume();let o=soundCtx.createOscillator(),g=soundCtx.createGain(),t=soundCtx.currentTime;o.type=wave;o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(Math.max(f*.3,30),t+d);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(soundCtx.destination);o.start();o.stop(t+d+.01);}catch(e){}}
 function swish(){audio(500,.16,'sawtooth',.027)}function clang(){audio(730,.21,'triangle',.085);audio(230,.28,'sawtooth',.06)}
-function uiState(){state=engine.state();let side=engine.turn,ai=mode==='ai'&&side!==human; $('status').textContent=state.over?'Koniec kráľovskej bitky':ai||aiBusy?'Počítač premýšľa…':state.check?'ŠACH — '+(side==='w'?'Biele':'Červené'):'Na ťahu: '+(side==='w'?'Biele':'Červené')+' kráľovstvo'; $('substatus').textContent=state.over?'Pozri výsledok partie':busy?'Prebieha súboj':state.check?'Chráň kráľa!':'Vyber figúrku, potom označené políčko'; $('whiteFighter').classList.toggle('active',side==='w'&&!state.over);$('blackFighter').classList.toggle('active',side==='b'&&!state.over);
+function uiState(){state=engine.state();let side=engine.turn,ai=mode==='ai'&&side!==human; $('status').textContent=state.over?'Koniec kráľovskej bitky':ai||aiBusy?'Počítač premýšľa…':state.check?'ŠACH — '+(side==='w'?'Biele':'Červené'):'Na ťahu: '+(side==='w'?'Biele':'Červené')+' kráľovstvo'; $('substatus').textContent=state.over?'Pozri výsledok partie':busy?'Prebieha útok':state.check?'Chráň kráľa!':'Vyber figúrku, potom označené políčko'; $('whiteFighter').classList.toggle('active',side==='w'&&!state.over);$('blackFighter').classList.toggle('active',side==='b'&&!state.over);
  $('whiteFlag').textContent=side==='w'&&!state.over?'NA ŤAHU':'ČAKÁ';$('blackFlag').textContent=side==='b'&&!state.over?'NA ŤAHU':'ČAKÁ';$('undoBtn').disabled=busy||!engine.history.length;
  let h=engine.history,list=$('moveList');$('moveCount').textContent=h.length+' polťahov';list.innerHTML=h.length?Array.from({length:Math.ceil(h.length/2)},(_,i)=>`<div class="move-pair"><span class="move-num">${i+1}.</span><span class="move-cell">${h[2*i]?ChessEngine.notation(h[2*i].move):''}</span><span class="move-cell dark">${h[2*i+1]?ChessEngine.notation(h[2*i+1].move):''}</span></div>`).join(''):'<div class="empty-moves">Pergamen je zatiaľ čistý. Začni prvým ťahom.</div>';list.scrollTop=list.scrollHeight;
  refreshTouchGrid();
@@ -1588,135 +1648,86 @@ const moviePulse=(p)=>Math.sin(Math.PI*p);
 function resetBattleAnatomy(a){if(!a)return;for(const prop of ['armDrive','elbowDrive','wristRoll','offhand','torsoTwist','headTurn','stepPhase','horseBeat','horseRear','horseNod','hitReact'])a[prop]=0;}
 const fightHistory=[];
 const lerp=(a,b,t)=>a+(b-a)*t;
-async function kineticDuel(attacker,victim,thisToken){
- const style=FIGHT_STYLES[Math.floor(Math.random()*FIGHT_STYLES.length)];
- fightHistory.push(style.name);if(fightHistory.length>24)fightHistory.shift();
- const a0=[...attacker.pos],v0=[...victim.pos],dx=v0[0]-a0[0],dz=v0[1]-a0[1],dist0=Math.hypot(dx,dz)||1;
- const forward=[dx/dist0,dz/dist0],right=[-forward[1],forward[0]];
- const sign=Math.random()<.5?-1:1,attackFace=Math.atan2(-forward[0],-forward[1]),defendFace=Math.atan2(forward[0],forward[1]);
- const keepSpace=Math.max(.20,Math.min(.50,dist0*.55));
- const put=pose=>{
-  const af=Math.min(keepSpace,Math.max(-.21,pose.af)),as=Math.min(.31,Math.max(-.31,pose.as));
-  const vf=Math.min(.23,Math.max(-.15,pose.vf)),vs=Math.min(.29,Math.max(-.29,pose.vs));
-  attacker.pos=[a0[0]+forward[0]*af+right[0]*as,a0[1]+forward[1]*af+right[1]*as];
-  victim.pos=[v0[0]-forward[0]*vf+right[0]*vs,v0[1]-forward[1]*vf+right[1]*vs];
- };
- let prev=zeroPose();attacker.yaw=attackFace;victim.yaw=defendFace;
- showToast('⚔ '+style.name.toUpperCase()+' · '+style.steps.length+' FILMOVÝCH FÁZ');
- const apply=pose=>{
-  put(pose);
-  attacker.slash=pose.slash;victim.slash=-pose.slash*.66;
-  attacker.guard=pose.guard;victim.guard=pose.vguard;
-  attacker.lean=pose.lean+pose.twist*.16;victim.lean=-pose.lean*.67-pose.react*.24;
-  attacker.armDrive=pose.arm;attacker.elbowDrive=pose.elbow;attacker.wristRoll=pose.wrist;
-  attacker.offhand=pose.offhand;attacker.torsoTwist=pose.twist;attacker.headTurn=pose.head;
-  attacker.stepPhase=pose.step;attacker.horseBeat=pose.horse;attacker.horseRear=pose.rear;attacker.horseNod=pose.nod;
-  attacker.hitReact=pose.react;
-  victim.armDrive=-pose.arm*.50;victim.elbowDrive=-pose.elbow*.45;victim.wristRoll=-pose.wrist*.44;
-  victim.offhand=Math.min(1.5,pose.guard*.20+pose.vguard*.76);
-  victim.torsoTwist=-pose.twist*.54;victim.headTurn=-pose.head*.78;
-  victim.stepPhase=-pose.step*.75;victim.horseBeat=pose.horse*.83;
-  victim.horseRear=pose.rear*.49;victim.horseNod=-pose.nod*.72;victim.hitReact=pose.react*.80;
- };
- try{
-  for(let index=0;index<style.steps.length;index++){
-   const name=style.steps[index],move=DUEL_POSES[name],limbs=FILM_LIMBS[name]||{},target={...zeroPose(),...move,...limbs,as:move.as*sign,vs:move.vs*sign};
-   const begin={...prev},contact=['lunge','slash','counter','charge','block','sweep','riposte','bash'].includes(name);
-   const ok=await tween(move.ms,t=>{
-    const e=smooth(t),pulse=moviePulse(t),pose={};
-    for(const key of FILM_KEYS)pose[key]=lerp(begin[key]||0,target[key]||0,e);
-    // Sword arms carry through, shield takes an opposing recoil, the feet plant before each cut.
-    if(contact){pose.arm+=.17*pulse;pose.elbow+=.15*pulse;pose.wrist+=.27*pulse;pose.offhand+=.16*pulse;pose.twist+=.10*pulse;}
-    apply(pose);
-    attacker.height=.012*pulse+.014*Math.max(0,pose.step)*pulse+(attacker.type==='N'?.08*pose.rear*pulse:0);
-    victim.height=.008*pulse+(victim.type==='N'?.04*pose.rear*pulse:0);
-    attacker.fall=.06*pose.react*pulse;victim.fall=-.09*pose.react*pulse;
-   });
-   if(!ok||token!==thisToken)return false;
-   prev=target;
-   if(contact){
-    const strike=[(attacker.pos[0]+victim.pos[0])/2,attacker.type==='N'?1.10:.91,(attacker.pos[1]+victim.pos[1])/2];
-    if(fxOn)sparks(strike,name==='charge'||name==='bash'?16:8);
-    if(name==='parry'||index%2)clang();else swish();
-   }
-  }
-  const begin={...prev};
-  const ended=await tween(330,t=>{
-   const e=smooth(t),pose={};for(const key of FILM_KEYS)pose[key]=lerp(begin[key]||0,0,e);
-   apply(pose);attacker.height*=1-e;victim.height*=1-e;attacker.fall*=1-e;victim.fall*=1-e;
-  });
-  return ended&&token===thisToken;
- }finally{
-  // Cancellation, undo or new game never leave a figure hanging in a fencing pose.
-  attacker.pos=[...a0];victim.pos=[...v0];attacker.height=0;victim.height=0;
-  attacker.fall=0;victim.fall=0;attacker.slash=0;victim.slash=0;
-  attacker.guard=0;victim.guard=0;attacker.lean=0;victim.lean=0;
-  resetBattleAnatomy(attacker);resetBattleAnatomy(victim);
- }
-}
+// V25: no alternating fencing. Only the piece on turn attacks, and its exact final
+// impact triggers the type-dependent motion and fracture. The defender never hits back.
 async function animateCombat(attacker,victim,to,thisToken){
- const type=attacker.type;const target=[victim.pos[0],.91,victim.pos[1]];
+ const type=attacker.type;
+ const initial=[...attacker.pos],initialVictim=[...victim.pos];
+ const vx=initialVictim[0]-initial[0],vz=initialVictim[1]-initial[1],d=Math.hypot(vx,vz)||1;
+ const dir=[vx/d,vz/d],across=[-dir[1],dir[0]];
+ const target=[victim.pos[0],victim.type==='P'?.72:1.0,victim.pos[1]];
  const muzzle=[attacker.pos[0],type==='R'?.83:type==='B'?.96:1.04,attacker.pos[1]];
- const isCurrent=()=>token===thisToken;
- if(!await kineticDuel(attacker,victim,thisToken))return false;
- // A final choreographed exchange before the fracture; this is not the whole duel.
- attacker.armDrive=-.36;attacker.offhand=.76;victim.offhand=1.0;victim.armDrive=-.48;
-
- async function projectile(kind,duration){combatFx={kind,start:[...muzzle],end:[...target],t:0};
-  const ok=await tween(duration,f=>{combatFx&&(combatFx.t=smooth(f));victim.guard=f*.6;});combatFx=null;return ok&&isCurrent();}
- if(type==='R'){
-  showToast('💥 VEŽA · OTVÁRA BASTIÓN A PÁLI Z KANÓNA');
-  if(!await tween(400,f=>{attacker.slash=f;victim.guard=f*.2;}))return false;
-  audio(125,.34,'sawtooth',.11);sparks(muzzle,16);
-  if(!await projectile('cannon',660))return false;
-  clang();sparks(target,24);
- }else if(type==='B'){
-  showToast('🏹 STRELEC · NAPNUTÝ LUK A ŠÍP');
-  if(!await tween(520,f=>{attacker.slash=f;victim.guard=f*.3;}))return false;
-  swish();if(!await projectile('arrow',650))return false;clang();sparks(target,3);
- }else if(type==='Q'){
-  showToast('🗡 KRÁĽOVNÁ · TICHÝ ÚTOK DÝKOU');
-  if(!await tween(280,f=>{attacker.charge=f*.5;attacker.slash=-.26*f;victim.guard=.25*f;victim.lean=.05*f;}))return false;
-  swish();
-  if(!await tween(340,f=>{attacker.charge=.5+.3*f;attacker.slash=-.26+1.05*smooth(f);victim.guard=.25+.45*f;victim.lean=.05+.16*f;}))return false;
-  clang();sparks(target,6);
-  if(!await tween(220,f=>{attacker.slash=.79-1.0*f;attacker.guard=.32*f;victim.guard=.7-.2*f;victim.lean=.18*Math.sin(f*Math.PI);})){return false;}
-  swish();
-  if(!await tween(320,f=>{attacker.slash=-.16+1.18*smooth(f);attacker.wristRoll=.10*smooth(f);attacker.armDrive=1.20*smooth(f);attacker.guard=.32*(1-f);attacker.charge=.8*(1-f);victim.guard=.5+.35*f;victim.lean=.16+.12*f;}))return false;
-  clang();sparks(target,2);
- }else if(type==='N'){
-  showToast('♞ JAZDEC · ÚTOK KOPIJOU');
-  swish();
-  if(!await tween(300,f=>{attacker.slash=-f*.3;attacker.height=.07*f;victim.guard=.4*f;}))return false;
-  if(!await tween(400,f=>{attacker.slash=-.3+1.5*smooth(f);attacker.height=.07+.10*Math.sin(f*Math.PI);victim.guard=.4+.55*f;victim.lean=.19*f;}))return false;
-  clang();sparks(target,8);attacker.height=0;
- }else if(type==='K'){
-  showToast('♚ KRÁĽ · ÚDER KRÁĽOVSKÝM MEČOM');
-  if(!await tween(440,f=>{attacker.slash=-.7*f;victim.guard=.3*f;}))return false;
-  swish();
-  if(!await tween(480,f=>{attacker.slash=-.7+2.0*smooth(f);attacker.wristRoll=.95*smooth(f);attacker.armDrive=1.15*smooth(f);victim.guard=.3+.75*f;victim.lean=.25*f;}))return false;
-  clang();sparks(target,8);
- }else{ // Pawn: recognizable, short-sword fencing: parry, counterattack, finishing blow.
-  showToast('⚔ PEŠIAK · TASÍ KRÁTKY MEČ');
-  if(!await tween(260,f=>{attacker.slash=-.48*f;victim.guard=.55*f;victim.lean=.09*f;}))return false;
-  swish();if(!await tween(400,f=>{attacker.slash=-.48+1.25*smooth(f);victim.guard=.55+.45*f;victim.lean=.09+.10*f;}))return false;
-  clang();sparks(target,16);
-  // Defensive recoil before the finishing counter-strike.
-  if(!await tween(300,f=>{attacker.slash=.77-1.1*f;attacker.guard=f*.6;victim.slash=.65*f;victim.guard=1-.45*f;attacker.lean=-.12*Math.sin(f*Math.PI);victim.lean=.18*Math.sin(f*Math.PI);})){return false;}
-  attacker.lean=0;victim.lean=0;
-  const strikeSide=Math.random()<.5?-1:1;
-  swish();if(!await tween(510,f=>{attacker.slash=-.33+1.65*smooth(f);attacker.wristRoll=strikeSide*(.55+.30*smooth(f));attacker.armDrive=1.10*smooth(f);attacker.guard=.6*(1-f);victim.guard=.55+.5*f;victim.lean=.2+.2*f;}))return false;
-  clang();sparks(target,9);
+ const current=()=>token===thisToken;
+ const trigger=()=>{const p=makeFinisher(attacker,victim);return shatterAfterHit(victim,thisToken,p);};
+ const actorStep=(forward,side=0)=>[boundSquare(initial[0]+dir[0]*forward+across[0]*side),boundSquare(initial[1]+dir[1]*forward+across[1]*side)];
+ // Preset shooting range; other pieces approach and swing from the same sculpted bodies.
+ attacker.yaw=Math.atan2(-dir[0],-dir[1]);
+ victim.yaw=Math.atan2(dir[0],dir[1]);
+ victim.slash=0;victim.armDrive=0;victim.wristRoll=0;
+ fightHistory.push(({P:'Dvojitý sek pešiaka',R:'Výstrel kanóna',N:'Jazdecký náraz',B:'Zapichnutý šíp',Q:'Bodnutie dýkou',K:'Kráľovský sek'}[type]));
+ if(fightHistory.length>24)fightHistory.shift();
+ async function pose(ms,callback){return await tween(ms,t=>callback(smooth(t),t))&&current();}
+ async function fire(kind,duration){
+  combatFx={kind,start:[...muzzle],end:[...target],t:0};
+  const ok=await pose(duration,(f)=>{if(combatFx)combatFx.t=f;});
+  combatFx=null;return ok;
  }
- if(!isCurrent())return false;
- // Exactly at the final contact, carry the strike into one type-specific physical result.
- const finisher=makeFinisher(attacker,victim);
- const finished=await shatterAfterHit(victim,thisToken,finisher);
- attacker.slash=0;attacker.guard=0;attacker.charge=0;
- victim.guard=0;victim.slash=0;
- resetBattleAnatomy(attacker);resetBattleAnatomy(victim);
- combatFx=null;
- return finished;
+ async function strike(text,wind,swing,arm,impactSparks){
+  showToast(text);
+  if(!await pose(wind,e=>{attacker.slash=-.66*e;attacker.armDrive=-.75*e;attacker.elbowDrive=-.35*e;attacker.wristRoll=-.28*e;attacker.torsoTwist=-.24*e;attacker.offhand=.4*e;}))return false;
+  swish();
+  if(!await pose(swing,e=>{attacker.slash=-.66+1.90*e;attacker.armDrive=-.75+2.10*e;attacker.elbowDrive=-.35+1.38*e;attacker.wristRoll=-.28+1.35*e;attacker.torsoTwist=-.24+.52*e;attacker.stepPhase=e;attacker.pos=actorStep(.12*e);victim.hitReact=.16*e;}))return false;
+  if(impactSparks&&fxOn)sparks(target,impactSparks);
+  return true;
+ }
+ try{
+  if(type==='P'){
+   showToast('⚔ PEŠIAK · DVA ROZHODUJÚCE SEKY');
+   if(!await strike('⚔ PRVÝ SEK PEŠIAKA',230,350,1,3))return false;
+   victim.lean=.085;victim.hitReact=.2;
+   // A short recovery, then the second blow causes the actual damage.
+   if(!await pose(310,e=>{attacker.slash=1.24-1.82*e;attacker.armDrive=1.35-2.2*e;attacker.wristRoll=.9-1.4*e;attacker.pos=actorStep(.12*(1-e));attacker.torsoTwist=.28-.5*e;}))return false;
+   if(!await strike('⚔ DRUHÝ SEK · POSLEDNÁ RANA',190,450,1,7))return false;
+   clang();
+  }else if(type==='R'){
+   showToast('💥 VEŽA · KANÓNOVÁ GUĽA');
+   if(!await pose(460,e=>{attacker.slash=e;attacker.torsoTwist=-.04*e;}))return false;
+   audio(110,.40,'sawtooth',.10);
+   if(!await fire('cannon',710))return false;
+   if(fxOn)sparks(target,15);
+  }else if(type==='B'){
+   showToast('🏹 STRELEC · JEDEN ŠÍP');
+   if(!await pose(480,e=>{attacker.slash=e;attacker.armDrive=.46*e;attacker.offhand=.24*e;}))return false;
+   swish();if(!await fire('arrow',650))return false;
+   victim.hitArrow=true; // visible immediately when the projectile reaches the body
+  }else if(type==='N'){
+   showToast('♞ JAZDEC · PRIAMY NÁRAZ');
+   if(!await pose(330,e=>{attacker.horseRear=.6*e;attacker.horseNod=-.35*e;attacker.horseBeat=.45*e;attacker.armDrive=-.30*e;}))return false;
+   swish();
+   if(!await pose(580,e=>{attacker.horseBeat=1.3;attacker.horseRear=.6*(1-e);attacker.horseNod=.30*e;attacker.stepPhase=e;attacker.armDrive=-.30+1.75*e;attacker.pos=actorStep(.29*e);attacker.height=.095*Math.sin(e*Math.PI);victim.hitReact=.25*e;}))return false;
+   if(fxOn)sparks(target,9);clang();
+  }else if(type==='K'){
+   showToast('♚ KRÁĽ · ŤAŽKÝ SEK MEČOM');
+   if(!await strike('♚ KRÁĽ SEČIE NA DVE ALEBO TRI ČASTI',510,650,1,9))return false;
+   clang();
+  }else if(type==='Q'){
+   showToast('🗡 KRÁĽOVNÁ · PRIBLÍŽENIE A BODNUTIE');
+   if(!await pose(380,e=>{attacker.pos=actorStep(.33*e);attacker.stepPhase=.8*e;attacker.torsoTwist=.12*e;attacker.charge=e;attacker.offhand=.1*e;}))return false;
+   if(!await pose(330,e=>{attacker.armDrive=-.55*e;attacker.elbowDrive=-.25*e;attacker.slash=-.28*e;attacker.wristRoll=-.15*e;}))return false;
+   swish();
+   if(!await pose(530,e=>{attacker.pos=actorStep(.33+.10*e);attacker.armDrive=-.55+1.78*e;attacker.elbowDrive=-.25+1.46*e;attacker.slash=-.28+1.08*e;attacker.wristRoll=-.15+.52*e;victim.hitReact=.12*e;victim.lean=.05*e;}))return false;
+  }
+  if(!current())return false;
+  // The last contact and start of the fracture are in the SAME animation tick.
+  return await trigger();
+ }finally{
+  // The victor may advance after the target has fallen; never leave dangling attacks.
+  attacker.slash=0;attacker.armDrive=0;attacker.elbowDrive=0;attacker.wristRoll=0;
+  attacker.offhand=0;attacker.torsoTwist=0;attacker.stepPhase=0;attacker.horseBeat=0;attacker.horseRear=0;attacker.horseNod=0;
+  attacker.height=0;attacker.pos=[...initial];attacker.charge=0;
+  victim.slash=0;victim.armDrive=0;
+  combatFx=null;
+ }
 }
 async function execute(input){
  if(busy)return;busy=true;aiBusy=false;let m={...input},thisToken=token;
@@ -1742,7 +1753,7 @@ async function execute(input){
  if(m.castle){rook=actorAt(m.r,m.castle==='K'?7:0);if(rook){rookFrom=[...rook.pos];rookTo=X(m.tr,m.castle==='K'?5:3);}}
  const ranged=victim&&['R','B'].includes(attacker.type);
  const vec=V.norm([to[0]-from[0],0,to[1]-from[1]]);
- const destination=ranged?from:victim?[to[0]-vec[0]*.55,to[1]-vec[2]*.55]:to;
+ const destination=ranged?from:victim?[to[0]-vec[0]*(attacker.type==='Q'?.28:.55),to[1]-vec[2]*(attacker.type==='Q'?.28:.55)]:to;
  const moved=await tween(victim&&ranged?210:victim?760:720,f=>{
   const e=smooth(f), glide=e*e*(3-2*e), arc=victim&&ranged?0:(.065*Math.sin(Math.PI*e));
   attacker.pos=[from[0]+(destination[0]-from[0])*glide,from[1]+(destination[1]-from[1])*glide];
@@ -1858,7 +1869,7 @@ canvas.addEventListener('click',e=>{
 canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7.7,Math.min(23,dist*(e.deltaY>0?1.075:.925)));updateCamera();},{passive:false});canvas.addEventListener('contextmenu',e=>e.preventDefault());
 window.addEventListener('keydown',e=>{if(document.activeElement?.tagName==='SELECT'||document.activeElement?.tagName==='INPUT')return;let handled=true;switch(e.key.toLowerCase()){case'arrowleft':case'a':yaw-=.15;break;case'arrowright':case'd':yaw+=.15;break;case'arrowup':case'w':pitch=Math.min(1.54,pitch+.11);break;case'arrowdown':case's':pitch=Math.max(.42,pitch-.11);break;case'+':case'=':dist=Math.max(7.7,dist-.9);break;case'-':dist=Math.min(23,dist+.9);break;case'0':case'r':defaultCamera();break;default:handled=false;}if(handled){e.preventDefault();cameraAnim=null;updateCamera();}});
 $('camReset').onclick=()=>{cameraAnim=null;defaultCamera();};$('camTop').onclick=()=>{let target={yaw,pitch:1.53,dist:16,target:[0,.24,0]};startCam(target,600);};$('camLeft').onclick=()=>{yaw-=.3;updateCamera()};$('camRight').onclick=()=>{yaw+=.3;updateCamera()};$('camZoomIn').onclick=()=>{dist=Math.max(7.7,dist-1.2);updateCamera()};$('camZoomOut').onclick=()=>{dist=Math.min(23,dist+1.2);updateCamera()};
-$('modeSeg').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b||busy)return;mode=b.dataset.mode;reset()};$('sideSeg').onclick=e=>{let b=e.target.closest('button[data-side]');if(!b||busy)return;human=b.dataset.side;flip=human==='b';defaultCamera();reset()};$('newGame').onclick=reset;$('undoBtn').onclick=undo;$('flipBtn').onclick=()=>{flip=!flip;yaw+=Math.PI;updateCamera();showToast('↻ Pohľad otočený o 180°');};$('effectsBtn').onclick=()=>{fxOn=!fxOn;$('effectsBtn').textContent='✧ Efekty: '+(fxOn?'zap.':'vyp.')};$('combatBtn').onclick=()=>{combatOn=!combatOn;$('combatBtn').textContent='⚔ Súboje: '+(combatOn?'zap.':'vyp.');$('combatBtn').setAttribute('aria-pressed',String(combatOn));showToast(combatOn?'⚔ FILMOVÉ SÚBOJE ZAPNUTÉ':'♟ RÝCHLA ŠACHOVÁ HRA · BEZ SÚBOJOV');};$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'♫':'♩'};$('helpBtn').onclick=()=>{$('helpDialog').hidden=false};$('helpClose').onclick=()=>{$('helpDialog').hidden=true};$('againBtn').onclick=reset;$('closeGameover').onclick=()=>{$('gameoverDialog').hidden=true};for(let id of ['helpDialog','gameoverDialog'])$(id).onclick=e=>{if(e.target===$(id))$(id).hidden=true};
+$('modeSeg').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b||busy)return;mode=b.dataset.mode;reset()};$('sideSeg').onclick=e=>{let b=e.target.closest('button[data-side]');if(!b||busy)return;human=b.dataset.side;flip=human==='b';defaultCamera();reset()};$('newGame').onclick=reset;$('undoBtn').onclick=undo;$('flipBtn').onclick=()=>{flip=!flip;yaw+=Math.PI;updateCamera();showToast('↻ Pohľad otočený o 180°');};$('effectsBtn').onclick=()=>{fxOn=!fxOn;$('effectsBtn').textContent='✧ Efekty: '+(fxOn?'zap.':'vyp.')};$('combatBtn').onclick=()=>{combatOn=!combatOn;$('combatBtn').textContent='⚔ Útoky: '+(combatOn?'zap.':'vyp.');$('combatBtn').setAttribute('aria-pressed',String(combatOn));showToast(combatOn?'⚔ FILMOVÉ SÚBOJE ZAPNUTÉ':'♟ RÝCHLA ŠACHOVÁ HRA · BEZ SÚBOJOV');};$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'♫':'♩'};$('helpBtn').onclick=()=>{$('helpDialog').hidden=false};$('helpClose').onclick=()=>{$('helpDialog').hidden=true};$('againBtn').onclick=reset;$('closeGameover').onclick=()=>{$('gameoverDialog').hidden=true};for(let id of ['helpDialog','gameoverDialog'])$(id).onclick=e=>{if(e.target===$(id))$(id).hidden=true};
 function updateHUD(){info.textContent='KAMERA '+Math.round(yaw*180/Math.PI%360)+'° · '+Math.round(pitch*180/Math.PI)+'°';}
 let lastFrame=0,prevFallback=0;
 function drawSoftware3D(){
@@ -1881,14 +1892,14 @@ function drawSoftware3D(){
 function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestAnimationFrame(frame);return;}lastFrame=now;
  // Low-end 2D fallback preserves projected 3D and picking without a GPU
  if(!gl&&now-prevFallback<220){requestAnimationFrame(frame);return;}prevFallback=now;
- resize();animateCamera(dt);updateCamera();updateHUD();updateBattleOverlays(now);count=0;drawBoard(now);boardEndCount=count;for(const a of actors){if(!a.shattered)drawFighter(a,now);else drawBrokenRemnant(a,now);}drawAttackFx(now);drawWeaponTrails(now);drawDebris(now);
+ resize();animateCamera(dt);updateCamera();updateHUD();updateBattleOverlays(now);animateCheckedKing(dt);count=0;drawBoard(now);boardEndCount=count;for(const a of actors){if(!a.shattered)drawFighter(a,now);else drawBrokenRemnant(a,now);}drawAttackFx(now);drawWeaponTrails(now);drawDebris(now);
  if(gl){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,pool.subarray(0,count),gl.DYNAMIC_DRAW);gl.uniformMatrix4fv(uVP,false,new Float32Array(M.mul(pMatrix(canvas.width/canvas.height),vMatrix())));gl.uniform3fv(uCamera,new Float32Array(camera));gl.uniform1f(uTime,now/1000);gl.drawArrays(gl.TRIANGLES,0,count/10);}else{drawSoftware3D();}
  // Show clickable coordinates around perimeter; aids accurate selection with any camera yaw
  for(let i=0;i<16;i++){let el=coords[i],p=i<8?[i-3.5,.18,4.25]:[-4.29,.18,i-8-3.5],pr=project(p);if(pr){el.style.left=pr.x+'px';el.style.top=pr.y+'px';el.style.display='block';}else el.style.display='none';}
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v24',combatStyles:FIGHT_STYLES.length,fractureModes:DEATH_MODES.length,cinematicPawnMerged:true,independentSwordAndShield:true,articulatedHorse:true,directionalFinishers:true,contactDrivenBreakage:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,finisher:()=>lastFinisher?{attacker:lastFinisher.attacker,mode:lastFinisher.mode,dir:[...lastFinisher.dir],side:lastFinisher.side,power:lastFinisher.power,origin:[...lastFinisher.origin]}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight,enabled:combatOn,lastStyle:fightHistory.at(-1)||null,history:[...fightHistory],horseMotion:actors.filter(x=>x.type==='N'&&x.awake>.1).map(x=>({beat:x.horseBeat,rear:x.horseRear})),independentHands:true}),combatStyles:()=>FIGHT_STYLES.map(x=>({...x})),deathModes:()=>[...DEATH_MODES],ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={cinemaPawn:()=>({merged:true,meshParts:Object.keys(cinemaPawnProfiles),adaptiveLOD:true,pieceCount:actors.filter(a=>a.type==='P').length,fullBoard:true}),engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'cinematic-carved-awakening',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true,gradualAwakening:true,detailLevel:'v25',combatStyles:FIGHT_STYLES.length,fractureModes:DEATH_MODES.length,cinematicPawnMerged:true,independentSwordAndShield:true,articulatedHorse:true,oneWayFinishers:true,checkDefenseShield:true,arrowEmbedded:true,directionalFinishers:true,contactDrivenBreakage:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},lastFinisher:()=>lastFinisher,quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,finisher:()=>lastFinisher?{attacker:lastFinisher.attacker,mode:lastFinisher.mode,dir:[...lastFinisher.dir],side:lastFinisher.side,power:lastFinisher.power,origin:[...lastFinisher.origin]}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight,enabled:combatOn,lastStyle:fightHistory.at(-1)||null,history:[...fightHistory],horseMotion:actors.filter(x=>x.type==='N'&&x.awake>.1).map(x=>({beat:x.horseBeat,rear:x.horseRear})),independentHands:true}),combatStyles:()=>FIGHT_STYLES.map(x=>({...x})),deathModes:()=>[...DEATH_MODES],ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
