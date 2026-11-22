@@ -2,7 +2,7 @@
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#24150f"><meta name="description" content="Kráľovské živé šachy: elegantná hradná 3D šachovnica, detailnejšie textúry figúrok, čitateľnejšie siluety a ladnejšie pohyby po doske.">
-<title>Kráľovské živé šachy 3D | Hradná edícia v14 · Živé sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+<title>Kráľovské živé šachy 3D | Hradná edícia v19 · Ožívajúce vyrezávané sochy</title><style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--gold:#e9ba67;--goldlight:#ffe4a2;--text:#f9ecd7;--muted:#c5aa8d;--burgundy:#622b2a;--ink:#25140f;--outline:#9b7045;--tile-light:#b88956;--tile-dark:#48271e;--wood:#32190f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:Georgia,'EB Garamond',serif;background:radial-gradient(ellipse at 50% -12%,#8a5a35 0,transparent 45%),radial-gradient(circle at 18% 24%,#5c2b1d55 0,transparent 26%),radial-gradient(circle at 82% 16%,#c18a4455 0,transparent 22%),linear-gradient(180deg,#1a100d 0%,#2a1a13 28%,#120b09 100%);font-size:16px}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible,.square:focus-visible{outline:2px solid #ffe1a3;outline-offset:2px}.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:repeating-linear-gradient(90deg,#00000012 0 1px,transparent 1px 84px),radial-gradient(circle at 50% 0%,#f5c67c10 0,transparent 40%)}.ambient i{position:absolute;display:block;width:28vw;height:90vh;top:-18%;border-radius:50%;background:radial-gradient(ellipse,#b75c2f30,transparent 70%);filter:blur(24px)}.ambient i:nth-child(1){left:2%}.ambient i:nth-child(2){left:39%;top:9%}.ambient i:nth-child(3){right:0;top:-13%}
 .app{width:min(1530px,100%);margin:auto;padding:20px clamp(13px,2.1vw,34px) 20px}.topbar{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 0 19px;border-bottom:1px solid #ce9f5d52}.brand{display:flex;align-items:center;gap:17px}.crest{font-size:41px;color:#f3d08c;width:65px;height:68px;position:relative;display:grid;place-items:center;background:linear-gradient(130deg,#6c2e26,#30140f);border:2px solid #c69c58;box-shadow:inset 0 0 0 4px #2b170e,inset 0 0 0 5px #d7ac6c70,0 6px 20px #0009;clip-path:polygon(8% 0,92% 0,100% 14%,91% 77%,50% 100%,9% 77%,0 14%)}.crest small{position:absolute;font-size:12px;bottom:9px;right:13px}.brand-overtitle{font:10px Georgia,serif;letter-spacing:.35em;color:var(--gold);text-align:center}.brand h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(22px,2.5vw,34px);letter-spacing:.018em;margin:3px 0 2px;text-shadow:0 2px 9px #000}.brand h1 em{font-style:normal;color:#f2cb84}.brand-sub{font-size:11px;letter-spacing:.18em;color:#cba87b;text-transform:uppercase}.top-actions{display:flex;gap:10px;align-items:center}.live-chip{display:inline-flex;align-items:center;gap:9px;color:#f5dba5;border:1px solid #946c4680;padding:10px 15px;background:#3d2218b8;font:11px Georgia,serif;letter-spacing:.1em}.live-chip i{width:7px;height:7px;background:#77df74;border-radius:50%;box-shadow:0 0 10px #59e064;animation:pulse 2s infinite}.icon-btn{color:#f7dcb5;background:linear-gradient(135deg,#4a2a1e,#261611);border:1px solid #987047;width:41px;height:41px;border-radius:4px;font-size:22px}.icon-btn:hover,.action:hover:not(:disabled),.seg button:hover{filter:brightness(1.15)}
@@ -176,6 +176,10 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
 #royalCanvas{position:relative;z-index:2;}
 #board3dStage{isolation:isolate;}
 
+
+/* V19: slightly sharper local contrast to reveal carved grooves on small phone screens */
+.castle-scene{filter:contrast(1.035)}
+#royalCanvas{filter:contrast(1.075) saturate(.93)}
 </style>
 </head><body>
 <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -188,7 +192,7 @@ body{background:radial-gradient(circle at 50% -18%,#9b613850 0,transparent 39%),
   <div class="board3d-stage" id="board3dStage">
     <canvas id="royalCanvas" aria-label="Interaktívna priestorová šachovnica, potiahni myšou pre otočenie, klikni pre ťah" tabindex="0"></canvas>
     <div class="coordLayer" id="coordLayer" aria-hidden="true"></div><div class="sparkLayer" id="sparks" aria-hidden="true"></div>
-    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V18</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
+    <div class="board3d-hud"><span class="view-chip">◈ KRÁĽOVSKÝ HRAD · 3D V19</span><span class="view-status" id="cameraInfo">KAMERA 0°</span></div>
     <div id="battleToast" class="battle-toast" aria-live="polite"></div><div id="chessAlert" class="chess-alert" role="status" aria-live="assertive" aria-atomic="true"></div><div id="warCry" class="war-cry" aria-live="polite"></div>
     <div class="camera-controls" aria-label="Ovládanie 3D kamery">
       <button id="camLeft" title="Otočiť doľava" aria-label="Otočiť doľava">↶</button><button id="camRight" title="Otočiť doprava" aria-label="Otočiť doprava">↷</button>
@@ -444,7 +448,7 @@ function generateShapes(){
 }generateShapes();
 
 // V18 CARVED STONE: geometry is a single continuous sculpted surface from base to crown.
-// Resting chess pieces have no drawn weapons or independent arms. Battle is a separate living form.
+// Resting chess pieces have engraved limbs and no exposed weapons. The same sculpted body articulates during combat.
 const stoneMeshes={}, stoneNormals={};
 const stoneProfiles={
  P:[[0,.28],[.035,.31],[.085,.27],[.15,.25],[.19,.21],[.25,.18],[.34,.145],[.43,.17],[.55,.22],[.68,.22],[.78,.155],[.85,.145],[.91,.18],[1.00,.155],[1.05,.105],[1.085,.0]],
@@ -455,7 +459,7 @@ const stoneProfiles={
  K:[[0,.31],[.046,.33],[.092,.31],[.16,.29],[.23,.26],[.33,.29],[.51,.30],[.73,.305],[.96,.29],[1.13,.22],[1.27,.21],[1.39,.235],[1.47,.23],[1.53,.25],[1.58,.24],[1.64,.09],[1.70,.008]]
 };
 function makeCarvedMesh(type){
- const prof=stoneProfiles[type],sides=gl?16:10,levels=gl?28:18;
+ const prof=stoneProfiles[type],sides=gl?20:10,levels=gl?32:18;
  const geometry=[],normals=[];
  function sample(y){
   let idx=0;while(idx+1<prof.length&&prof[idx+1][0]<y)idx++;
@@ -468,10 +472,15 @@ function makeCarvedMesh(type){
  const maxY=prof[prof.length-1][0];
  function vertex(i,j){
   const yy=maxY*i/levels,theta=2*Math.PI*j/sides;
-  const core=sample(yy),fold=yy>.28&&yy<maxY-.22?Math.sin(theta*(type==='Q'?11:type==='K'?10:8)+yy*1.6)*.012:0;
+  const core=sample(yy),fold=yy>.28&&yy<maxY-.22?Math.sin(theta*(type==='Q'?11:type==='K'?10:8)+yy*1.6)*.010:0;
   const front=Math.pow(Math.max(0,Math.sin(-theta)),8);
-  const relief=front*(yy>.34&&yy<maxY-.24?.012*Math.cos(yy*(type==='R'?44:30)):0);
-  const rr=Math.max(.003,core+fold+relief);
+  const relief=front*(yy>.34&&yy<maxY-.24?.009*Math.cos(yy*(type==='R'?44:30)):0);
+  // Real incisions in the continuous mesh: shoulder separation, two engraved legs and mantle folds.
+  const angular=(target)=>Math.pow(Math.max(0,Math.cos(theta-target)),22);
+  const armScore=type==='R'?0:(yy>.46&&yy<.90?-.016*(angular(-.54)+angular(-Math.PI+.54)):0);
+  const legScore=type==='R'?0:(yy>.18&&yy<.52?-.020*front*Math.exp(-Math.pow((theta+Math.PI/2)*3.0,2))*(.55+.45*Math.cos(yy*15)):0);
+  const mantleRidge=(type==='K'||type==='Q'||type==='B')&&yy>.28&&yy<.78?front*.008*Math.sin(yy*36+theta*5):0;
+  const rr=Math.max(.003,core+fold+relief+armScore+legScore+mantleRidge);
   const sl=(sample(Math.min(maxY,yy+.015))-sample(Math.max(0,yy-.015)))/.030;
   const n=V.norm([Math.cos(theta),-sl,Math.sin(theta)]);
   return {p:[rr*Math.cos(theta),yy,rr*Math.sin(theta)],n};
@@ -489,6 +498,22 @@ function drawCarvedStatue(a,now){
  const ratio={P:.90,N:1.02,B:1.01,R:1.05,Q:1.00,K:1.05}[a.type];
  const root=T(I,[a.pos[0],.182+a.height,a.pos[1]],[a.fall,a.yaw,a.lean],[ratio,ratio,ratio]);
  shape('sculpt_'+a.type,[0,0,0],[1,1,1],stone,6,[0,0,0],root);
+ // Distance-based mesh detail: sculpt geometry/engravings always exist; fine relief only near camera.
+ const duelDetail=activeFight&&(a===activeFight.attacker||a===activeFight.victim);
+ const closeInspect=dist<8.2&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<1.8;
+ if(!duelDetail&&!closeInspect){
+   // Distinct carved silhouettes even from afar, without hundreds of high-poly tiny details.
+   if(a.type==='P'){sp([0,.56,-.19],[.094,.13,.018],light,6,[0,0,0],root);}
+   else if(a.type==='N'){
+     sp([0,.88,-.17],[.14,.20,.18],stone,6,[-.3,0,0],root);
+     sp([0,1.09,-.31],[.15,.14,.23],stone,6,[0,0,0],root);
+   }else if(a.type==='R'){
+     for(let j=0;j<6;j++){let th=j*Math.PI/3;sp([Math.cos(th)*.23,1.38,Math.sin(th)*.23],[.035,.044,.035],light,6,[0,0,0],root);}
+   }else if(a.type==='B'){cn([0,1.32,0],[.15,.31,.15],stone,6,[0,0,0],root);}
+   else if(a.type==='Q'){for(let j=0;j<5;j++){let th=j*2*Math.PI/5;sp([.15*Math.cos(th),1.47,.15*Math.sin(th)],[.026,.060,.026],light,6,[0,0,0],root);}}
+   else if(a.type==='K'){for(let j=0;j<5;j++){let th=j*2*Math.PI/5;cn([.15*Math.cos(th),1.60,.15*Math.sin(th)],[.045,.12,.045],stone,6,[0,0,0],root);}}
+   return;
+ }
  // Subtle bas-relief belongs to the block: carved folds and features lie against its outer shell.
  const handCarve=(p,s,color=incise)=>sp(p,s,color,6,[0,0,0],root);
  if(a.type==='P'){
@@ -543,6 +568,118 @@ function drawCarvedStatue(a,now){
  for(let j=0;j<8;j++){
   const th=j*Math.PI/4;
   handCarve([.27*Math.sin(th),.105,.27*Math.cos(th)],[.011,.012,.011],light);
+ }
+ // Chiseled anatomy remains visible throughout the animation, with stone articulated joints.
+ carvedAnatomy(a,now,root,stone,light,shadow);
+}
+
+
+// V19: The SAME statue mesh stays visible throughout. Incised joints, ankles, fingers,
+// armor plates and facial lines are part of its stone surface. When attacking, stone
+// limbs slowly loosen from their relief position; no replacement model is ever drawn.
+function carvedRadius(type,y){
+ const prof=stoneProfiles[type],h=Math.max(0,Math.min(prof[prof.length-1][0],y));
+ let i=0;while(i<prof.length-2&&prof[i+1][0]<h)i++;
+ const a=prof[i],b=prof[i+1],f=(h-a[0])/(b[0]-a[0]||1);
+ return a[1]+(b[1]-a[1])*f;
+}
+function carvedAnatomy(a,now,root,stone,light,dark){
+ const type=a.type,wake=Math.max(0,Math.min(1,a.awake||0));
+ const bodyFront=(x,y)=>{
+  const r=carvedRadius(type,y),xx=Math.max(-r*.92,Math.min(r*.92,x));
+  return [xx,y,-Math.sqrt(Math.max(.0004,r*r-xx*xx))-.010];
+ };
+ const groove=(points,thick=.007,color=dark)=>{
+  for(let i=1;i<points.length;i++)beam(bodyFront(...points[i-1]),bodyFront(...points[i]),thick,color,root);
+ };
+ const ringNail=(x,y,z,scale=.016)=>sp([x,y,z],[scale,scale*.72,scale*.46],light,6,[0,0,0],root);
+ // Fine circumferential chisel bands and miniature relief medallions on the plinth.
+ for(let j=0;j<12;j++){
+  let th=j*Math.PI/6;const x=.270*Math.cos(th),z=.270*Math.sin(th);
+  ringNail(x,.102,z,.009);
+  sp([x*.91,.144,z*.91],[.016,.010,.016],j%2?dark:light,6,[0,0,0],root);
+ }
+ for(let y of [.052,.075,.128,.151])rg([0,y,0],[.275+(y<.11?.020:-.020),.007,.275+(y<.11?.020:-.020)],y<.11?dark:light,6,root);
+ if(type==='R'){
+  for(let y of [.40,.58,.78,.96,1.17])for(let j=0;j<16;j++){
+   const ang=j*Math.PI/8,r=carvedRadius(type,y);
+   sp([Math.sin(ang)*r,y,Math.cos(ang)*r],[.011,.007,.014],j%2?dark:light,6,[0,0,0],root);
+  }
+  // A stone turret stays rigid, but the muzzle is cut from its face on attack.
+  if(wake>.02){
+   const x=0,y=.69,push=wake*.43;
+   cy([x,y,-.23-push*.45],[.075,.14+push,.075],stone,6,[Math.PI/2,0,0],root);
+   cy([x,y,-.32-push],[.085,.018,.085],dark,6,[Math.PI/2,0,0],root);
+   rg([x,y,-.29-push],[.094,.012,.094],light,6,root);
+  }
+  return;
+ }
+ // Deep narrow engraving lines: arm separations from shoulder to wrists and two shins.
+ const h=type==='P'?.69:type==='N'?1.02:type==='B'?1.04:type==='Q'?1.16:1.22;
+ for(let side of [-1,1]){
+  groove([[side*.14,h],[side*.18,h-.12],[side*.17,h-.26],[side*.11,h-.38]],.008);
+  groove([[side*.11,.49],[side*.11,.39],[side*.075,.26]],.007);
+  groove([[side*.115,.39],[side*.155,.29]],.005,light);
+  for(let j=0;j<3;j++){
+   const y=.40+j*.11,r=carvedRadius(type,y);
+   ringNail(side*Math.min(r*.73,.12),y,-r*.8,.009);
+  }
+ }
+ groove([[0,.30],[0,.36],[0,.48]],.008);
+ if(type==='N'){
+  // Horse mane strands and reins engraved rather than a floating weapon.
+  for(let j=0;j<7;j++)groove([[.07+j*.012,1.10-j*.035],[.025+j*.016,.97-j*.04]],.005);
+ }
+ if(type==='Q'||type==='K'||type==='B'){
+  // Chiseled robe drapery and layered ceremonial tunic.
+  for(let side of [-1,1])for(let j=0;j<2;j++){
+   const x=side*(.05+j*.06);
+   groove([[x,.76],[x*1.14,.62],[x*1.32,.47],[x*1.40,.30]],.005,j%2?light:dark);
+  }
+ }
+ const headY=type==='P'?.83:type==='N'?1.15:type==='B'?1.25:type==='Q'?1.33:1.41;
+ // Eyes and mouth score into face. The face and head slowly incline; stone stays stone.
+ const nod=wake*(.07+Math.max(-.12,Math.min(.16,a.guard*.09)));
+ const face=T(root,[0,headY,-carvedRadius(type,headY)*.91],[nod,0,0]);
+ for(const sx of [-1,1]){
+  sp([sx*.046,.025,-.018],[.031,.010,.009],dark,6,[0,0,0],face);
+  sp([sx*.043,.000,-.019],[.008,.013,.008],dark,6,[0,0,0],face);
+ }
+ sp([0,-.026,-.031],[.016,.039,.016],light,6,[0,0,0],face);
+ sp([0,-.063,-.019],[.060,.006,.006],dark,6,[0,0,0],face);
+ // Same-material carved arms, folded against the body at rest; individual joints move only when awakened.
+ const shoulderY=type==='P'?.65:type==='N'?.92:type==='B'?.91:type==='Q'?.96:1.03;
+ for(const side of [-1,1]){
+  const forward=side===1?Math.max(-1.1,Math.min(1.4,a.slash||0)):(a.guard||0)*.52;
+  const open=wake*(side===1?(0.32+.18*Math.sin(forward*1.5)):-.25);
+  const arm=T(root,[side*.20,shoulderY,-.010],[.05*wake,side*.08*wake,side*(open+.20*wake*forward)]);
+  sp([side*.012,-.085,0],[.085,.17,.092],stone,6,[0,0,0],arm);
+  cn([side*.014,-.26,-.025],[.073,.25,.074],stone,6,[0,0,0],arm);
+  // Collar, elbow hinge, wrist and four engraved fingers cut into the arm.
+  rg([side*.014,-.23,-.028],[.074,.013,.074],dark,6,arm);
+  sp([side*.012,-.39,-.035],[.077,.075,.077],light,6,[0,0,0],arm);
+  for(let finger=0;finger<3;finger++)sp([side*.012+(finger-1)*.025,-.435,-.082],[.008,.040,.008],dark,6,[0,0,0],arm);
+  // Attack-only weapons are extruded from the lower relief, with no model-swap.
+  if(side===1&&wake>.025){
+   const draw=Math.pow(Math.max(0,(wake-.02)/.98),1.7);
+   const weapon=T(arm,[side*.015,-.42,-.044],[Math.max(-.55,Math.min(1.1,forward))*.32,0,0],[draw,draw,draw]);
+   if(type==='P'||type==='K'||type==='Q'){
+    const blade=type==='Q'?.28:type==='P'?.34:.64;
+    cy([0,-.065,0],[.027,.13,.027],dark,6,[0,0,0],weapon);
+    sp([0,-.11,0],[type==='Q'?.065:.105,.027,.034],light,6,[0,0,0],weapon);
+    cn([0,-.20-blade*.44,0],[type==='Q'?.035:.060,blade,.025],light,6,[Math.PI,0,0],weapon);
+    cn([0,-.24-blade*.75,0],[.027,.11,.017],stone,6,[Math.PI,0,0],weapon);
+   }else if(type==='B'){
+    for(let j=0;j<6;j++){
+     const t0=j/6,t1=(j+1)/6;
+     beam([.12+Math.sin(t0*Math.PI)*.13,-.10-t0*.65,-.06],[.12+Math.sin(t1*Math.PI)*.13,-.10-t1*.65,-.06],.024,stone,weapon);
+    }
+    beam([.12,-.10,-.06],[.12,-.75,-.06],.008,light,weapon);
+   }else if(type==='N'){
+    cy([0,-.30,-.20],[.036,.90,.036],stone,6,[Math.PI/2,0,0],weapon);
+    cn([0,-.30,-.75],[.060,.19,.06],light,6,[Math.PI/2,0,0],weapon);
+   }
+  }
  }
 }
 
@@ -888,16 +1025,16 @@ function drawLivingWarrior(a,now){
 
 
 function drawFighter(a,now){
- const wake=Math.max(0,Math.min(1,a.awake||0));
- // Resting or walking pieces are one carved block without movable arms or protruding weapons.
- if(wake<.58)drawCarvedStatue(a,now);
- // The sculpted stone form opens into an articulated living warrior only on capture.
- if(wake>=.52)drawLivingWarrior(a,now);
- if(wake>.25&&wake<.89&&fxOn){
-  const phase=Math.sin(Math.PI*Math.min(1,(wake-.25)/.64));
-  const ringRadius=.24+phase*.26;
-  rg([a.pos[0],.22+a.height,a.pos[1]],[ringRadius,.016,ringRadius],a.side==='w'?'#eed5a3':'#b37a61',2);
-  for(let k=0;k<5;k++){let angle=now*.003+k*1.256;sp([a.pos[0]+Math.cos(angle)*(.19+phase*.09),.34+phase*(.13+.04*k),a.pos[1]+Math.sin(angle)*(.19+phase*.09)],[.021,.018,.020],a.side==='w'?'#e4cfb4':'#ab6851',6);}
+ // One continuous sculptural 3D model: movement is expressed through the same stone relief
+ // and its articulated stone shoulders and wrists; it never turns into a different mesh.
+ drawCarvedStatue(a,now);
+ if((a.awake||0)>.06&&fxOn){
+  const wake=Math.min(1,a.awake),intensity=Math.sin(Math.PI*wake)*.38;
+  for(let j=0;j<3;j++){
+   let th=now*.001+j*2.09,rad=.19+intensity*.2;
+   sp([a.pos[0]+Math.cos(th)*rad,.35+.23*wake+j*.04+a.height,a.pos[1]+Math.sin(th)*rad],
+      [.018,.018,.018],a.side==='w'?'#d5c4ac':'#8e5649',6);
+  }
  }
 }
 
@@ -952,23 +1089,18 @@ function drawAttackFx(now){if(!combatFx)return;const f=combatFx,t=Math.max(0,Mat
 // Dynamic blade arcs are geometry in the 3-D world, not flat images.
 // Colour and geometry depend on the fighter, and follow the weapon while it swings.
 function drawWeaponTrails(now){
+ // The statue's blade path stays attached to the same carved arm—no floating halos/orbs.
  if(!activeFight||!fxOn)return;
- const a=activeFight.attacker,amount=Math.abs(a.slash||0);
- if(['P','K','N','Q'].includes(a.type)&&amount>.08){
-  const base=T(I,[a.pos[0],.18+a.height,a.pos[1]],[0,a.yaw,0]);
-  const hue=a.type==='K'?C.brightGold:a.type==='N'?C.blue:a.type==='Q'?C.darkGold:C.steel;
-  const swing=Math.max(-.5,Math.min(1.45,a.slash));
-  let prev=null;
-  for(let j=0;j<=9;j++){
-   const ang=-.35+(j/9)*1.7+swing*.64;
-   const p=M.apply(base,[.27+.46*Math.cos(ang),1.03+.37*Math.sin(ang),-.38]);
-   if(prev)beam(prev,p,.018*(1+j/12),hue);
-   if(j%2===0){sp(p,[.030,.029,.030],C.ivory,4);rg(p,[.05,.008,.05],hue,4);} 
-   prev=p;
-  }
-  const tip=M.apply(base,[.30+.48*Math.cos(swing),1.07+.38*Math.sin(swing),-.4]);
-  sp(tip,[.074,.074,.074],a.type==='K'?C.ruby:C.blue,4);
- }
+ const a=activeFight.attacker,wake=Math.max(0,Math.min(1,a.awake||0)),sw=Math.abs(a.slash||0);
+ if(wake<.72||sw<.25||!['P','K','N','Q'].includes(a.type))return;
+ const h=a.type==='K'?1.17:a.type==='Q'?1.10:a.type==='N'?1.17:.78;
+ const base=T(I,[a.pos[0],.18+a.height,a.pos[1]],[0,a.yaw,0]);
+ const c=a.side==='w'?'#ded0b9':'#a27364';
+ const t=Math.max(0,Math.min(1,(sw-.25)/1.3));
+ const p0=M.apply(base,[.20,h,-.09]);
+ const p1=M.apply(base,[.23+.10*t,h-.22-.12*t,-.20]);
+ const p2=M.apply(base,[.25+.15*t,h-.32-.21*t,-.33]);
+ beam(p0,p1,.010,c);beam(p1,p2,.009,c);
 }
 function resize(){let rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.65),w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;if(gl)gl.viewport(0,0,w,h);} }
 const VS=`attribute vec3 aPos;attribute vec3 aNorm;attribute vec3 aColor;attribute float aKind;uniform mat4 uVP;varying vec3 vNorm;varying vec3 vPos;varying vec3 vColor;varying float vKind;void main(){vNorm=aNorm;vPos=aPos;vColor=aColor;vKind=aKind;gl_Position=uVP*vec4(aPos,1.0);}`;
@@ -1190,8 +1322,8 @@ async function execute(input){
  });if(!moved){busy=false;return;}attacker.height=0;attacker.walk=0;attacker.lean=0;
  if(victim){
   activeFight={attacker,victim};
-  // Unlock living forms only for the duel. This is a real animated state transition, not an image swap on the website.
-  if(!await tween(560,t=>{const v=smooth(t);attacker.awake=v;victim.awake=v;attacker.lean=.06*Math.sin(v*Math.PI);victim.lean=-.045*Math.sin(v*Math.PI);})){
+  // Gradually animate the same stone arms, wrists and face; no separate warrior mesh is drawn.
+  if(!await tween(860,t=>{const v=smooth(t);attacker.awake=v;victim.awake=v;attacker.lean=.048*Math.sin(v*Math.PI);victim.lean=-.038*Math.sin(v*Math.PI);attacker.guard=.12*v;victim.guard=.15*v;})){
     busy=false;return;
   }
   attacker.lean=0;victim.lean=0;
@@ -1209,7 +1341,7 @@ async function execute(input){
   attacker.pos=[...to];attacker.height=0;
   if(!await finishDebrisAfterArrival(thisToken)){busy=false;return;}
   actors=actors.filter(x=>x!==victim);activeFight=null;
-  if(!await tween(520,t=>{attacker.awake=1-smooth(t);attacker.lean=.04*Math.sin(t*Math.PI);})){
+  if(!await tween(740,t=>{attacker.awake=1-smooth(t);attacker.lean=.022*Math.sin(t*Math.PI);attacker.guard=.12*(1-smooth(t));})){
     busy=false;return;
   }
   attacker.awake=0;attacker.lean=0;
@@ -1327,7 +1459,7 @@ function frame(now){let dt=Math.min(55,now-lastFrame||16);if(gl&&dt<27){requestA
  requestAnimationFrame(frame);
 }
 const coords=[];for(let i=0;i<16;i++){let el=document.createElement('span');el.className='boardCoord';el.textContent=i<8?'abcdefgh'[i]:String(8-(i-8));$('coordLayer').append(el);coords.push(el);}
-resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'monolithic-lathed',meshTypes:Object.keys(stoneProfiles),combatAwakens:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
+resize();defaultCamera();reset();requestAnimationFrame(frame);window.__ROYAL_TEST={engine,clickSquare,chooseAI,actors:()=>actors,project,pick,pickTarget,pickFigure,setCamera,reset,execute,figureStyle:()=>figureStyle,sculptureStyle:()=>({mode:'continuous-carved-relief',meshTypes:Object.keys(stoneProfiles),combatAwakens:true,singleSculptureDuringCombat:true,visibleEngravedJoints:true}),forceDeathMode:mode=>{forcedDeathMode=mode;},quotes:WAR_LINES,debrisInfo:()=>debris?{deathMode:debris.deathMode,type:debris.type,maxRange:debris.maxRange,progress:debris.progress,fade:debris.fade,fragments:debris.fragments.map(p=>({dx:p.dx,dz:p.dz,delay:p.delay}))}:null,combat:()=>({kind:combatFx?.kind||null,active:!!activeFight}),ui:()=>({busy,selected,mode,turn:engine.turn,history:engine.history.length}),debug:()=>({count,boardBaseCount,boardEndCount,actors:actors.length,canvasSize:[canvas.width,canvas.height],yaw,pitch,dist,actor:actors[0],rootMatrix:T(I,[actors[0].pos[0],.184+actors[0].height,actors[0].pos[1]],[actors[0].fall,actors[0].yaw,actors[0].lean+Math.sin(Date.now()/950+actors[0].idle)*.012],[1,1,1]),actorFirst:Array.from(pool.slice(boardEndCount,boardEndCount+90)),actorFirstProject:project([pool[boardEndCount],pool[boardEndCount+1],pool[boardEndCount+2]]),finite:pool.subarray(boardEndCount,count).every(Number.isFinite)})};
 })();
 </script>
 </body></html>
