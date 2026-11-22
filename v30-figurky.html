@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="sk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24150f"><title>Kráľovské živé šachy 3D · opravené figúrky v30</title><style>body{background:#20130f;color:#f7dfb0;font:18px Georgia,serif;display:grid;place-items:center;min-height:100vh;text-align:center;margin:0}.loading{padding:30px;max-width:520px}a{color:#ffd590}</style></head><body><div class="loading"><h1>♜ Kráľovské živé šachy</h1><p>Pripravujem detailné 3D figúrky…</p></div>
+<script>
+(async()=>{
+ const substitutions=[
+  ["const lo=!(focus||dist<10.8&&Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<2.5);",
+   "const nearCamera=Math.hypot(a.pos[0]-camTarget[0],a.pos[1]-camTarget[2])<3.7; const desktopQuality=canvas.width>=900&&dist<=16.5; const lo=!(focus||desktopQuality||(dist<12.6&&nearCamera));"],
+  ["const p=a.side==='w'?'#eadcc7':'#875145';",
+   "const p=a.side==='w'?'#f0e0ca':'#a86a55';"],
+  ["if(stlLoadState.loaded)showToast('♜ NAČÍTANÝCH '+stlLoadState.loaded+'/6 ORIGINÁLNYCH 3D STL MODELOV');",
+   "if(stlLoadState.loaded)showToast('♜ PRIPRAVENÝCH '+stlLoadState.loaded+'/6 DETAILNÝCH 3D FIGÚROK'); if(stlLoadState.errors.length)console.warn('3D mesh loading',stlLoadState.errors);"],
+  ["stlModels:()=>({source:'Six user-supplied STL files'",
+   "stlModels:()=>({source:'Six user supplied 3D sculpt meshes, high-detail desktop LOD'"]
+ ];
+ try{
+  const response=await fetch('./index.html',{cache:'no-store'});
+  if(!response.ok)throw Error('Načítanie hry zlyhalo: HTTP '+response.status);
+  let source=await response.text();
+  let n=0;
+  for(const [needle,replacement] of substitutions){
+   if(!source.includes(needle))throw Error('Nezodpovedajúca verzia pôvodnej hry ('+(n+1)+')');
+   source=source.replace(needle,replacement);n++;
+  }
+  document.open();document.write(source);document.close();
+ }catch(e){
+  document.querySelector('.loading').innerHTML='<h1>♜ Hra sa nepodarila spustiť</h1><p></p><a href="./index.html">Spustiť pôvodnú verziu</a>';
+  document.querySelector('.loading p').textContent=e.message;
+  console.error(e);
+ }
+})();
+</script></body></html>
